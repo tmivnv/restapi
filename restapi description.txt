@@ -1,0 +1,376 @@
+
+
+
+PUBLIC API:
+
+    Для всех запросов заголовки
+    Accept: */*
+    Cache-Control: no-cache
+    Content-Type: Application/JSON
+
+1. Создание юзера
+
+    POST /api/auth/signup
+
+
+    {
+      "email"         : "uglevodovnetemail@gmail.com",
+      "password"      : "password",
+      "nickname"      : "admin",
+      "firstName"     : "Тимофей",
+      "lastName"      : "Иванов",
+      "avatar"     : "https://pp.userapi.com/c636024/v636024307/18d7a/WFMkqDcexU0.jpg"
+    }
+
+    ответ:
+        успех:
+        {
+          "success": true,
+          "message": "User successfully registered!"
+        }
+
+        Response code: 201;
+
+    ошибка:
+        {
+          "success": false,
+          "message": "Email already exists!" (или другое сообщение)
+        }
+
+        Response code: 400;
+
+    если невалидные данные переданы (пример):
+        {
+          "timestamp": "2018-12-17T07:34:04.184+0000",
+          "status": 400,
+          "error": "Bad Request",
+          "errors": [
+            {
+              "codes": [
+                "Size.signupDto.password",
+                "Size.password",
+                "Size.java.lang.String",
+                "Size"
+              ],
+              "arguments": [
+                {
+                  "codes": [
+                    "signupDto.password",
+                    "password"
+                  ],
+                  "arguments": null,
+                  "defaultMessage": "password",
+                  "code": "password"
+                },
+                2147483647,
+                5
+              ],
+              "defaultMessage": "size must be between 5 and 2147483647",
+              "objectName": "signupDto",
+              "field": "password",
+              "rejectedValue": "",
+              "bindingFailure": false,
+              "code": "Size"
+            },
+            {
+              "codes": [
+                "NotBlank.signupDto.password",
+                "NotBlank.password",
+                "NotBlank.java.lang.String",
+                "NotBlank"
+              ],
+              "arguments": [
+                {
+                  "codes": [
+                    "signupDto.password",
+                    "password"
+                  ],
+                  "arguments": null,
+                  "defaultMessage": "password",
+                  "code": "password"
+                }
+              ],
+              "defaultMessage": "must not be blank",
+              "objectName": "signupDto",
+              "field": "password",
+              "rejectedValue": "",
+              "bindingFailure": false,
+              "code": "NotBlank"
+            }
+          ],
+          "message": "Validation failed for object='signupDto'. Error count: 2",
+          "path": "/api/auth/signup"
+        }
+
+        Response code: 400;
+
+
+2. авторизация
+
+    POST /api/auth/signin
+
+    запрос:
+        {"authName":"uglevodovnet@gmail.com", "password":"password"}
+
+    ответ:
+        {
+          "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiIzIiwic3ViIjoidWdsZXZvZG92bmV0QGdtYWlsLmNvbSBhZG1pbiIsImlhdCI6MTU0NTAzMjQ0NCwiZXhwIjoxNTQ1NjM3MjQ0fQ.AiQrZKZTWPzYxU5vD3JFbG9C2xYWJ7atGaTq-CIPfEXoPJc0xhhCalXs77UFKtXI-dQSUNftxbppBUYcpJtpgA",
+          "tokenType": "Bearer"
+        }
+        Response code: 200
+
+    ошибка:
+        {
+          "timestamp": "2018-12-17T07:42:25.851+0000",
+          "status": 401,
+          "error": "Unauthorized",
+          "message": "You are not authorized to access this resource! Get the hell out of here!",
+          "path": "/api/auth/signin"
+        }
+
+        Response code: 401
+
+3. Проверка занятости емейла
+
+    запрос:
+
+        GET http://localhost:8080/api/check-email-available?email=marina.kochina1@gmail.com
+
+    ответ:
+
+        {
+          "success": true,
+          "message": "Email available"
+        }
+
+    или
+
+        {
+          "success": false,
+          "message": "Email already exists"
+        }
+
+4. Проверка занятости nickname
+
+    запрос
+
+        GET http://localhost:8080/api/check-nickname-available?nickname=marina
+
+    ответ:
+
+        {
+          "success": false,
+          "message": "Nickname already exists"
+        }
+
+    или
+
+        {
+          "success": true,
+          "message": "Nickname available"
+        }
+
+
+PRIVATE API
+
+    Для всех запросов заголовки
+        Accept: */*
+        Cache-Control: no-cache
+        Content-Type: Application/JSON
+
+        Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiIzIiwic3ViIjoidWdsZXZvZG92bmV0QGdtYWlsLmNvbSBhZG1pbiIsImlhdCI6MTU0NTAzMjQ0NCwiZXhwIjoxNTQ1NjM3MjQ0fQ.AiQrZKZTWPzYxU5vD3JFbG9C2xYWJ7atGaTq-CIPfEXoPJc0xhhCalXs77UFKtXI-dQSUNftxbppBUYcpJtpgA
+        (Bearer и токен, полученный в методе /api/auth/signin), без токена все запросы приватного api будут давать 401 unauthorized
+
+
+    I. User controller
+
+        1. получить юзера
+
+            GET api/users/get?id=айди юзера
+
+            ответ:
+
+                {
+                  "id": 3,
+                  "nickname": "admin",
+                  "avatar": "https://pp.userapi.com/c636024/v636024307/18d7a/WFMkqDcexU0.jpg",
+                  "firstName": "Тимофей",
+                  "lastName": "Иванов",
+                  "active": true,
+                  "created": "2018-12-17"
+                }
+
+                Response code: 200
+
+            ошибка:
+
+                {
+                  "timestamp": "2018-12-17T07:53:29.358+0000",
+                  "status": 500,
+                  "error": "Internal Server Error",
+                  "message": "Unable to find net.uglevodov.restapi.entities.User with id 4",
+                  "path": "/api/users/get"
+                }
+
+                Response code: 500
+
+        2. Обновление сведений о текущем пользователе
+
+            PUT /api/users/update
+
+            запрос:
+                {
+
+                  "firstName"     : "Тим",
+                  "lastName"      : "Иванов",
+                  "avatar"     : "https://pp.userapi.com/c636024/v636024307/18d7a/WFMkqDcexU0.jpg"
+                }
+
+            ответ:
+                {
+                  "id": 3,
+                  "nickname": "admin",
+                  "avatar": "https://pp.userapi.com/c636024/v636024307/18d7a/WFMkqDcexU0.jpg",
+                  "firstName": "Тим",
+                  "lastName": "Иванов",
+                  "active": true,
+                  "created": "2018-12-17"
+                }
+
+                Response code: 202;
+
+        3. смена пароля текущего пользователя
+
+            запрос:
+                PUT /api/users/change-pass?old=старый&new=новый
+
+            ответ:
+                {
+                  "success": true,
+                  "message": "Password successfully changed"
+                }
+
+            ошибка:
+                {
+                  "success": false,
+                  "message": "Old password does not correspond to the current one"
+                }
+
+        4. получить всех юзеров
+
+            запрос:
+                GET /api/users
+
+            ответ:
+                [
+                  {
+                    "id": 3,
+                    "nickname": "admin",
+                    "avatar": "https://pp.userapi.com/c636024/v636024307/18d7a/WFMkqDcexU0.jpg",
+                    "firstName": "Тим",
+                    "lastName": "Иванов",
+                    "active": true,
+                    "created": "2018-12-17"
+                  },
+                  {
+                    "id": 4,
+                    "nickname": "marina",
+                    "avatar": null,
+                    "firstName": "Марина",
+                    "lastName": "Кочина",
+                    "active": true,
+                    "created": "2018-12-17"
+                  }
+                ]
+
+
+    II ADMIN CONTROLLER (требуется ROLE_ADMIN)
+
+        ответ если нет привелегий:
+            {
+              "timestamp": "2018-12-18T06:32:40.796+0000",
+              "status": 403,
+              "error": "Forbidden",
+              "message": "Forbidden",
+              "path": "/api/admin/users/5/update"
+            }
+
+            Response code: 403;
+
+        1. Обновить другого юзера
+
+            PUT /api/admin/users/{id юзера}/update
+
+            {
+
+              "firstName"     : "Марина",
+              "lastName"      : "Кочина",
+              "avatar"     : ""
+            }
+
+            ответ:
+            {
+              "id": 5,
+              "nickname": "marina",
+              "avatar": "",
+              "firstName": "Марина",
+              "lastName": "Кочина",
+              "active": true,
+              "created": "2018-12-18"
+            }
+
+            Response code: 202;
+
+        2. Сменить юзеру пароль
+
+            запрос:
+
+                PUT /api/admin/users/{id}/change-pass?pass=qwerty
+
+            ответ:
+                {
+                  "success": true,
+                  "message": "User's id = 5 password successfully changed by marina"
+                }
+
+        3. удалить юзера
+
+            запрос:
+                DELETE /api/admin/users/{id}/delete
+
+            ответ:
+                {
+                  "success": true,
+                  "message": "User id = 8 deleted"
+                }
+
+            или
+
+                {
+                  "timestamp": "2018-12-18T07:26:04.117+0000",
+                  "status": 500,
+                  "error": "Internal Server Error",
+                  "message": "User not found",
+                  "path": "/api/admin/users/8/delete"
+                }
+
+        4. установить статус активен/не активен
+
+            запрос:
+                PUT /api/admin/users/active-status?id={userid}&active={true/false}
+            ответ:
+                {
+                  "success": true,
+                  "message": "User active status set to true"
+                }
+            не найден:
+                {
+                  "timestamp": "2018-12-18T07:39:26.937+0000",
+                  "status": 500,
+                  "error": "Internal Server Error",
+                  "message": "Unable to find net.uglevodov.restapi.entities.User with id 7",
+                  "path": "/api/admin/users/active-status"
+                }
+
+    III File controller
+
