@@ -5,7 +5,6 @@ import net.uglevodov.restapi.dto.ProfileDto;
 import net.uglevodov.restapi.dto.UserUpdateRequestDto;
 import net.uglevodov.restapi.security.UserPrincipal;
 import net.uglevodov.restapi.service.UserService;
-import net.uglevodov.restapi.utils.PasswordUtil;
 import net.uglevodov.restapi.utils.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -3,7 +3,6 @@ package net.uglevodov.restapi.entities;
 import lombok.*;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -20,9 +19,8 @@ public class Ingredient extends BaseEntity {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name="image_id")
-    private Image image;
+    @Column(name="image_id")
+    private Long image;
 
     @Column(name = "uglevodovnet_group")
     private int uglevodovnetGroup;
