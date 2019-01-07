@@ -28,7 +28,6 @@ import javax.annotation.Resource;
         jsr250Enabled = true,
         prePostEnabled = true
 )
-
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Resource(name = "userDetailsService")

@@ -17,7 +17,6 @@ import java.util.List;
 
 import static net.uglevodov.restapi.utils.UserUtil.prepareToSave;
 import static net.uglevodov.restapi.utils.ValidationUtil.checkNotFound;
-import static net.uglevodov.restapi.utils.ValidationUtil.checkNotFoundWithId;
 
 @Service
 @Slf4j

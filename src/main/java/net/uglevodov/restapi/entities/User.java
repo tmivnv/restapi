@@ -11,10 +11,10 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
 @ToString(exclude = "password")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -100,5 +100,18 @@ public class User extends BaseEntity{
         );
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        if (!super.equals(o)) return false;
+        User user = (User) o;
+        return getEmail().equals(user.getEmail()) &&
+                getNickname().equals(user.getNickname());
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getEmail(), getNickname());
+    }
 }
