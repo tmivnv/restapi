@@ -25,8 +25,8 @@ import java.util.Properties;
 @EnableJpaRepositories(value = "net.uglevodov.restapi")
 @EnableTransactionManagement
 @Profile("test")
-@ComponentScan(basePackages = {"net.uglevodov.restapi"}) //так не грузит контекст
-//@ComponentScan(basePackages = {"net.uglevodov.restapi.service", "net.uglevodov.restapi.repositories", "net.uglevodov.restapi.entities"})
+//@ComponentScan(basePackages = {"net.uglevodov.restapi"}) //так не грузит контекст
+@ComponentScan(basePackages = {"net.uglevodov.restapi.service", "net.uglevodov.restapi.repositories", "net.uglevodov.restapi.entities"})
 //так грузит, но сервис в тесте не срабатывает
 public class TestAppConfig extends WebMvcConfigurerAdapter {
     @Bean

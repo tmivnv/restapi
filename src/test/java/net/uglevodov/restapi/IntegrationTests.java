@@ -13,6 +13,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -27,12 +29,14 @@ public class IntegrationTests {
     @Autowired
     UserService service;
 
+
     @Test
     public void contextLoads() {
 
     }
 
     @Test
+    @Transactional
     public void userServiceTest()
     {
         Set<UserRole> roles = new HashSet<>();
