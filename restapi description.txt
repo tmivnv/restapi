@@ -262,26 +262,62 @@ PRIVATE API
                 GET /api/users
 
             ответ:
-                [
-                  {
-                    "id": 3,
-                    "nickname": "admin",
-                    "avatar": "https://pp.userapi.com/c636024/v636024307/18d7a/WFMkqDcexU0.jpg",
-                    "firstName": "Тим",
-                    "lastName": "Иванов",
-                    "active": true,
-                    "created": "2018-12-17"
-                  },
-                  {
-                    "id": 4,
-                    "nickname": "marina",
-                    "avatar": null,
-                    "firstName": "Марина",
-                    "lastName": "Кочина",
-                    "active": true,
-                    "created": "2018-12-17"
-                  }
-                ]
+               {
+                   "content": [
+                       {
+                           "id": 9,
+                           "email": "test@gmail.com",
+                           "nickname": "test",
+                           "firstName": "Марина",
+                           "lastName": "Кочина",
+                           "created": "2018-12-18",
+                           "avatar": null,
+                           "active": true,
+                           "roles": [
+                               "ROLE_ADMIN",
+                               "ROLE_USER"
+                           ]
+                       },
+                       {
+                           "id": 10,
+                           "email": "test@test.ru",
+                           "nickname": "nickname",
+                           "firstName": "Марина",
+                           "lastName": "Кочина",
+                           "created": "2019-01-04",
+                           "avatar": "",
+                           "active": true,
+                           "roles": [
+                               "ROLE_USER"
+                           ]
+                       }
+                   ],
+                   "pageable": {
+                       "sort": {
+                           "sorted": false,
+                           "unsorted": true,
+                           "empty": true
+                       },
+                       "offset": 0,
+                       "pageSize": 20,
+                       "pageNumber": 0,
+                       "unpaged": false,
+                       "paged": true
+                   },
+                   "totalElements": 2,
+                   "last": true,
+                   "totalPages": 1,
+                   "size": 20,
+                   "sort": {
+                       "sorted": false,
+                       "unsorted": true,
+                       "empty": true
+                   },
+                   "numberOfElements": 2,
+                   "first": true,
+                   "number": 0,
+                   "empty": false
+               }
 
 
     II ADMIN CONTROLLER (требуется ROLE_ADMIN)
@@ -373,4 +409,184 @@ PRIVATE API
                 }
 
     III File controller
+
+            //TODO
+
+    IV Ingredients controller
+
+        1. получить ингридиент
+
+            запрос:
+                GET /api/ingredients/get?id=1
+            ответ:
+                {
+                    "id": 2,
+                    "ingredientName": "jhdgfhg",
+                    "description": "changed description ",
+                    "image": 12,
+                    "uglevodovnetGroup": 3,
+                    "carbs": 3.4,
+                    "unit": "шт",
+                    "unitWeight": 35
+                }
+            не найден:
+                {
+                    "timestamp": "2019-01-21T10:32:18.911+0000",
+                    "status": 500,
+                    "error": "Internal Server Error",
+                    "message": "ingredient id 1 not found",
+                    "path": "/api/ingredients/get"
+                }
+
+        2. получить все ингредиенты
+
+            запрос:
+                GET /api/ingredients/
+
+            ответ:
+                {
+                    "content": [
+                        {
+                            "id": 2,
+                            "ingredientName": "jhdgfhg",
+                            "description": "changed description ",
+                            "image": 12,
+                            "uglevodovnetGroup": 3,
+                            "carbs": 3.4,
+                            "unit": "шт",
+                            "unitWeight": 35
+                        },
+                        {
+                            "id": 3,
+                            "ingredientName": "щгапроп",
+                            "description": "ываываы",
+                            "image": 13,
+                            "uglevodovnetGroup": 2,
+                            "carbs": 1,
+                            "unit": "г",
+                            "unitWeight": 100
+                        }
+                    ],
+                    "pageable": {
+                        "sort": {
+                            "sorted": false,
+                            "unsorted": true,
+                            "empty": true
+                        },
+                        "offset": 0,
+                        "pageSize": 20,
+                        "pageNumber": 0,
+                        "unpaged": false,
+                        "paged": true
+                    },
+                    "totalElements": 2,
+                    "last": true,
+                    "totalPages": 1,
+                    "size": 20,
+                    "sort": {
+                        "sorted": false,
+                        "unsorted": true,
+                        "empty": true
+                    },
+                    "numberOfElements": 2,
+                    "first": true,
+                    "number": 0,
+                    "empty": false
+                }
+
+        3. сохранить ингредиент
+
+            запрос:
+                POST /api/ingredients/save
+
+                {
+                  "ingredientName": "sfdsfdfsd",
+                  "description": "fsddsfsfdsfd ",
+                  "image": 11,
+                  "uglevodovnetGroup": 3,
+                  "carbs": 3.4,
+                  "unit": "шт",
+                  "unitWeight": 35
+                }
+            ответ:
+                {
+                  "id": 4,
+                  "ingredientName": "sfdsfdfsd",
+                  "description": "fsddsfsfdsfd ",
+                  "image": 11,
+                  "uglevodovnetGroup": 3,
+                  "carbs": 3.4,
+                  "unit": "шт",
+                  "unitWeight": 35
+                }
+
+        4. обновить ингредиент, требуется ROLE_ADMIN
+
+            запрос:
+                PUT /api/ingredients/update
+
+                {
+                        "id": 2,
+                        "ingredientName": "jhdgfhg",
+                        "description": "changed description ",
+                        "image": 12,
+                        "uglevodovnetGroup": 3,
+                        "carbs": 3.4,
+                        "unit": "шт",
+                        "unitWeight": 35
+                }
+            ответ:
+                {
+                  "id": 2,
+                  "ingredientName": "jhdgfhg",
+                  "description": "changed description ",
+                  "image": 12,
+                  "uglevodovnetGroup": 3,
+                  "carbs": 3.4,
+                  "unit": "шт",
+                  "unitWeight": 35
+                }
+            не найден:
+                {
+                  "timestamp": "2019-01-21T10:50:36.509+0000",
+                  "status": 500,
+                  "error": "Internal Server Error",
+                  "message": "ingredient id 27 not found",
+                  "path": "/api/ingredients/update"
+                }
+            нет прав:
+                {
+                  "timestamp": "2019-01-21T10:52:43.181+0000",
+                  "status": 403,
+                  "error": "Forbidden",
+                  "message": "Forbidden",
+                  "path": "/api/ingredients/update"
+                }
+
+        5. удалить ингредиент
+
+            запрос:
+                DELETE /api/ingredients/delete?id=номер ингридиента
+            ответ :
+                {
+                    "success": true,
+                    "message": "Ingredient deleted, id 3"
+                }
+                код 200
+            не найден:
+                {
+                    "timestamp": "2019-01-21T10:54:51.889+0000",
+                    "status": 500,
+                    "error": "Internal Server Error",
+                    "message": "ingredient id 4 not found",
+                    "path": "/api/ingredients/delete"
+                }
+            нет прав:
+                {
+                   "timestamp": "2019-01-21T10:52:43.181+0000",
+                   "status": 403,
+                   "error": "Forbidden",
+                   "message": "Forbidden",
+                   "path": "/api/ingredients/delete"
+                }
 

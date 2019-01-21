@@ -7,6 +7,8 @@ import net.uglevodov.restapi.exceptions.NotUpdatableException;
 import net.uglevodov.restapi.repositories.ImageRepository;
 import net.uglevodov.restapi.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -50,9 +52,9 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public List<Image> getAll() {
+    public Page<Image> getAll(Pageable pageRequest) {
         log.trace("[{}] - Getting images list", this.getClass().getSimpleName());
 
-        return repository.findAll(new Sort(Sort.Direction.DESC, "created"));
+        return repository.findAll(pageRequest);
     }
 }

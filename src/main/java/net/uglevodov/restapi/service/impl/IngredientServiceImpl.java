@@ -7,6 +7,8 @@ import net.uglevodov.restapi.exceptions.NotUpdatableException;
 import net.uglevodov.restapi.repositories.IngredientRepository;
 import net.uglevodov.restapi.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -34,9 +36,9 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    public void update(Ingredient ingredient) throws NotUpdatableException {
+    public void update(Ingredient ingredient) throws NotUpdatableException, NotFoundException {
         log.trace("[{}] - Updating ingredient {}", this.getClass().getSimpleName(), ingredient);
-
+        repository.findById(ingredient.getId()).orElseThrow(()-> new NotFoundException("ingredient id " + ingredient.getId() + " not found"));
         Assert.notNull(ingredient, "Ingredient can not be null");
         repository.save(ingredient);
     }
@@ -50,9 +52,9 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    public List<Ingredient> getAll() {
+    public Page<Ingredient> getAll(Pageable pageRequest) {
         log.trace("[{}] - Getting ingredients list", this.getClass().getSimpleName());
 
-        return repository.findAll(new Sort(Sort.Direction.ASC, "ingredientName"));
+        return repository.findAll(pageRequest);
     }
 }

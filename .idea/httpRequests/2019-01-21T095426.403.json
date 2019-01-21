@@ -1,0 +1,7 @@
+{
+  "timestamp": "2019-01-21T07:54:26.719+0000",
+  "status": 403,
+  "error": "Forbidden",
+  "message": "Forbidden",
+  "path": "/api/admin/users/69/update"
+}

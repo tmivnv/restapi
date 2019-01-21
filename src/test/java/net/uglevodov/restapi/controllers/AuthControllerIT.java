@@ -9,14 +9,17 @@ import net.uglevodov.restapi.entities.UserRole;
 import net.uglevodov.restapi.service.UserService;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.*;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
@@ -29,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(classes = RestapiApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(classes = {TestAppConfig.class})
 @ActiveProfiles("test")
-public class AuthControllerTest {
+public class AuthControllerIT {
 
     @Autowired
     UserService userService;
@@ -42,16 +45,15 @@ public class AuthControllerTest {
     private HttpHeaders headers = new HttpHeaders();
 
     @Before
-    public void setup()
-    {
-        for (User user : userService.getAll())
-        {
+    public void setup() {
+        Pageable wholePage = Pageable.unpaged();
+        for (User user : userService.getAll(wholePage)) {
             userService.delete(user.getId());
         }
 
         Set<UserRole> roles = new HashSet<>();
         roles.add(UserRole.ROLE_USER);
-        User user = new User(1L,"test@gmail.com","password",null,"nickname","firstName","lastName",true, LocalDate.now(), roles );
+        User user = new User(1L, "test@gmail.com", "password", null, "nickname", "firstName", "lastName", true, LocalDate.now(), roles);
 
 
         userService.save(user);
@@ -69,18 +71,16 @@ public class AuthControllerTest {
         HttpEntity<LoginDto> entity = new HttpEntity<>(loginDto, headers);
 
 
-
         ResponseEntity<String> response = restTemplate.exchange(
-                "http://localhost:"+port+"/api/auth/signin",
+                "http://localhost:" + port + "/api/auth/signin",
                 HttpMethod.POST, entity, String.class);
 
 
-        assertTrue((response.getStatusCodeValue()==200)&&response.toString().contains("accessToken"));
+        assertTrue((response.getStatusCodeValue() == 200) && response.toString().contains("accessToken"));
     }
 
     @Test
-    public void signup()
-    {
+    public void signup() {
         SignupDto signupDto = new SignupDto();
         signupDto.setEmail("test1@gmail.com");
         signupDto.setPassword("qwerty");
@@ -92,10 +92,10 @@ public class AuthControllerTest {
         HttpEntity<SignupDto> entity = new HttpEntity<>(signupDto, headers);
 
         ResponseEntity<String> response = restTemplate.exchange(
-                "http://localhost:"+port+"/api/auth/signup",
+                "http://localhost:" + port + "/api/auth/signup",
                 HttpMethod.POST, entity, String.class);
 
-        String expectetd = "{\"success\":true,\"message\":\"User successfully registered!\"}";
-        assertTrue((response.getStatusCodeValue()==201)&&response.toString().contains(expectetd));
+        String expected = "{\"success\":true,\"message\":\"User successfully registered!\"}";
+        assertTrue((response.getStatusCodeValue() == 201) && response.toString().contains(expected));
     }
 }

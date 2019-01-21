@@ -12,6 +12,7 @@ import net.uglevodov.restapi.utils.PasswordUtil;
 import net.uglevodov.restapi.utils.PrivilegeUtil;
 import net.uglevodov.restapi.utils.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -70,7 +71,8 @@ public class UserController {
 
 
     @GetMapping
-    public ResponseEntity<?> getAll() {
-        return new ResponseEntity<>(UserUtil.usersToProfiles(userService.getAll()), HttpStatus.OK);
+    public ResponseEntity<?> getAll(Pageable pageRequest) {
+        //return new ResponseEntity<>(UserUtil.usersToProfiles(userService.getAll(pageRequest)), HttpStatus.OK);
+        return new ResponseEntity<>(userService.getAll(pageRequest), HttpStatus.OK);
     }
 }

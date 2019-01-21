@@ -71,8 +71,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         ).permitAll()
                 .antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/api/check-email-available", "/api/check-nickname-available").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/users/**", "/api/posts/**").permitAll()
-                .antMatchers("/api/admin/**").hasAnyRole("ADMIN", "SUPERUSER")
+         //       .antMatchers(HttpMethod.GET, "/api/users/**", "/api/posts/**").permitAll()
+               // .antMatchers("/api/admin/**").hasAnyRole("ROLE_ADMIN", "SUPERUSER")
                 .anyRequest().authenticated();
     }
 }

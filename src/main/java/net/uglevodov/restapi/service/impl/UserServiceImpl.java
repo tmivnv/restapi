@@ -7,6 +7,8 @@ import net.uglevodov.restapi.exceptions.NotUpdatableException;
 import net.uglevodov.restapi.repositories.UserRepository;
 import net.uglevodov.restapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -65,10 +67,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAll() {
+    public Page<User> getAll(Pageable pageRequest) {
         log.trace("[{}] - Getting users list", this.getClass().getSimpleName());
 
-        return repository.findAll(new Sort(Sort.Direction.DESC, "created"));
+        return repository.findAll(pageRequest);
     }
 
     @Override
