@@ -260,7 +260,7 @@ PRIVATE API
 
             запрос:
                 GET /api/users
-
+                опционально ?page=номер страницы&size=элементов на странице
             ответ:
                {
                    "content": [
@@ -442,7 +442,7 @@ PRIVATE API
 
             запрос:
                 GET /api/ingredients/
-
+                опционально ?page=номер страницы&size=элементов на странице
             ответ:
                 {
                     "content": [
@@ -563,7 +563,7 @@ PRIVATE API
                   "path": "/api/ingredients/update"
                 }
 
-        5. удалить ингредиент
+        5. удалить ингредиент, требуется ROLE_ADMIN
 
             запрос:
                 DELETE /api/ingredients/delete?id=номер ингридиента

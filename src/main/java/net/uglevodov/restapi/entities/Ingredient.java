@@ -1,8 +1,12 @@
 package net.uglevodov.restapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -32,7 +36,7 @@ public class Ingredient extends BaseEntity {
     private String unit;
 
     @Column(name = "unit_weight")
-    private int unitWeight;
+    private Long unitWeight;
 
 
 
