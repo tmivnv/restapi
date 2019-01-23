@@ -31,6 +31,11 @@ public class IngredientController {
         return new ResponseEntity<>(ingredientService.getAll(pageRequest), HttpStatus.OK);
     }
 
+    @GetMapping(value = "findbyname")
+    public ResponseEntity<?> getAll(@RequestParam(value = "name") String name) {
+        return new ResponseEntity<>(ingredientService.getAllByNameContaining(name), HttpStatus.OK);
+    }
+
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> save(
             @RequestBody Ingredient ingredient

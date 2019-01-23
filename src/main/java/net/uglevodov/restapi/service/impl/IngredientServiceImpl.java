@@ -57,4 +57,9 @@ public class IngredientServiceImpl implements IngredientService {
 
         return repository.findAll(pageRequest);
     }
+
+    @Override
+    public List<Ingredient> getAllByNameContaining(String name) {
+        return repository.findAllByIngredientNameIsContainingIgnoreCase(name);
+    }
 }

@@ -590,3 +590,31 @@ PRIVATE API
                    "path": "/api/ingredients/delete"
                 }
 
+        6. найти все ингредиенты, имя которых содержит строку (case insensitive)
+
+            запрос:
+                GET /api/ingredients/findbyname/?name=лук
+            ответ:
+                [
+                    {
+                        "id": 2,
+                        "ingredientName": "лук зеленый ",
+                        "description": "лук зеленый ",
+                        "image": 12,
+                        "uglevodovnetGroup": 3,
+                        "carbs": 3.4,
+                        "unit": "шт",
+                        "unitWeight": 35
+                    },
+                    {
+                        "id": 7,
+                        "ingredientName": "Лук репчатый",
+                        "description": "Лук репчатый",
+                        "image": 11,
+                        "uglevodovnetGroup": 2,
+                        "carbs": 2.1,
+                        "unit": "100 г",
+                        "unitWeight": 100
+                    }
+                ]
+

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import net.uglevodov.restapi.dto.NewDishDto;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -38,8 +39,12 @@ public class Dish extends BaseEntity {
     @Column(name = "active")
     private Boolean active;
 
-    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "dish_id")
     private Set<Recipe> ingredients;
+
+    @Column(name = "type")
+    private String type;
+
 
 }
