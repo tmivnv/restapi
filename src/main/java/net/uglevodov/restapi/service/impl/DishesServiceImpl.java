@@ -3,9 +3,11 @@ package net.uglevodov.restapi.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import net.uglevodov.restapi.entities.Dish;
 import net.uglevodov.restapi.entities.Ingredient;
+import net.uglevodov.restapi.entities.Recipe;
 import net.uglevodov.restapi.exceptions.NotFoundException;
 import net.uglevodov.restapi.exceptions.NotUpdatableException;
 import net.uglevodov.restapi.repositories.DishesRepository;
+import net.uglevodov.restapi.repositories.RecipeRepository;
 import net.uglevodov.restapi.service.DishesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,7 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -22,6 +24,9 @@ public class DishesServiceImpl implements DishesService {
 
     @Autowired
     DishesRepository dishesRepository;
+
+    @Autowired
+    RecipeRepository recipeRepository;
 
 
     @Override
@@ -34,13 +39,13 @@ public class DishesServiceImpl implements DishesService {
     public Dish get(long id) throws NotFoundException {
         log.trace("[{}] - Getting dish id = ", this.getClass().getSimpleName(), id);
 
-        return dishesRepository.findById(id).orElseThrow(()-> new NotFoundException("dish id " + id + " not found"));
+        return dishesRepository.findById(id).orElseThrow(() -> new NotFoundException("dish id " + id + " not found"));
     }
 
     @Override
     public void update(Dish dish) throws NotUpdatableException, NotFoundException {
         log.trace("[{}] - Updating dish {}", this.getClass().getSimpleName(), dish);
-        dishesRepository.findById(dish.getId()).orElseThrow(()-> new NotFoundException("dish id " + dish.getId() + " not found"));
+        dishesRepository.findById(dish.getId()).orElseThrow(() -> new NotFoundException("dish id " + dish.getId() + " not found"));
         Assert.notNull(dish, "Dish can not be null");
         dishesRepository.save(dish);
     }
@@ -48,7 +53,7 @@ public class DishesServiceImpl implements DishesService {
     @Override
     public void delete(long id) throws NotFoundException {
         log.trace("[{}] - Deleting dish id = {}", this.getClass().getSimpleName(), id);
-        Dish dish = dishesRepository.findById(id).orElseThrow(()-> new NotFoundException("dish id " + id + " not found"));
+        Dish dish = dishesRepository.findById(id).orElseThrow(() -> new NotFoundException("dish id " + id + " not found"));
 
         dishesRepository.delete(dish);
     }
@@ -61,7 +66,35 @@ public class DishesServiceImpl implements DishesService {
     }
 
     @Override
-    public List<Dish> findAllByIngredientsContaining(Ingredient ingredient) {
-        return dishesRepository.findAllByIngredientsContaining(ingredient);
+    public Set<Dish> findAllByIngredientsContainingAndNotContaining(List<Ingredient> containing, List<Ingredient> notContaining) {
+        List<Recipe> containingRecipes = new ArrayList<>();
+
+
+        for (Ingredient ingredient : containing) {
+            containingRecipes.addAll(recipeRepository.findAllByIngredientContaining(ingredient));
+        }
+
+
+        List<Recipe> notContainingRecipes = new ArrayList<>();
+
+        for (Ingredient ingredient : notContaining) {
+            notContainingRecipes.addAll(recipeRepository.findAllByIngredientContaining(ingredient));
+        }
+
+
+        Set<Dish> dishesFound = new HashSet<>();
+
+        if (!containingRecipes.isEmpty()) {
+            for (Recipe recipe : containingRecipes) {
+                dishesFound.addAll(dishesRepository.findAllByIngredientsContaining(recipe));
+            }
+        } else dishesFound.addAll(dishesRepository.findAll());
+
+        for (Recipe recipe : notContainingRecipes) {
+            dishesFound.removeAll(dishesRepository.findAllByIngredientsContaining(recipe));
+        }
+
+
+        return dishesFound;
     }
 }

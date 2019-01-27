@@ -1,19 +1,913 @@
-PUT http://localhost/api/ingredients/update
+PUT http://localhost/api/dishes/update
 Accept: */*
 Cache-Control: no-cache
 Content-Type: Application/JSON
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
 
+{
+
+  "dishName": "Updated TeSt Dish",
+  "description": "test dish description",
+  "image": 11,
+  "uglevodovnetGroup": 1,
+  "carbs": 0,
+  "portion": 350,
+  "ingredients": [
     {
-        "id": 2,
-        "ingredientName": "jhdgfhg",
-        "description": "changed description ",
-        "image": 12,
-        "uglevodovnetGroup": 3,
-        "carbs": 3.4,
-        "unit": "шт",
-        "unitWeight": 35
+        "ingredient": {
+        "id": 8
+      },
+      "weight": 500
+    },
+    {
+        "ingredient": {
+        "id": 7
+        },
+      "weight": 350
     }
+  ]
+}
+
+<> 2019-01-27T085038.500.json
+
+###
+
+PUT http://localhost/api/dishes/update
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+
+  "dishName": "Updated TeSt Dish",
+  "description": "test dish description",
+  "image": 11,
+  "uglevodovnetGroup": 1,
+  "carbs": 0,
+  "portion": 350,
+  "ingredients": [
+    {
+        "ingredient": {
+        "id": 8
+      },
+      "weight": 500
+    },
+    {
+        "ingredient": {
+        "id": 7
+        },
+      "weight": 350
+    }
+  ]
+}
+
+<> 2019-01-27T085016.500.json
+
+###
+
+PUT http://localhost/api/dishes/update
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "id" : 22,
+  "dishName": "Updated TeSt Dish",
+  "description": "test dish description",
+  "image": 11,
+  "uglevodovnetGroup": 1,
+  "carbs": 0,
+  "portion": 350,
+  "ingredients": [
+    {
+        "ingredient": {
+        "id": 8
+      },
+      "weight": 500
+    },
+    {
+        "ingredient": {
+        "id": 7
+        },
+      "weight": 350
+    }
+  ]
+}
+
+<> 2019-01-27T084950.500.json
+
+###
+
+PUT http://localhost/api/dishes/update
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "id" : 2,
+  "dishName": "Updated TeSt Dish",
+  "description": "test dish description",
+  "image": 11,
+  "uglevodovnetGroup": 1,
+  "carbs": 0,
+  "portion": 350,
+  "ingredients": [
+    {
+        "ingredient": {
+        "id": 8
+      },
+      "weight": 500
+    },
+    {
+        "ingredient": {
+        "id": 7
+        },
+      "weight": 350
+    }
+  ]
+}
+
+<> 2019-01-27T084925.202.json
+
+###
+
+PUT http://localhost/api/dishes/update
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "id" : 2,
+  "dishName": "Updated TeSt Dish",
+  "description": "test dish description",
+  "image": 11,
+  "uglevodovnetGroup": 1,
+  "carbs": 0,
+  "portion": 350,
+  "ingredients": [
+    {
+        "ingredient": {
+        "id": 8
+      },
+      "weight": 500
+    },
+    {
+        "ingredient": {
+        "id": 7
+        },
+      "weight": 350
+    }
+  ]
+}
+
+<> 2019-01-27T084731.202.json
+
+###
+
+POST http://localhost/api/dishes/save
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "dishName": "Test dish 6",
+  "description": "test dish description new",
+  "image": 11,
+  "uglevodovnetGroup": 1,
+  "carbs": 0,
+  "portion": 350,
+  "ingredients": [
+    {
+        "ingredient": {
+        "id": 2
+      },
+      "weight": 160
+    },
+    {
+        "ingredient": {
+        "id": 8
+        },
+      "weight": 650
+    }
+  ]
+}
+
+<> 2019-01-27T084314.202.json
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [2, 8],
+  "excludeIngredients": [7],
+  "name": "test"
+
+}
+
+<> 2019-01-27T084043.202.json
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [2, 7],
+  "excludeIngredients": [8],
+  "name": "test"
+
+}
+
+<> 2019-01-27T084033.202.json
+
+###
+
+PUT http://localhost/api/dishes/update
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+
+  "dishName": "Updated TeSt Dish",
+  "description": "test dish description",
+  "image": 11,
+  "uglevodovnetGroup": 1,
+  "carbs": 0,
+  "portion": 350,
+  "ingredients": [
+    {
+        "ingredient": {
+        "id": 8
+      },
+      "weight": 500
+    },
+    {
+        "ingredient": {
+        "id": 7
+        },
+      "weight": 350
+    }
+  ]
+}
+
+<> 2019-01-27T083144.202.json
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [2, 8],
+  "excludeIngredients": [7],
+  "name": "test"
+
+}
+
+<> 2019-01-24T094042.202.json
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [],
+  "excludeIngredients": [],
+  "name": "test"
+
+}
+
+<> 2019-01-24T094006.202.json
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [],
+  "excludeIngredients": [],
+  "name": "test"
+
+}
+
+<> 2019-01-24T093731.202.json
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [],
+  "excludeIngredients": [],
+  "name": "test"
+
+}
+
+<> 2019-01-24T093553.202.json
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [],
+  "excludeIngredients": [],
+  "name": ""
+
+}
+
+<> 2019-01-24T093539.202.json
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [2],
+  "excludeIngredients": [],
+  "name": ""
+
+}
+
+<> 2019-01-24T092816.202.json
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [2],
+  "excludeIngredients": [],
+  "name": "test"
+
+}
+
+<> 2019-01-24T092753.202.json
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [1],
+  "excludeIngredients": [],
+  "name": "test"
+
+}
+
+<> 2019-01-24T092747.500.json
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [],
+  "excludeIngredients": [],
+  "name": "test"
+
+}
+
+<> 2019-01-24T092727.202.json
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [],
+  "excludeIngredients": [8],
+  "name": "test"
+
+}
+
+<> 2019-01-24T092611.202.json
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [2, 7],
+  "excludeIngredients": [8],
+  "name": "Test"
+
+}
+
+<> 2019-01-24T092441.202.json
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [2, 7],
+  "excludeIngredients": [8],
+  "name": "test"
+
+}
+
+<> 2019-01-24T092434.202.json
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [2, 7],
+  "excludeIngredients": []
+
+}
+
+<> 2019-01-24T091210.202.json
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [2, 7],
+  "excludeIngredients": []
+
+}
+
+<> 2019-01-24T091046.500.json
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [2, 7],
+  "excludeIngredients": []
+
+}
+
+<> 2019-01-24T090846.202.json
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [2, 7],
+  "excludeIngredients": []
+
+}
+
+<> 2019-01-24T090642.500.json
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [2, 7],
+  "excludeIngredients": [8]
+
+}
+
+<> 2019-01-24T085157.202.json
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+
+  "name": "test"
+}
+
+<> 2019-01-24T084617.202.json
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [8],
+  "excludeIngredients": []
+
+}
+
+<> 2019-01-24T084045.202.json
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [2, 7],
+  "excludeIngredients": []
+
+}
+
+<> 2019-01-24T083932.202.json
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [2, 7],
+  "excludeIngredients": []
+
+}
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [2, 7],
+  "excludeIngredients": []
+
+}
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [2, 7],
+  "excludeIngredients": []
+
+}
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [2, 7],
+  "excludeIngredients": []
+
+}
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [2, 7],
+  "excludeIngredients": []
+
+}
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [2, 7],
+  "excludeIngredients": []
+
+}
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [2, 7],
+  "excludeIngredients": []
+
+}
+
+<> 2019-01-24T075835.500.json
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [2, 7],
+  "excludeIngredients": []
+
+}
+
+<> 2019-01-24T075755.500.json
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [2, 7],
+  "excludeIngredients": [8]
+
+}
+
+<> 2019-01-24T074618.500.json
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [2, 7],
+  "excludeIngredients": []
+
+}
+
+<> 2019-01-24T072812.500.json
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [2, 7],
+  "excludeIngredients": []
+
+}
+
+<> 2019-01-24T072554.500.json
+
+###
+
+POST http://localhost/api/dishes/filter
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "includeIngredients": [2, 7],
+  "excludeIngredients": []
+
+}
+
+<> 2019-01-23T014030.202.json
+
+###
+
+PUT http://localhost/api/dishes/update
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "id" : 2,
+  "dishName": "Updated TeSt Dish",
+  "description": "test dish description",
+  "image": 11,
+  "uglevodovnetGroup": 1,
+  "carbs": 0,
+  "portion": 350,
+  "ingredients": [
+    {
+        "ingredient": {
+        "id": 8
+      },
+      "weight": 500
+    },
+    {
+        "ingredient": {
+        "id": 7
+        },
+      "weight": 350
+    }
+  ]
+}
+
+<> 2019-01-23T013611.202.json
+
+###
+
+POST http://localhost/api/dishes/save
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "dishName": "Test dish 2",
+  "description": "test dish description",
+  "image": 11,
+  "uglevodovnetGroup": 1,
+  "carbs": 0,
+  "portion": 350,
+  "ingredients": [
+    {
+        "ingredient": {
+        "id": 2
+      },
+      "weight": 120
+    },
+    {
+        "ingredient": {
+        "id": 8
+        },
+      "weight": 350
+    }
+  ]
+}
+
+<> 2019-01-23T011526.500.json
+
+###
+
+POST http://localhost/api/dishes/save
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "dishName": "Test dish",
+  "description": "test dish description",
+  "image": 11,
+  "uglevodovnetGroup": 1,
+  "carbs": 0,
+  "portion": 350,
+  "ingredients": [
+    {
+        "ingredient": {
+        "id": 2
+      },
+      "weight": 120
+    },
+    {
+        "ingredient": {
+        "id": 8
+        },
+      "weight": 350
+    }
+  ]
+}
+
+<> 2019-01-23T010649.202.json
+
+###
+
+POST http://localhost/api/dishes/save
+Accept: */*
+Cache-Control: no-cache
+Content-Type: Application/JSON
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
+
+{
+  "dishName": "Test dish 6",
+  "description": "test dish description new",
+  "image": 11,
+  "uglevodovnetGroup": 1,
+  "carbs": 0,
+  "portion": 350,
+  "ingredients": [
+    {
+        "ingredient": {
+        "id": 2
+      },
+      "weight": 160
+    },
+    {
+        "ingredient": {
+        "id": 8
+        },
+      "weight": 650
+    }
+  ]
+}
 
 <> 2019-01-21T125243.403.json
 
@@ -121,682 +1015,6 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpb
 }
 
 <> 2019-01-21T124218.202.json
-
-###
-
-POST http://localhost/api/ingredients/save
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
-
-{
-
-  "ingredientName": "sfdsfdfsd",
-  "description": "fsddsfsfdsfd ",
-  "image": 11,
-  "uglevodovnetGroup": 3,
-  "carbs": 3.4,
-  "unit": "шт",
-  "unitWeight": 35
-}
-
-<> 2019-01-21T100502.202.json
-
-###
-
-PUT http://localhost/api/ingredients/update
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
-
-    {
-        "id": 2,
-        "ingredientName": "jhdgfhg",
-        "description": "changed description ",
-        "image": 12,
-        "uglevodovnetGroup": 3,
-        "carbs": 3.4,
-        "unit": "шт",
-        "unitWeight": 35
-    }
-
-<> 2019-01-21T100502.202.json
-
-###
-
-PUT http://localhost/api/admin/users/10/update
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1NTI0NCwiZXhwIjoxNTQ4NjYwMDQ0fQ.m6bh2bK5Upi3vzLMVzgoNhP3IdvD31Tr_XsUpEvUvo7cvhYOAHOPNfK1r7rVhQ6KYB4ExFR_xvN6jdQ0T-4aaQ
-
-{
-
-  "firstName"     : "Марина",
-  "lastName"      : "Кочина",
-  "avatar"     : ""
-}
-
-<> 2019-01-21T100450.202.json
-
-###
-
-PUT http://localhost/api/admin/users/69/update
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1NTI0NCwiZXhwIjoxNTQ4NjYwMDQ0fQ.m6bh2bK5Upi3vzLMVzgoNhP3IdvD31Tr_XsUpEvUvo7cvhYOAHOPNfK1r7rVhQ6KYB4ExFR_xvN6jdQ0T-4aaQ
-
-{
-
-  "firstName"     : "Марина",
-  "lastName"      : "Кочина",
-  "avatar"     : ""
-}
-
-<> 2019-01-21T095759.403.json
-
-###
-
-PUT http://localhost/api/admin/users/69/update
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1NTI0NCwiZXhwIjoxNTQ4NjYwMDQ0fQ.m6bh2bK5Upi3vzLMVzgoNhP3IdvD31Tr_XsUpEvUvo7cvhYOAHOPNfK1r7rVhQ6KYB4ExFR_xvN6jdQ0T-4aaQ
-
-{
-
-  "firstName"     : "Марина",
-  "lastName"      : "Кочина",
-  "avatar"     : ""
-}
-
-<> 2019-01-21T095426.403.json
-
-###
-
-PUT http://localhost/api/admin/users/69/update
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1NTI0NCwiZXhwIjoxNTQ4NjYwMDQ0fQ.m6bh2bK5Upi3vzLMVzgoNhP3IdvD31Tr_XsUpEvUvo7cvhYOAHOPNfK1r7rVhQ6KYB4ExFR_xvN6jdQ0T-4aaQ
-
-{
-
-  "firstName"     : "Марина",
-  "lastName"      : "Кочина",
-  "avatar"     : ""
-}
-
-<> 2019-01-21T095221.403.json
-
-###
-
-PUT http://localhost/api/admin/users/69/update
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1NTI0NCwiZXhwIjoxNTQ4NjYwMDQ0fQ.m6bh2bK5Upi3vzLMVzgoNhP3IdvD31Tr_XsUpEvUvo7cvhYOAHOPNfK1r7rVhQ6KYB4ExFR_xvN6jdQ0T-4aaQ
-
-{
-
-  "firstName"     : "Марина",
-  "lastName"      : "Кочина",
-  "avatar"     : ""
-}
-
-<> 2019-01-21T095100.403.json
-
-###
-
-PUT http://localhost/api/admin/users/69/update
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1NTI0NCwiZXhwIjoxNTQ4NjYwMDQ0fQ.m6bh2bK5Upi3vzLMVzgoNhP3IdvD31Tr_XsUpEvUvo7cvhYOAHOPNfK1r7rVhQ6KYB4ExFR_xvN6jdQ0T-4aaQ
-
-{
-
-  "firstName"     : "Марина",
-  "lastName"      : "Кочина",
-  "avatar"     : ""
-}
-
-<> 2019-01-21T094723.403.json
-
-###
-
-PUT http://localhost/api/admin/users/69/update
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1NTI0NCwiZXhwIjoxNTQ4NjYwMDQ0fQ.m6bh2bK5Upi3vzLMVzgoNhP3IdvD31Tr_XsUpEvUvo7cvhYOAHOPNfK1r7rVhQ6KYB4ExFR_xvN6jdQ0T-4aaQ
-
-{
-
-  "firstName"     : "Марина",
-  "lastName"      : "Кочина",
-  "avatar"     : ""
-}
-
-<> 2019-01-21T094523.403.json
-
-###
-
-PUT http://localhost/api/admin/users/69/update
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1NTI0NCwiZXhwIjoxNTQ4NjYwMDQ0fQ.m6bh2bK5Upi3vzLMVzgoNhP3IdvD31Tr_XsUpEvUvo7cvhYOAHOPNfK1r7rVhQ6KYB4ExFR_xvN6jdQ0T-4aaQ
-
-{
-
-  "firstName"     : "Марина",
-  "lastName"      : "Кочина",
-  "avatar"     : ""
-}
-
-<> 2019-01-21T094434.403.json
-
-###
-
-PUT http://localhost/api/admin/users/10/update
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1NTI0NCwiZXhwIjoxNTQ4NjYwMDQ0fQ.m6bh2bK5Upi3vzLMVzgoNhP3IdvD31Tr_XsUpEvUvo7cvhYOAHOPNfK1r7rVhQ6KYB4ExFR_xvN6jdQ0T-4aaQ
-
-{
-
-  "firstName"     : "Марина",
-  "lastName"      : "Кочина",
-  "avatar"     : ""
-}
-
-<> 2019-01-21T094341.403.json
-
-###
-
-PUT http://localhost/api/admin/users/69/update
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1NTI0NCwiZXhwIjoxNTQ4NjYwMDQ0fQ.m6bh2bK5Upi3vzLMVzgoNhP3IdvD31Tr_XsUpEvUvo7cvhYOAHOPNfK1r7rVhQ6KYB4ExFR_xvN6jdQ0T-4aaQ
-
-{
-
-  "firstName"     : "Марина",
-  "lastName"      : "Кочина",
-  "avatar"     : ""
-}
-
-<> 2019-01-21T093727.403.json
-
-###
-
-PUT http://localhost/api/admin/users/69/update
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1NTI0NCwiZXhwIjoxNTQ4NjYwMDQ0fQ.m6bh2bK5Upi3vzLMVzgoNhP3IdvD31Tr_XsUpEvUvo7cvhYOAHOPNfK1r7rVhQ6KYB4ExFR_xvN6jdQ0T-4aaQ
-
-{
-
-  "firstName"     : "Марина",
-  "lastName"      : "Кочина",
-  "avatar"     : ""
-}
-
-<> 2019-01-21T093246.403.json
-
-###
-
-PUT http://localhost/api/admin/users/69/update
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1NTI0NCwiZXhwIjoxNTQ4NjYwMDQ0fQ.m6bh2bK5Upi3vzLMVzgoNhP3IdvD31Tr_XsUpEvUvo7cvhYOAHOPNfK1r7rVhQ6KYB4ExFR_xvN6jdQ0T-4aaQ
-
-{
-
-  "firstName"     : "Марина",
-  "lastName"      : "Кочина",
-  "avatar"     : ""
-}
-
-<> 2019-01-21T092838.403.json
-
-###
-
-PUT http://localhost/api/admin/users/69/update
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1NTI0NCwiZXhwIjoxNTQ4NjYwMDQ0fQ.m6bh2bK5Upi3vzLMVzgoNhP3IdvD31Tr_XsUpEvUvo7cvhYOAHOPNfK1r7rVhQ6KYB4ExFR_xvN6jdQ0T-4aaQ
-
-{
-
-  "firstName"     : "Марина",
-  "lastName"      : "Кочина",
-  "avatar"     : ""
-}
-
-<> 2019-01-21T092651.403.json
-
-###
-
-PUT http://localhost/api/admin/users/69/update
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1NTI0NCwiZXhwIjoxNTQ4NjYwMDQ0fQ.m6bh2bK5Upi3vzLMVzgoNhP3IdvD31Tr_XsUpEvUvo7cvhYOAHOPNfK1r7rVhQ6KYB4ExFR_xvN6jdQ0T-4aaQ
-
-{
-
-  "firstName"     : "Марина",
-  "lastName"      : "Кочина",
-  "avatar"     : ""
-}
-
-<> 2019-01-21T092503.403.json
-
-###
-
-PUT http://localhost/api/admin/users/69/update
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1NTI0NCwiZXhwIjoxNTQ4NjYwMDQ0fQ.m6bh2bK5Upi3vzLMVzgoNhP3IdvD31Tr_XsUpEvUvo7cvhYOAHOPNfK1r7rVhQ6KYB4ExFR_xvN6jdQ0T-4aaQ
-
-{
-
-  "firstName"     : "Марина",
-  "lastName"      : "Кочина",
-  "avatar"     : ""
-}
-
-<> 2019-01-21T092400.403.json
-
-###
-
-PUT http://api/admin/users/69/update
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1NTI0NCwiZXhwIjoxNTQ4NjYwMDQ0fQ.m6bh2bK5Upi3vzLMVzgoNhP3IdvD31Tr_XsUpEvUvo7cvhYOAHOPNfK1r7rVhQ6KYB4ExFR_xvN6jdQ0T-4aaQ
-
-{
-
-  "firstName"     : "Марина",
-  "lastName"      : "Кочина",
-  "avatar"     : ""
-}
-
-###
-
-PUT http://PUT/api/admin/users/69/update
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1NTI0NCwiZXhwIjoxNTQ4NjYwMDQ0fQ.m6bh2bK5Upi3vzLMVzgoNhP3IdvD31Tr_XsUpEvUvo7cvhYOAHOPNfK1r7rVhQ6KYB4ExFR_xvN6jdQ0T-4aaQ
-
-{
-
-  "firstName"     : "Марина",
-  "lastName"      : "Кочина",
-  "avatar"     : ""
-}
-
-###
-
-PUT http://localhost/api/admin/users/69/update
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1NTI0NCwiZXhwIjoxNTQ4NjYwMDQ0fQ.m6bh2bK5Upi3vzLMVzgoNhP3IdvD31Tr_XsUpEvUvo7cvhYOAHOPNfK1r7rVhQ6KYB4ExFR_xvN6jdQ0T-4aaQ
-
-{
-
-  "firstName"     : "Марина",
-  "lastName"      : "Кочина",
-  "avatar"     : ""
-}
-
-<> 2019-01-21T092101.403.json
-
-###
-
-POST http://localhost/api/auth/signin
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-
-{"authName":"test@gmail.com", "password":"qwerty"}
-
-<> 2019-01-21T092044.200.json
-
-###
-
-PUT http://localhost/api/ingredients/update
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
-
-{
-        "id": 2,
-        "ingredientName": "jhdgfhg",
-        "description": "changed description ",
-        "image": 12,
-        "uglevodovnetGroup": 3,
-        "carbs": 3.4,
-        "unit": "шт",
-        "unitWeight": 35
-    }
-
-<> 2019-01-21T092008.403.json
-
-###
-
-PUT http://localhost/api/ingredients/update
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
-
-{
-        "id": 2,
-        "ingredientName": "jhdgfhg",
-        "description": "changed description ",
-        "image": 12,
-        "uglevodovnetGroup": 3,
-        "carbs": 3.4,
-        "unit": "шт",
-        "unitWeight": 35
-    }
-
-<> 2019-01-21T091818.403.json
-
-###
-
-PUT http://localhost/api/ingredients/update
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
-
-{
-        "id": 2,
-        "ingredientName": "jhdgfhg",
-        "description": "changed description ",
-        "image": 12,
-        "uglevodovnetGroup": 3,
-        "carbs": 3.4,
-        "unit": "шт",
-        "unitWeight": 35
-    }
-
-<> 2019-01-21T091758.403.json
-
-###
-
-PUT http://localhost/api/ingredients/update
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
-
-{
-        "id": 2,
-        "ingredientName": "jhdgfhg",
-        "description": "changed description ",
-        "image": 12,
-        "uglevodovnetGroup": 3,
-        "carbs": 3.4,
-        "unit": "шт",
-        "unitWeight": 35
-    }
-
-<> 2019-01-21T091647.403.json
-
-###
-
-PUT http://localhost/api/ingredients/update
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
-
-{
-        "id": 2,
-        "ingredientName": "jhdgfhg",
-        "description": "changed description ",
-        "image": 12,
-        "uglevodovnetGroup": 2,
-        "carbs": 3.4,
-        "unit": "шт",
-        "unitWeight": 35
-    }
-
-<> 2019-01-21T090733.202.json
-
-###
-
-POST http://localhost/api/ingredients/update
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1Mzk4MiwiZXhwIjoxNTQ4NjU4NzgyfQ.hA-bKth6krZTVTsRP5q2N11w54Vy4pC5FXkvE1Aru9_IizQw1Q9J5-LHioKYMHt1-A3nSAfsGP38Sb5dcoNj5Q
-
-{
-        "id": 2,
-        "ingredientName": "jhdgfhg",
-        "description": "changed description ",
-        "image": 12,
-        "uglevodovnetGroup": 2,
-        "carbs": 3.4,
-        "unit": "шт",
-        "unitWeight": 35
-    }
-
-<> 2019-01-21T090720.405.json
-
-###
-
-POST http://localhost/api/ingredients/update
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-
-{
-        "id": 2,
-        "ingredientName": "jhdgfhg",
-        "description": "changed description ",
-        "image": 12,
-        "uglevodovnetGroup": 2,
-        "carbs": 3.4,
-        "unit": "шт",
-        "unitWeight": 35
-    }
-
-<> 2019-01-21T090647.401.json
-
-###
-
-
-PUT http://localhost/api/ingredients/update
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0ODA1NTI0NCwiZXhwIjoxNTQ4NjYwMDQ0fQ.m6bh2bK5Upi3vzLMVzgoNhP3IdvD31Tr_XsUpEvUvo7cvhYOAHOPNfK1r7rVhQ6KYB4ExFR_xvN6jdQ0T-4aaQ
-
-{
-        "id": 2,
-        "ingredientName": "jhdgfhg",
-        "description": "changed description ",
-        "image": 12,
-        "uglevodovnetGroup": 3,
-        "carbs": 3.4,
-        "unit": "шт",
-        "unitWeight": 35
-    }
-
-<> 2019-01-21T085942.200.json
-
-###
-
-
-POST http://localhost/api/auth/signin
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-
-{"authName":"test@gmail.com", "password":"qwerty"}
-
-<> 2019-01-21T085942.200.json
-
-###
-
-GET http://localhost/api/ingredients
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0NjUxNDQ2NywiZXhwIjoxNTQ3MTE5MjY3fQ.kcQRDUzZkh5tnwFpdMd5tAW22Zt8rNyXsX1naVgnrd2ltjQo6_BEhNNeSKXzNSzUC67YRSQO_jUO9oJrrxTHRw
-
-<> 2019-01-07T084549.200.json
-
-###
-
-POST http://localhost/api/auth/signin
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-
-{"authName":"test@gmail.com", "password":"qwerty"}
-
-<> 2019-01-07T084505.200.json
-
-###
-
-GET http://localhost/api/ingredients
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0NjUxNDQ2NywiZXhwIjoxNTQ3MTE5MjY3fQ.kcQRDUzZkh5tnwFpdMd5tAW22Zt8rNyXsX1naVgnrd2ltjQo6_BEhNNeSKXzNSzUC67YRSQO_jUO9oJrrxTHRw
-
-<> 2019-01-07T072239.200.json
-
-###
-
-POST http://localhost/api/auth/signin
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-
-{"authName":"test@gmail.com", "password":"qwerty"}
-
-<> 2019-01-07T072229.200.json
-
-###
-
-POST http://localhost/api/auth/signin
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-
-{"authName":"test@gmail.com", "password":"qwerty"}
-
-###
-
-POST http://localhost/api/auth/signin
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-
-{"authName":"test@gmail.com", "password":"qwerty"}
-
-###
-
-POST http://localhost/api/auth/signin
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-
-{"authName":"test@gmail.com", "password":"qwerty"}
-
-<> 2019-01-07T071214.200.json
-
-###
-
-GET http://localhost/api/ingredients
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0NjUxNDQ2NywiZXhwIjoxNTQ3MTE5MjY3fQ.kcQRDUzZkh5tnwFpdMd5tAW22Zt8rNyXsX1naVgnrd2ltjQo6_BEhNNeSKXzNSzUC67YRSQO_jUO9oJrrxTHRw
-
-<> 2019-01-03T013829.200.json
-
-###
-
-GET http://localhost/api/ingredients
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0NjUxNDQ2NywiZXhwIjoxNTQ3MTE5MjY3fQ.kcQRDUzZkh5tnwFpdMd5tAW22Zt8rNyXsX1naVgnrd2ltjQo6_BEhNNeSKXzNSzUC67YRSQO_jUO9oJrrxTHRw
-
-<> 2019-01-03T013615.500.json
-
-###
-
-GET http://localhost/api/ingredients
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0NjUxNDQ2NywiZXhwIjoxNTQ3MTE5MjY3fQ.kcQRDUzZkh5tnwFpdMd5tAW22Zt8rNyXsX1naVgnrd2ltjQo6_BEhNNeSKXzNSzUC67YRSQO_jUO9oJrrxTHRw
-
-<> 2019-01-03T013411.500.json
-
-###
-
-GET http://localhost/api/ingredients
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0NjUxNDQ2NywiZXhwIjoxNTQ3MTE5MjY3fQ.kcQRDUzZkh5tnwFpdMd5tAW22Zt8rNyXsX1naVgnrd2ltjQo6_BEhNNeSKXzNSzUC67YRSQO_jUO9oJrrxTHRw
-
-<> 2019-01-03T012939.200.json
-
-###
-
-GET http://localhost/api/ingredients/get?id=1
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0NjUxNDQ2NywiZXhwIjoxNTQ3MTE5MjY3fQ.kcQRDUzZkh5tnwFpdMd5tAW22Zt8rNyXsX1naVgnrd2ltjQo6_BEhNNeSKXzNSzUC67YRSQO_jUO9oJrrxTHRw
-
-<> 2019-01-03T012737.200.json
-
-###
-
-GET http://localhost/api/ingredients/get?id=1
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0NjUxNDQ2NywiZXhwIjoxNTQ3MTE5MjY3fQ.kcQRDUzZkh5tnwFpdMd5tAW22Zt8rNyXsX1naVgnrd2ltjQo6_BEhNNeSKXzNSzUC67YRSQO_jUO9oJrrxTHRw
-
-<> 2019-01-03T012208.200.json
-
-###
-
-GET http://localhost/api/ingredients/get?id=1
-Accept: */*
-Cache-Control: no-cache
-Content-Type: Application/JSON
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI5Iiwic3ViIjoidGVzdEBnbWFpbC5jb20gdGVzdCIsImlhdCI6MTU0NjUxNDQ2NywiZXhwIjoxNTQ3MTE5MjY3fQ.kcQRDUzZkh5tnwFpdMd5tAW22Zt8rNyXsX1naVgnrd2ltjQo6_BEhNNeSKXzNSzUC67YRSQO_jUO9oJrrxTHRw
-
-<> 2019-01-03T012107.200.json
 
 ###
 

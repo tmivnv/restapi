@@ -4,7 +4,8 @@ import net.uglevodov.restapi.entities.Dish;
 import net.uglevodov.restapi.entities.Ingredient;
 
 import java.util.List;
+import java.util.Set;
 
 public interface DishesService extends GenericService<Dish> {
-    List<Dish> findAllByIngredientsContaining(Ingredient ingredient);
+    Set<Dish> findAllByIngredientsContainingAndNotContaining(List<Ingredient> containing, List<Ingredient> notContaining);
 }

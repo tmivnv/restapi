@@ -618,3 +618,373 @@ PRIVATE API
                     }
                 ]
 
+    V Dishcontroller
+
+        1. получить блюдо по айди
+
+            запрос:
+                GET /api/dishes/get?id=4
+            Ответ:
+                {
+                    "id": 4,
+                    "dishName": "Test dish 2",
+                    "description": "test dish description",
+                    "image": 11,
+                    "uglevodovnetGroup": 1,
+                    "carbs": 0,
+                    "portion": 350,
+                    "active": null,
+                    "ingredients": [
+                        {
+                            "ingredient": {
+                                "id": 2,
+                                "ingredientName": "лук зеленый ",
+                                "description": "лук зеленый ",
+                                "image": 12,
+                                "uglevodovnetGroup": 3,
+                                "carbs": 3.4,
+                                "unit": "шт",
+                                "unitWeight": 35
+                            },
+                            "weight": 120
+                        },
+                        {
+                            "ingredient": {
+                                "id": 8,
+                                "ingredientName": "Морковка",
+                                "description": "Морковка красная",
+                                "image": 10,
+                                "uglevodovnetGroup": 3,
+                                "carbs": 3,
+                                "unit": "",
+                                "unitWeight": 100
+                            },
+                            "weight": 350
+                        }
+                    ],
+                    "type": null
+                }
+
+            не найдено:
+                {
+                    "timestamp": "2019-01-27T06:34:58.138+0000",
+                    "status": 500,
+                    "error": "Internal Server Error",
+                    "message": "dish id 43 not found",
+                    "path": "/api/dishes/get"
+                }
+
+        2. получить все блюда (Pageable request)
+
+            запрос:
+                GET /api/dishes
+
+            ответ:
+                {
+                    "content": [
+                        {
+                            "id": 4,
+                            "dishName": "Test dish 2",
+                            "description": "test dish description",
+                            "image": 11,
+                            "uglevodovnetGroup": 1,
+                            "carbs": 0,
+                            "portion": 350,
+                            "active": null,
+                            "ingredients": [
+                                {
+                                    "ingredient": {
+                                        "id": 2,
+                                        "ingredientName": "лук зеленый ",
+                                        "description": "лук зеленый ",
+                                        "image": 12,
+                                        "uglevodovnetGroup": 3,
+                                        "carbs": 3.4,
+                                        "unit": "шт",
+                                        "unitWeight": 35
+                                    },
+                                    "weight": 120
+                                },
+                                {
+                                    "ingredient": {
+                                        "id": 8,
+                                        "ingredientName": "Морковка",
+                                        "description": "Морковка красная",
+                                        "image": 10,
+                                        "uglevodovnetGroup": 3,
+                                        "carbs": 3,
+                                        "unit": "",
+                                        "unitWeight": 100
+                                    },
+                                    "weight": 350
+                                }
+                            ],
+                            "type": null
+                        },
+                        {
+                            "id": 5,
+                            "dishName": "New dish 3",
+                            "description": "test dish description",
+                            "image": 11,
+                            "uglevodovnetGroup": 1,
+                            "carbs": 0,
+                            "portion": 350,
+                            "active": null,
+                            "ingredients": [
+                                {
+                                    "ingredient": {
+                                        "id": 7,
+                                        "ingredientName": "Лук репчатый",
+                                        "description": "Лук репчатый",
+                                        "image": 11,
+                                        "uglevodovnetGroup": 2,
+                                        "carbs": 2.1,
+                                        "unit": "100 г",
+                                        "unitWeight": 100
+                                    },
+                                    "weight": 350
+                                },
+                                {
+                                    "ingredient": {
+                                        "id": 2,
+                                        "ingredientName": "лук зеленый ",
+                                        "description": "лук зеленый ",
+                                        "image": 12,
+                                        "uglevodovnetGroup": 3,
+                                        "carbs": 3.4,
+                                        "unit": "шт",
+                                        "unitWeight": 35
+                                    },
+                                    "weight": 240
+                                }
+                            ],
+                            "type": null
+                        },
+                        {
+                            "id": 2,
+                            "dishName": "Updated TeSt Dish",
+                            "description": "test dish description",
+                            "image": 11,
+                            "uglevodovnetGroup": 1,
+                            "carbs": 0,
+                            "portion": 350,
+                            "active": null,
+                            "ingredients": [
+                                {
+                                    "ingredient": {
+                                        "id": 7,
+                                        "ingredientName": "Лук репчатый",
+                                        "description": "Лук репчатый",
+                                        "image": 11,
+                                        "uglevodovnetGroup": 2,
+                                        "carbs": 2.1,
+                                        "unit": "100 г",
+                                        "unitWeight": 100
+                                    },
+                                    "weight": 350
+                                },
+                                {
+                                    "ingredient": {
+                                        "id": 8,
+                                        "ingredientName": "Морковка",
+                                        "description": "Морковка красная",
+                                        "image": 10,
+                                        "uglevodovnetGroup": 3,
+                                        "carbs": 3,
+                                        "unit": "",
+                                        "unitWeight": 100
+                                    },
+                                    "weight": 500
+                                }
+                            ],
+                            "type": null
+                        }
+                    ],
+                    "pageable": {
+                        "sort": {
+                            "sorted": false,
+                            "unsorted": true,
+                            "empty": true
+                        },
+                        "pageSize": 20,
+                        "pageNumber": 0,
+                        "offset": 0,
+                        "unpaged": false,
+                        "paged": true
+                    },
+                    "last": true,
+                    "totalPages": 1,
+                    "totalElements": 3,
+                    "sort": {
+                        "sorted": false,
+                        "unsorted": true,
+                        "empty": true
+                    },
+                    "numberOfElements": 3,
+                    "first": true,
+                    "number": 0,
+                    "size": 20,
+                    "empty": false
+                }
+
+        3. получить все блюда с одним из списка ингридиентов, без любого из другого списка ингридиентов, в имени которых встречается строка (case insensitive)
+
+            запрос:
+                POST /api/dishes/filter
+
+                {
+                  "includeIngredients": [2, 8], //если пустой массив - выбор из всех блюд
+                  "excludeIngredients": [7],
+                  "name": "test"
+
+                }
+
+            ответ:
+                [
+                  {
+                    "id": 4,
+                    "dishName": "Test dish 2",
+                    "description": "test dish description",
+                    "image": 11,
+                    "uglevodovnetGroup": 1,
+                    "carbs": 0.0,
+                    "portion": 350,
+                    "active": null,
+                    "ingredients": [
+                      {
+                        "ingredient": {
+                          "id": 2,
+                          "ingredientName": "лук зеленый ",
+                          "description": "лук зеленый ",
+                          "image": 12,
+                          "uglevodovnetGroup": 3,
+                          "carbs": 3.4,
+                          "unit": "шт",
+                          "unitWeight": 35
+                        },
+                        "weight": 120
+                      },
+                      {
+                        "ingredient": {
+                          "id": 8,
+                          "ingredientName": "Морковка",
+                          "description": "Морковка красная",
+                          "image": 10,
+                          "uglevodovnetGroup": 3,
+                          "carbs": 3.0,
+                          "unit": "",
+                          "unitWeight": 100
+                        },
+                        "weight": 350
+                      }
+                    ],
+                    "type": null
+                  }
+                ]
+
+                Response code: 202;
+
+        4. сохранить новое блюдо
+
+            запрос:
+                POST /api/dishes/save
+
+                {
+                  "dishName": "Test dish 6",
+                  "description": "test dish description new",
+                  "image": 11,
+                  "uglevodovnetGroup": 1,
+                  "carbs": 0,
+                  "portion": 350,
+                  "ingredients": [
+                    {
+                        "ingredient": {
+                        "id": 2
+                      },
+                      "weight": 160
+                    },
+                    {
+                        "ingredient": {
+                        "id": 8
+                        },
+                      "weight": 650
+                    }
+                  ]
+                }
+
+            ответ:
+                {
+                  "success": true,
+                  "message": "Dish created, id 6"
+                }
+
+        5. удалить (требуются права ROLE_ADMIN)
+
+            запрос:
+
+                DELETE /api/dishes/delete?id=6
+
+            ответ:
+
+                {
+                    "success": true,
+                    "message": "Dish deleted, id 6"
+                }
+
+            не найдено:
+
+                {
+                    "timestamp": "2019-01-27T06:45:59.306+0000",
+                    "status": 500,
+                    "error": "Internal Server Error",
+                    "message": "dish id 6 not found",
+                    "path": "/api/dishes/delete"
+                }
+
+        6. обновить блюдо (требуются права ROLE_ADMIN)
+
+            запрос:
+
+                PUT /api/dishes/update
+
+                {
+                  "id" : 2,
+                  "dishName": "Updated TeSt Dish",
+                  "description": "test dish description",
+                  "image": 11,
+                  "uglevodovnetGroup": 1,
+                  "carbs": 0,
+                  "portion": 350,
+                  "ingredients": [
+                    {
+                        "ingredient": {
+                        "id": 8
+                      },
+                      "weight": 500
+                    },
+                    {
+                        "ingredient": {
+                        "id": 7
+                        },
+                      "weight": 350
+                    }
+                  ]
+                }
+
+            ответ:
+                {
+                  "success": true,
+                  "message": "Dish updated, id 2"
+                }
+
+            не найден:
+
+                {
+                  "timestamp": "2019-01-27T06:49:50.753+0000",
+                  "status": 500,
+                  "error": "Internal Server Error",
+                  "message": "dish id 22 not found",
+                  "path": "/api/dishes/update"
+                }
+
+

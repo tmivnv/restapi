@@ -1,16 +1,17 @@
 package net.uglevodov.restapi.repositories;
 
-import net.uglevodov.restapi.entities.Dish;
 import net.uglevodov.restapi.entities.Ingredient;
 import net.uglevodov.restapi.entities.Recipe;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
-public interface DishesRepository extends JpaRepository<Dish, Long> {
+public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 
-    List<Dish> findAllByIngredientsContaining(Recipe recipe);
+    @Query("FROM Recipe WHERE ingredient = :containing")
+    List<Recipe> findAllByIngredientContaining(Ingredient containing);
 
 
 }
