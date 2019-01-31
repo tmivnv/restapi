@@ -46,4 +46,8 @@ public class Post extends Owned {
             inverseJoinColumns = { @JoinColumn(name = "comment_id") }
     )
     Set<Comment> commentSet;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "post_id")
+    private Set<PostLike> likes;
 }
