@@ -1,13 +1,16 @@
 package net.uglevodov.restapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -27,6 +30,7 @@ public class Image extends Owned {
 
     @Column(name = "image_text")
     private String imageText;
+
 
 
 

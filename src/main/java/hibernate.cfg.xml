@@ -18,6 +18,7 @@
         <mapping class="net.uglevodov.restapi.entities.Ingredient"/>
         <mapping class="net.uglevodov.restapi.entities.Recipe"/>
         <mapping class="net.uglevodov.restapi.entities.Dish"/>
+        <mapping class="net.uglevodov.restapi.entities.Comment"/>
 
     </session-factory>
 </hibernate-configuration>
