@@ -69,6 +69,7 @@ public class PostsServiceImpl implements PostsService {
             deleteComment(userId, comment, post.getId());
         }
         post.setCommentSet(null);
+        post.setDishSet(null);
         postsRepository.saveAndFlush(post);
 
 
