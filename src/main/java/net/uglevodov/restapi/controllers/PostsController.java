@@ -3,6 +3,8 @@ package net.uglevodov.restapi.controllers;
 import net.uglevodov.restapi.dto.CommentDto;
 import net.uglevodov.restapi.entities.Comment;
 import net.uglevodov.restapi.entities.Image;
+import net.uglevodov.restapi.entities.Post;
+import net.uglevodov.restapi.exceptions.NotFoundException;
 import net.uglevodov.restapi.security.UserPrincipal;
 import net.uglevodov.restapi.service.ImageService;
 import net.uglevodov.restapi.service.PostsService;
@@ -66,5 +68,17 @@ public class PostsController {
         comment.setImageSet(imageSet);
 
         return new ResponseEntity<>(postsService.addComment(principal.getId(), comment, postId), HttpStatus.ACCEPTED);
+    }
+
+    @DeleteMapping(value = "/delete-comment", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> deleteComment(
+            @RequestParam(value = "postId") Long postId,
+            @RequestParam(value = "commentId") Long commentId,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        Post post = postsService.get(postId);
+        Comment comment = post.getCommentSet().stream().filter(c->c.getId()==commentId).findFirst().orElse(null);
+
+        return new ResponseEntity<>(postsService.deleteComment(principal.getId(), comment, postId), HttpStatus.ACCEPTED);
     }
 }

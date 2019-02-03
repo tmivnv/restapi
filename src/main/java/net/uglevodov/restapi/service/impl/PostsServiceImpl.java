@@ -85,4 +85,18 @@ public class PostsServiceImpl implements PostsService {
 
         return postsRepository.saveAndFlush(post);
     }
+
+    @Override
+    public Post deleteComment(Long userId, Comment comment, Long postId) {
+        if (comment==null) throw new NotFoundException("comment not found");
+        User user = userRepository.findById(userId).orElseThrow(()-> new NotFoundException("user id " + userId + " not found"));
+        Post post = postsRepository.findById(postId).orElseThrow(()-> new NotFoundException("post id " + postId + " not found"));
+
+        if (!comment.getUser().equals(user)) throw new WrongOwnerException("This comment can not be deleted by this user");
+
+        post.getCommentSet().remove(comment);
+
+        return postsRepository.saveAndFlush(post);
+
+    }
 }
