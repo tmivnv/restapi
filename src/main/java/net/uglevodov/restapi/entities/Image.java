@@ -5,7 +5,6 @@ import lombok.*;
 import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -23,7 +22,7 @@ public class Image extends Owned {
 
     @NonNull
     @Column(name = "created", updatable = false, columnDefinition = "timestamp default now()")
-    private LocalDate created;
+    private LocalDateTime created;
 
     @Column(name = "image_text")
     private String imageText;
@@ -37,6 +36,6 @@ public class Image extends Owned {
         super(user);
         this.imageUrl = imageUrl;
         this.imageText = imageText;
-        this.setCreated(LocalDate.now());
+        this.setCreated(LocalDateTime.now());
     }
 }

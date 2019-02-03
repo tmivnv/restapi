@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import net.uglevodov.restapi.entities.User;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -18,7 +19,7 @@ public class ProfileDto extends WithId {
     private String firstName;
     private String lastName;
     private boolean active;
-    private LocalDate created;
+    private LocalDateTime created;
 
     public ProfileDto(User user) {
         super(user.getId());

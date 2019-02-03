@@ -19,6 +19,9 @@
         <mapping class="net.uglevodov.restapi.entities.Recipe"/>
         <mapping class="net.uglevodov.restapi.entities.Dish"/>
         <mapping class="net.uglevodov.restapi.entities.Comment"/>
+        <mapping class="net.uglevodov.restapi.entities.ImageLike"/>
+        <mapping class="net.uglevodov.restapi.entities.PostLike"/>
+
 
     </session-factory>
 </hibernate-configuration>

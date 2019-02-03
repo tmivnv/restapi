@@ -2,9 +2,12 @@ package net.uglevodov.restapi.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import net.uglevodov.restapi.entities.Image;
+import net.uglevodov.restapi.entities.ImageLike;
+import net.uglevodov.restapi.entities.User;
 import net.uglevodov.restapi.exceptions.NotFoundException;
 import net.uglevodov.restapi.exceptions.NotUpdatableException;
 import net.uglevodov.restapi.repositories.ImageRepository;
+import net.uglevodov.restapi.repositories.UserRepository;
 import net.uglevodov.restapi.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -21,6 +25,8 @@ public class ImageServiceImpl implements ImageService {
 
     @Autowired
     ImageRepository repository;
+    @Autowired
+    UserRepository userRepository;
 
     @Override
     public Image save(Image image) {
@@ -57,4 +63,22 @@ public class ImageServiceImpl implements ImageService {
 
         return repository.findAll(pageRequest);
     }
+
+
+    @Override
+    public Image likeUnlike(Long userId, Long imageId) throws NotFoundException {
+        ImageLike like = new ImageLike();
+        User user = userRepository.findById(userId).orElseThrow(()-> new NotFoundException("user id " + userId + " not found"));
+        like.setUser(user);
+        Image image = repository.findById(imageId).orElseThrow(()-> new NotFoundException("image id " + imageId + " not found"));
+        ImageLike alreadyLiked = image.getLikes().stream().filter(l -> l.getUser().getId()==userId).findFirst().orElse(null);
+
+        if (alreadyLiked!=null) image.getLikes().remove(alreadyLiked);
+        else
+        image.getLikes().add(like);
+
+        return repository.saveAndFlush(image);
+    }
+
+
 }

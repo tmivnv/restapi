@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,7 +42,7 @@ public class IntegrationTests {
     {
         Set<UserRole> roles = new HashSet<>();
         roles.add(UserRole.ROLE_USER);
-        User user = new User(1L,"test@test.ru","password",null,"nickname","firstName","lastName",true, LocalDate.now(), roles );
+        User user = new User(1L,"test@test.ru","password",null,"nickname","firstName","lastName",true, LocalDateTime.now(), roles );
 
 
         service.save(user);

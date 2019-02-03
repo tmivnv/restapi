@@ -10,6 +10,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
@@ -45,7 +46,7 @@ public class User extends BaseEntity{
 
     @NonNull
     @Column(name = "created", updatable = false, columnDefinition = "timestamp default now()")
-    private LocalDate created;
+    private LocalDateTime created;
 
     //TODO: change to Image type
     @URL
@@ -70,7 +71,7 @@ public class User extends BaseEntity{
                 String firstName,
                 String lastName,
                 boolean active,
-                LocalDate created,
+                LocalDateTime created,
                 Set<UserRole> roles) {
         super(id);
         this.email = email;
@@ -92,7 +93,7 @@ public class User extends BaseEntity{
                 signupDto.getNickname(),
                 signupDto.getFirstName(),
                 signupDto.getLastName(),
-                LocalDate.now(),
+                LocalDateTime.now(),
 
                 signupDto.getAvatar(),
                 true,
