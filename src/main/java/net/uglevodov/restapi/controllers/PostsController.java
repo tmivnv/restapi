@@ -1,5 +1,6 @@
 package net.uglevodov.restapi.controllers;
 
+import net.uglevodov.restapi.dto.ApiResponse;
 import net.uglevodov.restapi.dto.CommentDto;
 import net.uglevodov.restapi.dto.PostDto;
 import net.uglevodov.restapi.entities.Comment;
@@ -10,6 +11,7 @@ import net.uglevodov.restapi.security.UserPrincipal;
 import net.uglevodov.restapi.service.ImageService;
 import net.uglevodov.restapi.service.PostsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +39,11 @@ public class PostsController {
         var dish = postsService.get(id);
 
         return new ResponseEntity<>(dish, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getAll(Pageable pageRequest) {
+        return new ResponseEntity<>(postsService.getAll(pageRequest), HttpStatus.OK);
     }
 
     @GetMapping(value = "/like-unlike")
@@ -71,6 +78,14 @@ public class PostsController {
         return new ResponseEntity<>(postsService.addComment(principal.getId(), comment, postId), HttpStatus.ACCEPTED);
     }
 
+    @DeleteMapping(value = "/delete")
+    public ResponseEntity<?> delete(@RequestParam(value = "id") Long id,
+                                    @AuthenticationPrincipal UserPrincipal principal) {
+        postsService.delete(id, principal.getId());
+
+        return new ResponseEntity<>(new ApiResponse(true, "post deleted, id "+id), HttpStatus.OK);
+    }
+
     @DeleteMapping(value = "/delete-comment", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> deleteComment(
             @RequestParam(value = "postId") Long postId,
@@ -90,6 +105,26 @@ public class PostsController {
     ) {
         Post post = new Post();
         post.setCreated(LocalDateTime.now());
+        post.setText(postDto.getText());
+
+        Set<Image> images = new HashSet<>();
+        for (Long image : postDto.getImages())
+        {
+            images.add(imageService.get(image));
+        }
+
+        post.setImageSet(images);
+
+        return new ResponseEntity<>(postsService.save(post, principal.getId()), HttpStatus.ACCEPTED);
+    }
+
+    @PutMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> update(
+            @RequestParam(value = "postId") Long postId,
+            @RequestBody PostDto postDto,
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        Post post = postsService.get(postId);
         post.setText(postDto.getText());
 
         Set<Image> images = new HashSet<>();
