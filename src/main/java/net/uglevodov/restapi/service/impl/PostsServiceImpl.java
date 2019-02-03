@@ -28,7 +28,8 @@ public class PostsServiceImpl implements PostsService {
 
     @Override
     public Post save(Post owned, long userId) throws WrongOwnerException {
-        return null;
+        owned.setUser(userRepository.findById(userId).orElseThrow(() -> new NotFoundException("user id " + userId + " not found")));
+        return postsRepository.saveAndFlush(owned);
     }
 
     @Override
