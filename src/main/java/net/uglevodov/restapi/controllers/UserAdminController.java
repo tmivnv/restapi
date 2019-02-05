@@ -23,6 +23,9 @@ public class UserAdminController {
     private UserService userService;
 
     @Autowired
+    private UserUtil utils;
+
+    @Autowired
     public UserAdminController(UserService userService) {
         this.userService = userService;
     }
@@ -33,7 +36,7 @@ public class UserAdminController {
             @PathVariable("id") long id,
             @Valid @RequestBody UserUpdateRequestDto updateUserRequest
     ) {
-        var user = UserUtil.updateFromUpdateRequest(updateUserRequest, userService.get(id));
+        var user = utils.updateFromUpdateRequest(updateUserRequest, userService.get(id));
 
         userService.update(user);
 

@@ -7,7 +7,6 @@ import net.uglevodov.restapi.entities.Comment;
 import net.uglevodov.restapi.entities.Dish;
 import net.uglevodov.restapi.entities.Image;
 import net.uglevodov.restapi.entities.Post;
-import net.uglevodov.restapi.exceptions.NotFoundException;
 import net.uglevodov.restapi.security.UserPrincipal;
 import net.uglevodov.restapi.service.DishesService;
 import net.uglevodov.restapi.service.ImageService;

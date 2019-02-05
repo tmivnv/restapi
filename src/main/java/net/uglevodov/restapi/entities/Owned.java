@@ -1,10 +1,13 @@
 package net.uglevodov.restapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonRawValue;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
@@ -17,10 +20,19 @@ import javax.persistence.MappedSuperclass;
 public abstract class Owned extends BaseEntity {
     @ManyToOne
     @JoinColumn(name="owner_id")
+    @JsonIgnore
     private User user;
+
+    @Column(name = "owner_id", insertable = false, updatable = false)
+    private Long userId;
 
     public Owned(Long id, User user) {
         super(id);
+        this.user = user;
+
+    }
+
+    public Owned(User user) {
         this.user = user;
     }
 }

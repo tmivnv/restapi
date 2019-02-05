@@ -17,7 +17,5 @@ public class ImageLike extends Owned {
     @Column(name = "created", updatable = false, columnDefinition = "timestamp default now()")
     private LocalDateTime created;
 
-    @ManyToOne
-    @JoinColumn(name = "owner_id")
-    private User user;
+
 }

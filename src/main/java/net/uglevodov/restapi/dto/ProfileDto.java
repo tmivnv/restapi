@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import net.uglevodov.restapi.entities.Image;
 import net.uglevodov.restapi.entities.User;
 
 import java.time.LocalDate;
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ProfileDto extends WithId {
     private String nickname;
-    private String avatar;
+    private Image avatar;
     private String firstName;
     private String lastName;
     private boolean active;

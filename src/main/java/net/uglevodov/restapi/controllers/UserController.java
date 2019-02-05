@@ -28,6 +28,9 @@ public class UserController {
     private UserService userService;
 
     @Autowired
+    private UserUtil utils;
+
+    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -44,7 +47,7 @@ public class UserController {
             @Valid @RequestBody UserUpdateRequestDto userUpdateRequest,
             @AuthenticationPrincipal UserPrincipal principal
     ) {
-        var user = UserUtil.updateFromUpdateRequest(userUpdateRequest, userService.get(principal.getId()));
+        var user = utils.updateFromUpdateRequest(userUpdateRequest, userService.get(principal.getId()));
         userService.update(user);
 
         return new ResponseEntity<>(new ProfileDto(user), HttpStatus.ACCEPTED);

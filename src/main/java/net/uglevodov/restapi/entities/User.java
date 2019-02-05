@@ -3,7 +3,9 @@ package net.uglevodov.restapi.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import net.uglevodov.restapi.dto.SignupDto;
+import net.uglevodov.restapi.service.ImageService;
 import org.hibernate.validator.constraints.URL;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -22,6 +24,7 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity{
+
 
     @Email
     @Column(name = "email", unique = true, updatable = false)
@@ -48,10 +51,9 @@ public class User extends BaseEntity{
     @Column(name = "created", updatable = false, columnDefinition = "timestamp default now()")
     private LocalDateTime created;
 
-    //TODO: change to Image type
-    @URL
-    @Column(name = "avatar")
-    private String avatar;
+    @ManyToOne
+    @JoinColumn(name = "avatar")
+    private Image avatar;
 
 
     @Column(name = "is_active")
@@ -66,7 +68,7 @@ public class User extends BaseEntity{
     public User(Long id,
                 @Email String email,
                 @NotNull @NotBlank String password,
-                @URL String avatarUrl,
+                Image avatar,
                 @NotNull @NotBlank String nickname,
                 String firstName,
                 String lastName,
@@ -76,7 +78,7 @@ public class User extends BaseEntity{
         super(id);
         this.email = email;
         this.password = password;
-        this.avatar = avatarUrl;
+        this.avatar = avatar;
         this.nickname = nickname;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -85,21 +87,6 @@ public class User extends BaseEntity{
         this.roles = roles;
     }
 
-    public User(SignupDto signupDto) {
-        this(
-                signupDto.getEmail(),
-                signupDto.getPassword(),
-
-                signupDto.getNickname(),
-                signupDto.getFirstName(),
-                signupDto.getLastName(),
-                LocalDateTime.now(),
-
-                signupDto.getAvatar(),
-                true,
-                Collections.singleton(UserRole.ROLE_USER)
-        );
-    }
 
     @Override
     public boolean equals(Object o) {

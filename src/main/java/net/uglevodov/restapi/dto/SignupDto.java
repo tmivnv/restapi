@@ -35,6 +35,5 @@ public class SignupDto {
     @Size(min = 3)
     private String lastName;
 
-    @URL
-    private String avatar;
+    private Long avatar;
 }

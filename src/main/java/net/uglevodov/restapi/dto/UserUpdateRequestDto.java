@@ -7,8 +7,8 @@ import javax.validation.constraints.Size;
 
 @Data
 public class UserUpdateRequestDto {
-    @URL
-    private String avatar;
+
+    private Long avatar;
 
     @Size(min = 3)
     private String firstName;

@@ -6,6 +6,7 @@ import net.uglevodov.restapi.dto.SignupDto;
 import net.uglevodov.restapi.entities.User;
 import net.uglevodov.restapi.security.JwtTokenProvider;
 import net.uglevodov.restapi.service.UserService;
+import net.uglevodov.restapi.utils.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,6 +28,9 @@ public class AuthController {
     private JwtTokenProvider tokenProvider;
     private UserService service;
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private UserUtil utils;
 
     @Autowired
     public AuthController(JwtTokenProvider tokenProvider, UserService service, AuthenticationManager authenticationManager) {
@@ -58,7 +62,7 @@ public class AuthController {
                 return new ResponseEntity<>(new ApiResponse(false, "Nickname already exists!"), HttpStatus.BAD_REQUEST);
             }
 
-            var user = new User(signupRequest);
+            var user = utils.signUpFromSignUpDto(signupRequest);
             var location = ServletUriComponentsBuilder
                     .fromCurrentContextPath()
                     .path("users/{nickname}")

@@ -6,6 +6,7 @@ import net.uglevodov.restapi.exceptions.NotFoundException;
 import net.uglevodov.restapi.exceptions.NotUpdatableException;
 import net.uglevodov.restapi.repositories.UserRepository;
 import net.uglevodov.restapi.service.UserService;
+import net.uglevodov.restapi.utils.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,13 +18,15 @@ import org.springframework.util.Assert;
 
 import java.util.List;
 
-import static net.uglevodov.restapi.utils.UserUtil.prepareToSave;
 import static net.uglevodov.restapi.utils.ValidationUtil.checkNotFound;
 
 @Service
 @Slf4j
 public class UserServiceImpl implements UserService {
     private UserRepository repository;
+
+    @Autowired
+    UserUtil utils;
 
     @Autowired
     public UserServiceImpl(UserRepository repository) {
@@ -34,7 +37,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User save(User user) {
         log.trace("[{}] - Saving user {}", this.getClass().getSimpleName(), user);
-        return repository.save(prepareToSave(user));
+        return repository.save(utils.prepareToSave(user));
     }
 
     @Override
@@ -53,7 +56,7 @@ public class UserServiceImpl implements UserService {
         }
 
         Assert.notNull(user, "User can not be null");
-        repository.save(prepareToSave(user));
+        repository.save(utils.prepareToSave(user));
     }
 
     @Transactional
