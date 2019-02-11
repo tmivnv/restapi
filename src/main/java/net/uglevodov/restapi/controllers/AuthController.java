@@ -4,8 +4,10 @@ import net.uglevodov.restapi.dto.JwtAuthResponse;
 import net.uglevodov.restapi.dto.LoginDto;
 import net.uglevodov.restapi.dto.SignupDto;
 import net.uglevodov.restapi.entities.User;
+import net.uglevodov.restapi.entities.Wall;
 import net.uglevodov.restapi.security.JwtTokenProvider;
 import net.uglevodov.restapi.service.UserService;
+import net.uglevodov.restapi.service.WallsService;
 import net.uglevodov.restapi.utils.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +30,10 @@ public class AuthController {
     private JwtTokenProvider tokenProvider;
     private UserService service;
     private AuthenticationManager authenticationManager;
+
+
+    @Autowired
+    WallsService wallsService;
 
     @Autowired
     private UserUtil utils;
@@ -68,6 +74,11 @@ public class AuthController {
                     .path("users/{nickname}")
                     .buildAndExpand(service.save(user).getNickname())
                     .toUri();
+
+            Wall wall = new Wall();
+            wall.setUser(user);
+            wall.setActive(true);
+            wallsService.save(wall, user.getId());
 
             return ResponseEntity.created(location).body(new ApiResponse(true, "User successfully registered!"));
 

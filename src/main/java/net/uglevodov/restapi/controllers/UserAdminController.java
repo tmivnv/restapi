@@ -5,6 +5,7 @@ import net.uglevodov.restapi.dto.ProfileDto;
 import net.uglevodov.restapi.dto.UserUpdateRequestDto;
 import net.uglevodov.restapi.security.UserPrincipal;
 import net.uglevodov.restapi.service.UserService;
+import net.uglevodov.restapi.service.WallsService;
 import net.uglevodov.restapi.utils.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,9 @@ public class UserAdminController {
 
     @Autowired
     private UserUtil utils;
+
+    @Autowired
+    private WallsService wallsService;
 
     @Autowired
     public UserAdminController(UserService userService) {
@@ -65,6 +69,7 @@ public class UserAdminController {
     public ResponseEntity<?> deleteAnother(
             @PathVariable("id") long id) {
 
+        wallsService.delete(wallsService.getByUser(id).getId());
         userService.delete(id);
 
         return new ResponseEntity<>(new ApiResponse(true, "User id = " + id + " deleted"), HttpStatus.OK);

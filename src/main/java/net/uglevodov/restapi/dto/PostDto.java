@@ -16,4 +16,5 @@ public class PostDto extends WithId{
     private String text;
     private Set<Long> images;
     private Set<Long> dishes;
+    private Long wallId;
 }

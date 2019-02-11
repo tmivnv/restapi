@@ -3,14 +3,12 @@ package net.uglevodov.restapi.controllers;
 import net.uglevodov.restapi.dto.ApiResponse;
 import net.uglevodov.restapi.dto.CommentDto;
 import net.uglevodov.restapi.dto.PostDto;
-import net.uglevodov.restapi.entities.Comment;
-import net.uglevodov.restapi.entities.Dish;
-import net.uglevodov.restapi.entities.Image;
-import net.uglevodov.restapi.entities.Post;
+import net.uglevodov.restapi.entities.*;
 import net.uglevodov.restapi.security.UserPrincipal;
 import net.uglevodov.restapi.service.DishesService;
 import net.uglevodov.restapi.service.ImageService;
 import net.uglevodov.restapi.service.PostsService;
+import net.uglevodov.restapi.service.WallsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -36,6 +34,9 @@ public class PostsController {
 
     @Autowired
     DishesService dishesService;
+
+    @Autowired
+    WallsService wallsService;
 
 
     @GetMapping(value = "/get")
@@ -84,7 +85,9 @@ public class PostsController {
 
     @DeleteMapping(value = "/delete")
     public ResponseEntity<?> delete(@RequestParam(value = "id") Long id,
+                                    @RequestParam(value = "wallId") Long wallId,
                                     @AuthenticationPrincipal UserPrincipal principal) {
+        wallsService.removePost(wallsService.get(wallId),postsService.get(id));
         postsService.delete(id, principal.getId());
 
         return new ResponseEntity<>(new ApiResponse(true, "post deleted, id "+id), HttpStatus.OK);
@@ -127,7 +130,12 @@ public class PostsController {
 
         post.setDishSet(dishes);
 
-        return new ResponseEntity<>(postsService.save(post, principal.getId()), HttpStatus.ACCEPTED);
+        post = postsService.save(post, principal.getId());
+
+        Wall wall = wallsService.get(postDto.getWallId());
+        wallsService.addPost(wall, post);
+
+        return new ResponseEntity<>(post, HttpStatus.ACCEPTED);
     }
 
     @PutMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -154,8 +162,11 @@ public class PostsController {
 
         post.setDishSet(dishes);
 
+        post = postsService.save(post, principal.getId());
 
+        Wall wall = wallsService.get(postDto.getWallId());
+        wallsService.updatePost(wall, post);
 
-        return new ResponseEntity<>(postsService.save(post, principal.getId()), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(post, HttpStatus.ACCEPTED);
     }
 }
