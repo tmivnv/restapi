@@ -55,6 +55,9 @@ public class User extends BaseEntity{
     @JoinColumn(name = "avatar")
     private Image avatar;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<UserInfo> userInfo;
+
 
     @Column(name = "is_active")
     private boolean active;

@@ -1,6 +1,7 @@
 package net.uglevodov.restapi.repositories;
 
 import net.uglevodov.restapi.entities.User;
+import net.uglevodov.restapi.entities.UserInfo;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -33,4 +34,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     int countAllByNickname(String nickname);
 
     int countAllByEmail(String email);
+
+    @Transactional
+    @Modifying
+    @Query("delete from UserInfo where id= :id")
+    void deleteUserInfo(Long id);
 }

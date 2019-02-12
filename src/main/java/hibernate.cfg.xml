@@ -21,6 +21,7 @@
         <mapping class="net.uglevodov.restapi.entities.Comment"/>
         <mapping class="net.uglevodov.restapi.entities.ImageLike"/>
         <mapping class="net.uglevodov.restapi.entities.PostLike"/>
+        <mapping class="net.uglevodov.restapi.entities.UserInfo"/>
 
 
     </session-factory>

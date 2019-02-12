@@ -3,8 +3,10 @@ package net.uglevodov.restapi.controllers;
 
 import net.uglevodov.restapi.dto.ApiResponse;
 import net.uglevodov.restapi.dto.ProfileDto;
+import net.uglevodov.restapi.dto.UserInfoDto;
 import net.uglevodov.restapi.dto.UserUpdateRequestDto;
 import net.uglevodov.restapi.entities.User;
+import net.uglevodov.restapi.entities.UserInfo;
 import net.uglevodov.restapi.exceptions.NotFoundException;
 import net.uglevodov.restapi.security.UserPrincipal;
 import net.uglevodov.restapi.service.UserService;
@@ -39,7 +41,7 @@ public class UserController {
     public ResponseEntity<?> get(@RequestParam(value = "id") Long id) {
         var user = userService.get(id);
 
-        return new ResponseEntity<>(new ProfileDto(user), HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PutMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -50,7 +52,7 @@ public class UserController {
         var user = utils.updateFromUpdateRequest(userUpdateRequest, userService.get(principal.getId()));
         userService.update(user);
 
-        return new ResponseEntity<>(new ProfileDto(user), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(user, HttpStatus.ACCEPTED);
     }
 
     @PutMapping(value = "/change-pass")
@@ -75,7 +77,39 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<?> getAll(Pageable pageRequest) {
-        //return new ResponseEntity<>(UserUtil.usersToProfiles(userService.getAll(pageRequest)), HttpStatus.OK);
         return new ResponseEntity<>(userService.getAll(pageRequest), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/addInfo")
+    public ResponseEntity<?> addUserInfo(
+            @AuthenticationPrincipal UserPrincipal principal,
+            @RequestBody UserInfoDto userInfoDto
+            )
+    {
+        UserInfo userInfo = new UserInfo();
+        userInfo.setProp(userInfoDto.getProp());
+        userInfo.setPropValue(userInfoDto.getPropValue());
+        return new ResponseEntity<>(userService.addUserInfo(userService.get(principal.getId()), userInfo), HttpStatus.OK);
+    }
+
+
+    @PutMapping(value = "/updateInfo")
+    public ResponseEntity<?> updateUserInfo(
+            @AuthenticationPrincipal UserPrincipal principal,
+            @RequestBody UserInfoDto userInfoDto
+    )
+    {
+        UserInfo userInfo = new UserInfo();
+        userInfo.setProp(userInfoDto.getProp());
+        userInfo.setPropValue(userInfoDto.getPropValue());
+        return new ResponseEntity<>(userService.updateUserInfo(userService.get(principal.getId()), userInfo), HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/deleteInfo")
+    public ResponseEntity<?> deleteInfo(@RequestParam(value = "infoId") Long infoId,
+                                    @AuthenticationPrincipal UserPrincipal principal) {
+
+        userService.removeUserInfo(userService.get(principal.getId()), infoId);
+        return new ResponseEntity<>(new ApiResponse(true,"property id " + infoId + " deleted"), HttpStatus.OK);
     }
 }

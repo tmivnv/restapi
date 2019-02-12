@@ -2,6 +2,7 @@ package net.uglevodov.restapi.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import net.uglevodov.restapi.entities.User;
+import net.uglevodov.restapi.entities.UserInfo;
 import net.uglevodov.restapi.exceptions.NotFoundException;
 import net.uglevodov.restapi.exceptions.NotUpdatableException;
 import net.uglevodov.restapi.repositories.UserRepository;
@@ -10,13 +11,12 @@ import net.uglevodov.restapi.utils.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import java.util.List;
+
+import java.util.Set;
 
 import static net.uglevodov.restapi.utils.ValidationUtil.checkNotFound;
 
@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserUtil utils;
+
 
     @Autowired
     public UserServiceImpl(UserRepository repository) {
@@ -97,5 +98,31 @@ public class UserServiceImpl implements UserService {
         var user = checkNotFound(get(id), "Not found user id = " + id);
         user.setActive(active);
         repository.save(user);
+    }
+
+    @Override
+    public User addUserInfo(User user, UserInfo userInfo) {
+        userInfo.setUser(user);
+        userInfo.setUserId(user.getId());
+        user.getUserInfo().add(userInfo);
+        return repository.saveAndFlush(user);
+    }
+
+    @Override
+    public User updateUserInfo(User user, UserInfo userInfo) {
+
+        user.getUserInfo().stream().filter(u->u.getProp().equals(userInfo.getProp())).findFirst().orElseThrow(()-> new NotFoundException("property not found")).setPropValue(userInfo.getPropValue());
+
+        return repository.saveAndFlush(user);
+    }
+
+    @Override
+    public void removeUserInfo(User user, Long userInfoId) {
+
+       UserInfo toRemove =
+                user.getUserInfo().stream().filter(u->u.getId().equals(userInfoId)).findFirst().orElseThrow(()-> new NotFoundException("property not found"));
+
+       repository.deleteUserInfo(toRemove.getId());
+
     }
 }
