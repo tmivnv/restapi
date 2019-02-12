@@ -8,7 +8,10 @@ import net.uglevodov.restapi.dto.UserUpdateRequestDto;
 import net.uglevodov.restapi.entities.User;
 import net.uglevodov.restapi.entities.UserInfo;
 import net.uglevodov.restapi.exceptions.NotFoundException;
+import net.uglevodov.restapi.repositories.FeedRepository;
 import net.uglevodov.restapi.security.UserPrincipal;
+import net.uglevodov.restapi.service.FeedService;
+import net.uglevodov.restapi.service.FollowerService;
 import net.uglevodov.restapi.service.UserService;
 import net.uglevodov.restapi.utils.PasswordUtil;
 import net.uglevodov.restapi.utils.PrivilegeUtil;
@@ -33,6 +36,12 @@ public class UserController {
     private UserUtil utils;
 
     @Autowired
+    private FeedService feedService;
+
+    @Autowired
+    private FollowerService followerService;
+
+    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -42,6 +51,22 @@ public class UserController {
         var user = userService.get(id);
 
         return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/follow")
+    public ResponseEntity<?> follow(@RequestParam(value = "followId") Long id,
+                                    @AuthenticationPrincipal UserPrincipal principal) {
+
+        followerService.follow(principal.getId(), id);
+        return new ResponseEntity<>(userService.get(principal.getId()), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/unfollow")
+    public ResponseEntity<?> unfollow(@RequestParam(value = "unfollowId") Long id,
+                                    @AuthenticationPrincipal UserPrincipal principal) {
+
+        followerService.unFollow(principal.getId(), id);
+        return new ResponseEntity<>(userService.get(principal.getId()), HttpStatus.OK);
     }
 
     @PutMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -78,6 +103,12 @@ public class UserController {
     @GetMapping
     public ResponseEntity<?> getAll(Pageable pageRequest) {
         return new ResponseEntity<>(userService.getAll(pageRequest), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/feed")
+    public ResponseEntity<?> getFeed(Pageable pageRequest,
+                                     @AuthenticationPrincipal UserPrincipal principal) {
+        return new ResponseEntity<>(feedService.findAllByUserId(principal.getId(), pageRequest), HttpStatus.OK);
     }
 
     @PostMapping(value = "/addInfo")

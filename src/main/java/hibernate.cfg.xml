@@ -22,6 +22,8 @@
         <mapping class="net.uglevodov.restapi.entities.ImageLike"/>
         <mapping class="net.uglevodov.restapi.entities.PostLike"/>
         <mapping class="net.uglevodov.restapi.entities.UserInfo"/>
+        <mapping class="net.uglevodov.restapi.entities.Following"/>
+        <mapping class="net.uglevodov.restapi.entities.Follower"/>
 
 
     </session-factory>
