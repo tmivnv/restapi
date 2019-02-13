@@ -1,4 +1,7 @@
 package net.uglevodov.restapi.controllers;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponses;
 import net.uglevodov.restapi.dto.ApiResponse;
 import net.uglevodov.restapi.dto.JwtAuthResponse;
 import net.uglevodov.restapi.dto.LoginDto;
@@ -26,6 +29,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/api/auth", consumes = MediaType.APPLICATION_JSON_VALUE)
+@Api( value = "/api/auth", description = "Авторизация и регистрация нового пользователя" )
 public class AuthController {
     private JwtTokenProvider tokenProvider;
     private UserService service;
@@ -45,6 +49,18 @@ public class AuthController {
         this.authenticationManager = authenticationManager;
     }
 
+
+    @ApiOperation(
+            value = "Авторизация",
+            notes = "Выдает JWT токен",
+            response = JwtAuthResponse.class
+    )
+    @ApiResponses( {
+
+            @io.swagger.annotations.ApiResponse( code = 401, message = "Неверный логин/пароль" ),
+            @io.swagger.annotations.ApiResponse( code = 200, message = "Все в порядке, выдается JWT токен" )
+
+    } )
     @PostMapping("/signin")
     public ResponseEntity<?> signin(@Valid @RequestBody
                                             LoginDto loginRequest) {
@@ -58,6 +74,11 @@ public class AuthController {
         return ResponseEntity.ok(new JwtAuthResponse(jwt,"Bearer"));
     }
 
+    @ApiOperation(
+            value = "Регистрация нового пользователя",
+            notes = "Создает нового пользователя",
+            response = ApiResponse.class
+    )
     @PostMapping("/signup")
     public ResponseEntity<?> singup(@Valid @RequestBody SignupDto signupRequest) {
          if (!service.checkEmailAvailable(signupRequest.getEmail())) {

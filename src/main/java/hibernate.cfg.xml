@@ -24,6 +24,9 @@
         <mapping class="net.uglevodov.restapi.entities.UserInfo"/>
         <mapping class="net.uglevodov.restapi.entities.Following"/>
         <mapping class="net.uglevodov.restapi.entities.Follower"/>
+        <mapping class="net.uglevodov.restapi.entities.FavoriteDishes"/>
+
+        <mapping class="net.uglevodov.restapi.entities.FavoredByUser"/>
 
 
     </session-factory>

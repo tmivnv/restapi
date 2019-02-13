@@ -60,6 +60,10 @@ public class User extends BaseEntity{
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Follower> followers;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "owner_id")
+    private Set<FavoriteDishes> favoriteDishes;
+
 
     @Column(name = "is_active")
     private boolean active;

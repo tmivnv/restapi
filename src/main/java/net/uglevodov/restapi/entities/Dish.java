@@ -1,6 +1,7 @@
 package net.uglevodov.restapi.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -46,5 +47,8 @@ public class Dish extends BaseEntity {
     @Column(name = "type")
     private String type;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "dish_id")
+    private Set<FavoredByUser> favoredByUsers;
 
 }
