@@ -4,6 +4,7 @@ import net.uglevodov.restapi.dto.ApiResponse;
 import net.uglevodov.restapi.dto.DishFilterDto;
 import net.uglevodov.restapi.entities.Dish;
 import net.uglevodov.restapi.entities.Ingredient;
+import net.uglevodov.restapi.security.UserPrincipal;
 import net.uglevodov.restapi.service.DishesService;
 import net.uglevodov.restapi.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -90,5 +92,15 @@ public class DishesController {
     @GetMapping
     public ResponseEntity<?> getAll(Pageable pageRequest) {
         return new ResponseEntity<>(dishesService.getAll(pageRequest), HttpStatus.OK);
+    }
+
+
+    @GetMapping(value = "/favor-unfavor")
+    public ResponseEntity<?> favorUnfavor(
+            @RequestParam(value = "id") Long id,
+            @AuthenticationPrincipal UserPrincipal principal
+    )
+    {
+        return new ResponseEntity<>(dishesService.favorUnfavor(principal.getId(), id), HttpStatus.OK);
     }
 }

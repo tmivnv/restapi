@@ -1,13 +1,12 @@
 package net.uglevodov.restapi.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import net.uglevodov.restapi.entities.Dish;
-import net.uglevodov.restapi.entities.Ingredient;
-import net.uglevodov.restapi.entities.Recipe;
+import net.uglevodov.restapi.entities.*;
 import net.uglevodov.restapi.exceptions.NotFoundException;
 import net.uglevodov.restapi.exceptions.NotUpdatableException;
 import net.uglevodov.restapi.repositories.DishesRepository;
 import net.uglevodov.restapi.repositories.RecipeRepository;
+import net.uglevodov.restapi.repositories.UserRepository;
 import net.uglevodov.restapi.service.DishesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -27,6 +27,9 @@ public class DishesServiceImpl implements DishesService {
 
     @Autowired
     RecipeRepository recipeRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
 
     @Override
@@ -96,5 +99,23 @@ public class DishesServiceImpl implements DishesService {
 
 
         return dishesFound;
+    }
+
+    @Override
+    public Dish favorUnfavor(Long userId, Long dishId) {
+        FavoredByUser favoredByUser = new FavoredByUser();
+        User user = userRepository.findById(userId).orElseThrow(()-> new NotFoundException("user id " + userId + " not found"));
+        favoredByUser.setUserId(userId);
+        favoredByUser.setDishId(dishId);
+        favoredByUser.setCreated(LocalDateTime.now());
+
+        Dish dish = dishesRepository.findById(dishId).orElseThrow(()-> new NotFoundException("dish id " + dishId + " not found"));
+        FavoredByUser alreadyFavored = dish.getFavoredByUsers().stream().filter(l -> l.getUserId()==userId).findFirst().orElse(null);
+
+        if (alreadyFavored!=null) dish.getFavoredByUsers().remove(alreadyFavored);
+        else
+            dish.getFavoredByUsers().add(favoredByUser);
+
+        return dishesRepository.saveAndFlush(dish);
     }
 }

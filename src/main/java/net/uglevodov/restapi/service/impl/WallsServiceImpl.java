@@ -6,6 +6,7 @@ import net.uglevodov.restapi.entities.Wall;
 import net.uglevodov.restapi.exceptions.NotFoundException;
 import net.uglevodov.restapi.exceptions.NotUpdatableException;
 import net.uglevodov.restapi.exceptions.WrongOwnerException;
+import net.uglevodov.restapi.repositories.FeedRepository;
 import net.uglevodov.restapi.repositories.UserRepository;
 import net.uglevodov.restapi.repositories.WallsRepository;
 import net.uglevodov.restapi.service.WallsService;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
@@ -23,6 +25,9 @@ public class WallsServiceImpl implements WallsService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    FeedRepository feedRepository;
 
     @Override
     public Wall save(Wall owned, long userId) throws WrongOwnerException {
@@ -76,8 +81,10 @@ public class WallsServiceImpl implements WallsService {
     }
 
     @Override
+    @Transactional
     public Wall removePost(Wall wall, Post post) {
         if (wall.getPosts().contains(post)) wall.getPosts().remove(post);
+        feedRepository.deleteAllByPost(post);
         return wallsRepository.saveAndFlush(wall);
     }
 
