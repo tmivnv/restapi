@@ -19,16 +19,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(value = "/api/auth", consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/auth")
 @Api( value = "/api/auth", description = "Авторизация и регистрация нового пользователя" )
 public class AuthController {
     private JwtTokenProvider tokenProvider;
@@ -80,7 +77,7 @@ public class AuthController {
             response = ApiResponse.class
     )
     @PostMapping("/signup")
-    public ResponseEntity<?> singup(@Valid @RequestBody SignupDto signupRequest) {
+    public ResponseEntity<?> signup(@Valid @RequestBody SignupDto signupRequest) {
          if (!service.checkEmailAvailable(signupRequest.getEmail())) {
                 return new ResponseEntity<>(new ApiResponse(false, "Email already exists!"), HttpStatus.BAD_REQUEST);
             }
@@ -103,5 +100,25 @@ public class AuthController {
 
             return ResponseEntity.created(location).body(new ApiResponse(true, "User successfully registered!"));
 
+    }
+
+    @GetMapping("/generate")
+
+    public ResponseEntity<?> generateTestUsers(@RequestParam(value = "number") Long number)
+    {
+        for (int i=10001; i<number; i++) {
+            var signUp = new SignupDto();
+            signUp.setLastName("Test");
+            signUp.setFirstName("Test");
+            signUp.setEmail(i+"kjhdskjh@test.ru");
+            signUp.setNickname(i+"kjsgfkjh");
+            signUp.setPassword("qwerty");
+            signUp.setAvatar(10L);
+
+            signup(signUp);
+
+
+        }
+        return new ResponseEntity<>("generated", HttpStatus.OK);
     }
 }

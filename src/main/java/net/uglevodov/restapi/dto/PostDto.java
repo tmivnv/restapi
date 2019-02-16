@@ -18,4 +18,5 @@ public class PostDto extends WithId{
     private Set<Long> dishes;
     private Long wallId;
     private boolean chatRoomPost;
+    private boolean important;
 }

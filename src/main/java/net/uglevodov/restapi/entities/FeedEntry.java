@@ -13,6 +13,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Entity
 @Table(name = "feed")
+
 public class FeedEntry extends Owned {
 
     @ManyToOne

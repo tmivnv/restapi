@@ -118,6 +118,7 @@ public class PostsController {
         Post post = new Post();
         post.setCreated(LocalDateTime.now());
         post.setText(postDto.getText());
+        post.setImportant(postDto.isImportant());
 
         Set<Image> images = new HashSet<>();
         for (Long image : postDto.getImages())
@@ -154,6 +155,7 @@ public class PostsController {
     ) {
         Post post = postsService.get(postId);
         post.setText(postDto.getText());
+        post.setImportant(postDto.isImportant());
 
         Set<Image> images = new HashSet<>();
         for (Long image : postDto.getImages())

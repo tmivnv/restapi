@@ -22,6 +22,8 @@ public class Post extends Owned {
     @Column(name = "created", updatable = false, columnDefinition = "timestamp default now()")
     private LocalDateTime created;
 
+    @Column(name = "important")
+    private boolean important;
 
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(

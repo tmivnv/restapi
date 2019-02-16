@@ -1,10 +1,7 @@
 package net.uglevodov.restapi.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import net.uglevodov.restapi.entities.ChatRoomEntry;
-import net.uglevodov.restapi.entities.Post;
-import net.uglevodov.restapi.entities.User;
-import net.uglevodov.restapi.entities.UserRole;
+import net.uglevodov.restapi.entities.*;
 import net.uglevodov.restapi.exceptions.NotFoundException;
 import net.uglevodov.restapi.exceptions.NotUpdatableException;
 import net.uglevodov.restapi.repositories.ChatRoomRepository;
@@ -25,6 +22,7 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 
     @Autowired
     private FeedRepository feedRepository;
+
 
     @Override
     public ChatRoomEntry save(ChatRoomEntry chatRoomEntry) {
@@ -66,6 +64,7 @@ public class ChatRoomServiceImpl implements ChatRoomService {
     public ChatRoomEntry addPost(Post post) {
         ChatRoomEntry chatRoomEntry = new ChatRoomEntry();
         chatRoomEntry.setPost(post);
+
         return chatRoomRepository.saveAndFlush(chatRoomEntry);
     }
 
