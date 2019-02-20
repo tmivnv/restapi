@@ -5,6 +5,7 @@ import net.uglevodov.restapi.dto.ApiResponse;
 import net.uglevodov.restapi.dto.ProfileDto;
 import net.uglevodov.restapi.dto.UserInfoDto;
 import net.uglevodov.restapi.dto.UserUpdateRequestDto;
+import net.uglevodov.restapi.entities.Post;
 import net.uglevodov.restapi.entities.User;
 import net.uglevodov.restapi.entities.UserInfo;
 import net.uglevodov.restapi.exceptions.NotFoundException;
@@ -18,6 +19,7 @@ import net.uglevodov.restapi.utils.PrivilegeUtil;
 import net.uglevodov.restapi.utils.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +42,9 @@ public class UserController {
 
     @Autowired
     private FollowerService followerService;
+    @Autowired
+    private RedisTemplate<String, Post> redisTemplate;
+
 
     @Autowired
     public UserController(UserService userService) {
@@ -110,6 +115,7 @@ public class UserController {
                                      @AuthenticationPrincipal UserPrincipal principal) {
         return new ResponseEntity<>(feedService.findAllByUserId(principal.getId(), pageRequest), HttpStatus.OK);
     }
+
 
     @PostMapping(value = "/addInfo")
     public ResponseEntity<?> addUserInfo(

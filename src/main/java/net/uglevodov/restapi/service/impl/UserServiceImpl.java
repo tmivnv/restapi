@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 
+import java.util.List;
 import java.util.Set;
 
 import static net.uglevodov.restapi.utils.ValidationUtil.checkNotFound;
@@ -124,5 +125,10 @@ public class UserServiceImpl implements UserService {
 
        repository.deleteUserInfo(toRemove.getId());
 
+    }
+
+    @Override
+    public List<Long> allUserIds() {
+        return repository.getUserIds();
     }
 }

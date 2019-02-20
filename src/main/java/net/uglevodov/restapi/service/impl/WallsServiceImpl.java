@@ -9,12 +9,16 @@ import net.uglevodov.restapi.exceptions.WrongOwnerException;
 import net.uglevodov.restapi.repositories.FeedRepository;
 import net.uglevodov.restapi.repositories.UserRepository;
 import net.uglevodov.restapi.repositories.WallsRepository;
+import net.uglevodov.restapi.service.FeedService;
+import net.uglevodov.restapi.service.UserService;
 import net.uglevodov.restapi.service.WallsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -27,7 +31,10 @@ public class WallsServiceImpl implements WallsService {
     UserRepository userRepository;
 
     @Autowired
-    FeedRepository feedRepository;
+    FeedService feedService;
+
+    @Autowired
+    UserService userService;
 
     @Override
     public Wall save(Wall owned, long userId) throws WrongOwnerException {
@@ -77,6 +84,10 @@ public class WallsServiceImpl implements WallsService {
     @Override
     public Wall addPost(Wall wall, Post post) {
         wall.getPosts().add(post);
+        feedService.addToFeedByUserIds(post.isImportant() ?
+                        userService.allUserIds() :
+                        post.getUser().getFollowers().stream().map(f -> f.getFollowerId()).collect(Collectors.toList()),
+                post);
         return wallsRepository.saveAndFlush(wall);
     }
 
@@ -84,7 +95,7 @@ public class WallsServiceImpl implements WallsService {
     @Transactional
     public Wall removePost(Wall wall, Post post) {
         if (wall.getPosts().contains(post)) wall.getPosts().remove(post);
-        feedRepository.deleteAllByPost(post);
+
         return wallsRepository.saveAndFlush(wall);
     }
 

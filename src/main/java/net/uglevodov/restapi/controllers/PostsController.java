@@ -38,6 +38,9 @@ public class PostsController {
     @Autowired
     ChatRoomService chatRoomService;
 
+    @Autowired
+    UserService userService;
+
 
     @GetMapping(value = "/get")
     public ResponseEntity<?> get(@RequestParam(value = "id") Long id) {
@@ -119,6 +122,7 @@ public class PostsController {
         post.setCreated(LocalDateTime.now());
         post.setText(postDto.getText());
         post.setImportant(postDto.isImportant());
+        post.setUser(userService.get(principal.getId()));
 
         Set<Image> images = new HashSet<>();
         for (Long image : postDto.getImages())

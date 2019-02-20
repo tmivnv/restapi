@@ -7,11 +7,18 @@ import net.uglevodov.restapi.exceptions.NotUpdatableException;
 import net.uglevodov.restapi.repositories.ChatRoomRepository;
 import net.uglevodov.restapi.repositories.FeedRepository;
 import net.uglevodov.restapi.service.ChatRoomService;
+import net.uglevodov.restapi.service.FeedService;
+import net.uglevodov.restapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -21,7 +28,13 @@ public class ChatRoomServiceImpl implements ChatRoomService {
     private ChatRoomRepository chatRoomRepository;
 
     @Autowired
-    private FeedRepository feedRepository;
+    private FeedService feedService;
+
+    @Autowired
+    private RedisTemplate<String, Post> redisTemplate;
+
+    @Autowired
+    private UserService userService;
 
 
     @Override
@@ -65,7 +78,13 @@ public class ChatRoomServiceImpl implements ChatRoomService {
         ChatRoomEntry chatRoomEntry = new ChatRoomEntry();
         chatRoomEntry.setPost(post);
 
+        feedService.addToFeedByUserIds(post.isImportant() ?
+                        userService.allUserIds() :
+                        post.getUser().getFollowers().stream().map(f -> f.getFollowerId()).collect(Collectors.toList()),
+                        post);
+
         return chatRoomRepository.saveAndFlush(chatRoomEntry);
+
     }
 
     @Override
@@ -76,7 +95,6 @@ public class ChatRoomServiceImpl implements ChatRoomService {
         found.getPost().setCommentSet(null);
         found.getPost().setImageSet(null);
 
-        feedRepository.deleteAllByPost(post);
 
         chatRoomRepository.saveAndFlush(found);
         chatRoomRepository.delete(found);

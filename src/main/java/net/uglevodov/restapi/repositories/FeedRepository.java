@@ -1,13 +1,13 @@
 package net.uglevodov.restapi.repositories;
 
-import net.uglevodov.restapi.entities.FeedEntry;
 import net.uglevodov.restapi.entities.Post;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface FeedRepository extends JpaRepository<FeedEntry, Long> {
-    Optional<List<FeedEntry>> findAllByUserId(Long userId);
+public interface FeedRepository  {
+    Optional<List<Post>> findAllByUserId(Long userId);
+    Optional<List<Post>> addToFeedByUserId(Long userId, Post post);
+    void addToFeedByIds(List<Long> userIds, Post post);
     void deleteAllByPost(Post post);
 }

@@ -29,7 +29,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Override
     List<User> findAll(Sort sort);
 
-
+    @Query("SELECT id FROM User")
+    List<Long> getUserIds();
 
     int countAllByNickname(String nickname);
 
