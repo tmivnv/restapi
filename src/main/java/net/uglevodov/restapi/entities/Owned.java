@@ -2,6 +2,7 @@ package net.uglevodov.restapi.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonRawValue;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,8 +22,11 @@ public abstract class Owned extends BaseEntity {
     @ManyToOne
     @JoinColumn(name="owner_id")
     @JsonIgnore
+    @ApiModelProperty( value = "Пользователь")
     private User user;
 
+
+    @ApiModelProperty( value = "Айди пользователя")
     @Column(name = "owner_id", insertable = false, updatable = false)
     private Long userId;
 

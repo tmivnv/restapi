@@ -14,7 +14,6 @@
         <!-- <property name="hbm2ddl.auto">update</property> -->
         <mapping class="net.uglevodov.restapi.entities.User"/>
         <mapping class="net.uglevodov.restapi.entities.Image"/>
-
         <mapping class="net.uglevodov.restapi.entities.Ingredient"/>
         <mapping class="net.uglevodov.restapi.entities.Recipe"/>
         <mapping class="net.uglevodov.restapi.entities.Dish"/>
@@ -26,6 +25,7 @@
         <mapping class="net.uglevodov.restapi.entities.Follower"/>
         <mapping class="net.uglevodov.restapi.entities.FavoriteDishes"/>
         <mapping class="net.uglevodov.restapi.entities.FavoredByUser"/>
+        <mapping class="net.uglevodov.restapi.entities.Event"/>
 
 
     </session-factory>
