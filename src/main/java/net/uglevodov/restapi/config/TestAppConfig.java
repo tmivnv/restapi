@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019. Timofei Ivanov, Uglevodov net, LLC
+ */
+
 package net.uglevodov.restapi.config;
 
 import net.uglevodov.restapi.controllers.AuthController;

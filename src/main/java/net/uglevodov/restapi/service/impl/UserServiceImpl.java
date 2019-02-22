@@ -1,8 +1,13 @@
+/*
+ * Copyright (c) 2019. Timofei Ivanov, Uglevodov net, LLC
+ */
+
 package net.uglevodov.restapi.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import net.uglevodov.restapi.entities.User;
 import net.uglevodov.restapi.entities.UserInfo;
+import net.uglevodov.restapi.exceptions.NotAvailableException;
 import net.uglevodov.restapi.exceptions.NotFoundException;
 import net.uglevodov.restapi.exceptions.NotUpdatableException;
 import net.uglevodov.restapi.repositories.UserRepository;
@@ -82,12 +87,17 @@ public class UserServiceImpl implements UserService {
     public boolean checkEmailAvailable(String email) {
         log.trace("[{}] - Checking email availability", this.getClass().getSimpleName());
 
+        if (repository.countAllByEmail(email) != 0) throw new NotAvailableException("Email already exists");
+
         return repository.countAllByEmail(email) == 0;
     }
 
     @Override
     public boolean checkNicknameAvailable(String nickname) {
         log.trace("[{}] - Checking nickname availability", this.getClass().getSimpleName());
+
+        if (repository.countAllByNickname(nickname) != 0) throw new NotAvailableException("Nickname already exists");
+
 
         return repository.countAllByNickname(nickname) == 0;
     }

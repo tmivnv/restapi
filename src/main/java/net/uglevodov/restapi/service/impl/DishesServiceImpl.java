@@ -16,6 +16,7 @@ import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -69,7 +70,7 @@ public class DishesServiceImpl implements DishesService {
     }
 
     @Override
-    public Set<Dish> findAllByIngredientsContainingAndNotContaining(List<Ingredient> containing, List<Ingredient> notContaining) {
+    public Set<Dish> findAllByIngredientsContainingAndNotContaining(List<Ingredient> containing, List<Ingredient> notContaining, String name) {
         List<Recipe> containingRecipes = new ArrayList<>();
 
 
@@ -97,6 +98,9 @@ public class DishesServiceImpl implements DishesService {
             dishesFound.removeAll(dishesRepository.findAllByIngredientsContaining(recipe));
         }
 
+        dishesFound = dishesFound.stream().filter(d -> d.getDishName().toLowerCase().contains(name.toLowerCase())).collect(Collectors.toSet());
+
+        if (dishesFound.size()==0) throw new NotFoundException("no dishes found");
 
         return dishesFound;
     }

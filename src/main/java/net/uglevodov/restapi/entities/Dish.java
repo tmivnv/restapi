@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019. Timofei Ivanov, Uglevodov net, LLC
+ */
+
 package net.uglevodov.restapi.entities;
 
 
@@ -6,9 +10,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import net.uglevodov.restapi.dto.DishDto;
 import net.uglevodov.restapi.dto.NewDishDto;
+import net.uglevodov.restapi.service.IngredientService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 @Data
@@ -50,5 +59,6 @@ public class Dish extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "dish_id")
     private Set<FavoredByUser> favoredByUsers;
+
 
 }
