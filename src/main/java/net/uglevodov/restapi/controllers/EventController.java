@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019. Timofei Ivanov, Uglevodov net, LLC
+ */
+
 package net.uglevodov.restapi.controllers;
 
 import io.swagger.annotations.Api;

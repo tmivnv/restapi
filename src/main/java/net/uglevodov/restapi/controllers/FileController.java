@@ -1,5 +1,13 @@
+/*
+ * Copyright (c) 2019. Timofei Ivanov, Uglevodov net, LLC
+ */
+
 package net.uglevodov.restapi.controllers;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponses;
 import net.uglevodov.restapi.dto.UploadFileResponse;
+import net.uglevodov.restapi.entities.Event;
 import net.uglevodov.restapi.entities.Image;
 import net.uglevodov.restapi.security.UserPrincipal;
 import net.uglevodov.restapi.service.ImageService;
@@ -21,6 +29,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping(value = "/api/files")
+@Api( value = "/api/events", description = "Контроллер файлов/изображений" )
 public class FileController {
 
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
@@ -34,6 +43,16 @@ public class FileController {
     @Autowired
     private UserService userService;
 
+    @ApiOperation(
+            value = "Загрузка файла",
+            notes = "Загрузка файла, занесение его в таблицу Images",
+            response = UploadFileResponse.class
+    )
+    @ApiResponses( {
+
+            @io.swagger.annotations.ApiResponse( code = 200, message = "Успех" )
+
+    } )
     @PostMapping("/uploadFile")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("text") String text, @AuthenticationPrincipal UserPrincipal principal) {
         String fileName = fileStorageService.storeFile(file);
@@ -52,6 +71,16 @@ public class FileController {
                 file.getContentType(), file.getSize());
     }
 
+    @ApiOperation(
+            value = "Получить файл по имени",
+            notes = "Получить файл по имени"
+
+    )
+    @ApiResponses( {
+
+            @io.swagger.annotations.ApiResponse( code = 200, message = "Успех" )
+
+    } )
     @GetMapping("/downloadFile/{fileName:.+}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
         // Load file as Resource
@@ -76,6 +105,16 @@ public class FileController {
                 .body(resource);
     }
 
+    @ApiOperation(
+            value = "Получить файл по его айди",
+            notes = "Получить файл по его айди"
+
+    )
+    @ApiResponses( {
+
+            @io.swagger.annotations.ApiResponse( code = 200, message = "Успех" )
+
+    } )
     @GetMapping("/downloadFileId/{id}")
     public ResponseEntity<Resource> downloadFileId(@PathVariable Long id, HttpServletRequest request) {
 

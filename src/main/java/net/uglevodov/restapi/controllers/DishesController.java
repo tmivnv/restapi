@@ -60,6 +60,8 @@ public class DishesController {
         return new ResponseEntity<>(dish, HttpStatus.OK);
     }
 
+
+
     @ApiOperation(
             value = "Фильтр/поиск блюд",
             notes = "Получить блюдо, содержащее includeIngredients, не содержащие excludeIngredients и имеющее в названии name (case insensitive)",
@@ -80,6 +82,8 @@ public class DishesController {
 
         return new ResponseEntity<>(dishesFound, HttpStatus.OK);
     }
+
+
 
     @ApiOperation(
             value = "Создание нового блюда",
@@ -114,6 +118,18 @@ public class DishesController {
         return new ResponseEntity<>(dishesService.save(dish), HttpStatus.OK);
     }
 
+
+
+
+    @ApiOperation(
+            value = "Удаление блюда",
+            notes = "Удаление блюда по айди (требуются права админа)",
+            response = ApiResponse.class
+    )
+    @ApiResponses( {
+            @io.swagger.annotations.ApiResponse( code = 200, message = "Успех" ),
+            @io.swagger.annotations.ApiResponse( code = 404, message = "Блюдо не найдено" )
+    } )
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping(value = "/delete")
     public ResponseEntity<?> delete(@RequestParam(value = "id") Long id) {
@@ -122,22 +138,75 @@ public class DishesController {
         return new ResponseEntity<>(new ApiResponse(true, "Dish deleted, id "+id), HttpStatus.OK);
     }
 
+
+
+
+    @ApiOperation(
+            value = "Изменение блюда",
+            notes = "Изменение блюда по айди (требуются права админа)",
+            response = Dish.class
+    )
+    @ApiResponses( {
+            @io.swagger.annotations.ApiResponse( code = 200, message = "Успех" ),
+            @io.swagger.annotations.ApiResponse( code = 404, message = "Блюдо не найдено" )
+    } )
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> update(
-            @RequestBody Dish dish
+    public ResponseEntity<?> update(@RequestParam(value = "id") Long id,
+            @RequestBody DishDto dishDto
     ) {
-        dishesService.get(dish.getId());
+        Dish dish = dishesService.get(id);
+        dish.setActive(dishDto.getActive());
+        dish.setCarbs(dishDto.getCarbs());
+        dish.setDescription(dishDto.getDescription());
+        dish.setDishName(dishDto.getDishName());
+        dish.setImage(dishDto.getImage());
+        dish.getIngredients().clear();
+
+        for (Map.Entry<Long, Long> entry : dishDto.getIngredients().entrySet())
+        {
+            dish.getIngredients().add(new Recipe(ingredientService.get(entry.getKey()), entry.getValue()));
+        }
+
+
+        dish.setPortion(dishDto.getPortion());
+        dish.setType(dishDto.getType());
+        dish.setUglevodovnetGroup(dishDto.getUglevodovnetGroup());
+
         dishesService.update(dish);
-        return new ResponseEntity<>(new ApiResponse(true, "Dish updated, id "+dish.getId()), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(dishesService.get(id), HttpStatus.OK);
     }
 
+
+
+
+    @ApiOperation(
+            value = "Получить все блюда",
+            notes = "Получить все блюда (постранично)",
+            response = Dish.class
+    )
+    @ApiResponses( {
+            @io.swagger.annotations.ApiResponse( code = 200, message = "Успех" ),
+            @io.swagger.annotations.ApiResponse( code = 404, message = "Блюдо не найдено" )
+    } )
     @GetMapping
     public ResponseEntity<?> getAll(Pageable pageRequest) {
         return new ResponseEntity<>(dishesService.getAll(pageRequest), HttpStatus.OK);
     }
 
 
+
+
+
+    @ApiOperation(
+            value = "Добавить в/убрать из избранного",
+            notes = "Добавляет в избранное, если уже в избранном - убирает",
+            response = Dish.class
+    )
+    @ApiResponses( {
+            @io.swagger.annotations.ApiResponse( code = 200, message = "Успех" ),
+            @io.swagger.annotations.ApiResponse( code = 404, message = "Блюдо не найдено" )
+    } )
     @GetMapping(value = "/favor-unfavor")
     public ResponseEntity<?> favorUnfavor(
             @RequestParam(value = "id") Long id,
