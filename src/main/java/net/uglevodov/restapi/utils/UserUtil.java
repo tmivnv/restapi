@@ -49,6 +49,10 @@ public class UserUtil {
                 user.setAvatar(imageService.get(signupDto.getAvatar()));
                 user.setActive(true);
                 user.setRoles(Collections.singleton(UserRole.ROLE_USER));
+                user.setWoman(true);
+                user.setFollowingFavor(true);
+                user.setFollowingLike(true);
+                user.setFollowingNewFriend(true);
 
                 return  user;
 

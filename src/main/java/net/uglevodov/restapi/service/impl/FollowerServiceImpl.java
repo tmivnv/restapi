@@ -49,6 +49,6 @@ public class FollowerServiceImpl implements FollowerService {
             throw new NotUpdatableException("you are not following this user");
         }
 
-        followerRepository.deleteFollowerByFollowerIdAndAndUserId(followerId, followingId);
+        followerRepository.deleteFollowerByFollowerIdAndUserId(followerId, followingId);
     }
 }

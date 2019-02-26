@@ -11,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @Slf4j
 public class EventServiceImpl implements EventService {
@@ -51,5 +53,10 @@ public class EventServiceImpl implements EventService {
         log.trace("[{}] - Getting events list for user "+userId, this.getClass().getSimpleName());
 
         return eventRepository.findAllByUserId(userId, pageRequest).orElseThrow(()-> new NotFoundException("user not found"));
+    }
+
+    @Override
+    public Event findByMessageContainingIgnoreCase(String message) {
+        return eventRepository.findByMessageContainingIgnoreCase(message).orElse(null);
     }
 }

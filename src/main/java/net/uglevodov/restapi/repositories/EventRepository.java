@@ -10,4 +10,5 @@ import java.util.Optional;
 
 public interface EventRepository extends JpaRepository<Event, Long> {
     Optional<Page<Event>> findAllByUserId(Long userId, Pageable pageRequest);
+    Optional<Event> findByMessageContainingIgnoreCase(String message);
    }

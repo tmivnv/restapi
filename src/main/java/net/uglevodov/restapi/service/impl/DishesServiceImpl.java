@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019. Timofei Ivanov, Uglevodov net, LLC
+ */
+
 package net.uglevodov.restapi.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +12,7 @@ import net.uglevodov.restapi.repositories.DishesRepository;
 import net.uglevodov.restapi.repositories.RecipeRepository;
 import net.uglevodov.restapi.repositories.UserRepository;
 import net.uglevodov.restapi.service.DishesService;
+import net.uglevodov.restapi.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,13 +29,16 @@ public class DishesServiceImpl implements DishesService {
 
 
     @Autowired
-    DishesRepository dishesRepository;
+    private DishesRepository dishesRepository;
 
     @Autowired
-    RecipeRepository recipeRepository;
+    private RecipeRepository recipeRepository;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
+
+    @Autowired
+    private EventService eventService;
 
 
     @Override
@@ -100,7 +108,7 @@ public class DishesServiceImpl implements DishesService {
 
         dishesFound = dishesFound.stream().filter(d -> d.getDishName().toLowerCase().contains(name.toLowerCase())).collect(Collectors.toSet());
 
-        if (dishesFound.size()==0) throw new NotFoundException("no dishes found");
+        if (dishesFound.size() == 0) throw new NotFoundException("no dishes found");
 
         return dishesFound;
     }
@@ -108,17 +116,37 @@ public class DishesServiceImpl implements DishesService {
     @Override
     public Dish favorUnfavor(Long userId, Long dishId) {
         FavoredByUser favoredByUser = new FavoredByUser();
-        User user = userRepository.findById(userId).orElseThrow(()-> new NotFoundException("user id " + userId + " not found"));
+        User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("user id " + userId + " not found"));
         favoredByUser.setUserId(userId);
         favoredByUser.setDishId(dishId);
         favoredByUser.setCreated(LocalDateTime.now());
 
-        Dish dish = dishesRepository.findById(dishId).orElseThrow(()-> new NotFoundException("dish id " + dishId + " not found"));
-        FavoredByUser alreadyFavored = dish.getFavoredByUsers().stream().filter(l -> l.getUserId()==userId).findFirst().orElse(null);
+        Dish dish = dishesRepository.findById(dishId).orElseThrow(() -> new NotFoundException("dish id " + dishId + " not found"));
+        FavoredByUser alreadyFavored = dish.getFavoredByUsers().stream().filter(l -> l.getUserId().equals(userId)).findFirst().orElse(null);
 
-        if (alreadyFavored!=null) dish.getFavoredByUsers().remove(alreadyFavored);
-        else
+        if (alreadyFavored != null) {
+            dish.getFavoredByUsers().remove(alreadyFavored);
+        } else {
             dish.getFavoredByUsers().add(favoredByUser);
+
+            //рассказываем фолловерам об этом событии
+            for (Follower follower : user.getFollowers()) {
+
+                User followerUser = userRepository.findById(follower.getFollowerId()).orElseThrow(() -> new NotFoundException("user id " + follower.getFollowerId() + " not found"));
+                if (followerUser.isFollowingFavor()) { //если фолловер хочет видеть этот тип события
+                    Event event = new Event();
+                    event.setRead(false);
+                    event.setCreated(LocalDateTime.now());
+                    event.setLink("/api/dishes/get?id=" + dish.getId());
+                    event.setType("favor");
+                    event.setUser(followerUser);
+                    event.setMessage(user.getFirstName() + " " + user.getLastName() + (user.isWoman() ? " добавила" : " добавил") + " в избранное блюдо " + dish.getDishName());
+                    if (eventService.findByMessageContainingIgnoreCase(event.getMessage())==null) //если еще нет такого события
+                    eventService.save(event);
+                }
+            }
+        }
+
 
         return dishesRepository.saveAndFlush(dish);
     }

@@ -57,6 +57,7 @@ public class EventController {
         event.setMessage(eventDto.getMessage());
         event.setRead(eventDto.isRead());
         event.setUser(userService.get(eventDto.getUserId()));
+        event.setType(eventDto.getType());
 
 
         var saved = eventService.save(event);

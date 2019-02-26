@@ -32,6 +32,10 @@ public class Event extends Owned{
     @Column(name = "event_link")
     private String link;
 
+    @ApiModelProperty( value = "Тип события: ad, other favor, like")
+    @Column(name = "event_type")
+    private String type;
+
     @ApiModelProperty( value = "Флаг прочитано/не прочитано")
     @Column(name = "is_read")
     private boolean read;

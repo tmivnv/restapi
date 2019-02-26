@@ -20,6 +20,9 @@ public class EventDto {
     @ApiModelProperty( value = "Связанная ссылка")
     private String link;
 
+    @ApiModelProperty( value = "Тип события")
+    private String type;
+
     @ApiModelProperty( value = "Флаг прочитано/не прочитано")
     private boolean read;
 }

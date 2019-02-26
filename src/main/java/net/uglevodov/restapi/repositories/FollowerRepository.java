@@ -10,5 +10,5 @@ public interface FollowerRepository extends JpaRepository<Follower, Long> {
     @Transactional
     @Modifying
     @Query("delete from Follower where followerId = :followerId and userId = :userId")
-    void deleteFollowerByFollowerIdAndAndUserId(Long followerId, Long userId);
+    void deleteFollowerByFollowerIdAndUserId(Long followerId, Long userId);
 }

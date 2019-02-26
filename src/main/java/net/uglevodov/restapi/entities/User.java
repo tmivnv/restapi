@@ -68,6 +68,18 @@ public class User extends BaseEntity{
     @Column(name = "is_active")
     private boolean active;
 
+    @Column(name = "is_woman")
+    private boolean woman;
+
+    @Column(name = "show_favor")
+    private boolean followingFavor;
+
+    @Column(name = "show_like")
+    private boolean followingLike;
+
+    @Column(name = "show_new_friend")
+    private boolean followingNewFriend;
+
 
 
     @Enumerated(EnumType.STRING)

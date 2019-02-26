@@ -78,6 +78,12 @@ public class AuthController {
             notes = "Создает нового пользователя",
             response = ApiResponse.class
     )
+    @ApiResponses( {
+
+            @io.swagger.annotations.ApiResponse( code = 400, message = "Ошибка валидации DTO" ),
+            @io.swagger.annotations.ApiResponse( code = 200, message = "Все в порядке, пользователь зарегистрирован" )
+
+    } )
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@Valid @RequestBody SignupDto signupRequest) {
          if (!service.checkEmailAvailable(signupRequest.getEmail())) {
