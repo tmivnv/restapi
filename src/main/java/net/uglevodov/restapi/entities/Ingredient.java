@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
+import net.uglevodov.restapi.dto.IngredientDto;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -38,6 +39,16 @@ public class Ingredient extends BaseEntity {
     @Column(name = "unit_weight")
     private Long unitWeight;
 
+    public Ingredient(IngredientDto ingredientDto) {
+        this(ingredientDto.getIngredientName(),
+                ingredientDto.getDescription(),
+                ingredientDto.getImage(),
+                ingredientDto.getUglevodovnetGroup(),
+                ingredientDto.getCarbs(),
+                ingredientDto.getUnit(),
+                ingredientDto.getUnitWeight());
 
-
+        if (this.unit==null) this.unit = "100 г";
+        if (this.unitWeight==null) this.unitWeight = 100L;
+    }
 }

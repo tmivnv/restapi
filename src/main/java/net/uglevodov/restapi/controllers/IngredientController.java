@@ -1,6 +1,15 @@
+/*
+ * Copyright (c) 2019. Timofei Ivanov, Uglevodov net, LLC
+ */
+
 package net.uglevodov.restapi.controllers;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.models.auth.In;
 import net.uglevodov.restapi.dto.ApiResponse;
+import net.uglevodov.restapi.dto.IngredientDto;
 import net.uglevodov.restapi.entities.Ingredient;
 import net.uglevodov.restapi.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +23,23 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/api/ingredients")
+@Api( value = "/api/ingredients", description = "Контроллер ингредиентов" )
 public class IngredientController {
 
     @Autowired
     IngredientService ingredientService;
 
+    @ApiOperation(
+            value = "Получить ингредиент",
+            notes = "Получить ингредиент по айди",
+            response = Ingredient.class
+    )
+    @ApiResponses( {
+
+            @io.swagger.annotations.ApiResponse( code = 200, message = "Успех" ),
+            @io.swagger.annotations.ApiResponse( code = 404, message = "Ингредиент не найден" )
+
+    } )
     @GetMapping(value = "/get")
     public ResponseEntity<?> get(@RequestParam(value = "id") Long id) {
         var ingredient = ingredientService.get(id);
@@ -26,34 +47,98 @@ public class IngredientController {
         return new ResponseEntity<>(ingredient, HttpStatus.OK);
     }
 
+
+
+
+    @ApiOperation(
+            value = "Получить все ингредиенты",
+            notes = "Получить все ингредиенты",
+            response = Ingredient.class
+    )
+    @ApiResponses( {
+
+            @io.swagger.annotations.ApiResponse( code = 200, message = "Успех" )
+
+    } )
     @GetMapping
     public ResponseEntity<?> getAll(Pageable pageRequest) {
         return new ResponseEntity<>(ingredientService.getAll(pageRequest), HttpStatus.OK);
     }
 
+
+
+    @ApiOperation(
+            value = "Получить ингредиент по названию",
+            notes = "Получить ингредиент по названию (список ингредиентов, в названии которых есть name, case insensitive)",
+            response = Ingredient.class
+    )
+    @ApiResponses( {
+
+            @io.swagger.annotations.ApiResponse( code = 200, message = "Успех" ),
+            @io.swagger.annotations.ApiResponse( code = 404, message = "Ингредиенты не найдены" )
+
+    } )
     @GetMapping(value = "findbyname")
     public ResponseEntity<?> getAll(@RequestParam(value = "name") String name) {
         return new ResponseEntity<>(ingredientService.getAllByNameContaining(name), HttpStatus.OK);
     }
 
+
+    @ApiOperation(
+            value = "Добавить новый ингредиент (требуются права админа)",
+            notes = "Добавить новый ингредиент (требуются права админа)",
+            response = Ingredient.class
+    )
+    @ApiResponses( {
+
+            @io.swagger.annotations.ApiResponse( code = 200, message = "Успех" )
+
+    } )
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> save(
-            @RequestBody Ingredient ingredient
+            @RequestBody IngredientDto ingredientDto
     ) {
 
-        return new ResponseEntity<>(ingredientService.save(ingredient), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(ingredientService.save(new Ingredient(ingredientDto)), HttpStatus.OK);
     }
 
+    @ApiOperation(
+            value = "Изменить ингредиент (требуются права админа)",
+            notes = "Изменить ингредиент (требуются права админа)",
+            response = Ingredient.class
+    )
+    @ApiResponses( {
+
+            @io.swagger.annotations.ApiResponse( code = 200, message = "Успех" ),
+            @io.swagger.annotations.ApiResponse( code = 404, message = "Ингредиент не найдены" )
+
+    } )
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> update(
-            @RequestBody Ingredient ingredient
+            @RequestBody IngredientDto ingredientDto,
+            @RequestParam(value = "id") Long id
             ) {
+        Ingredient ingredient = new Ingredient(ingredientDto);
+        ingredient.setId(id);
         ingredientService.update(ingredient);
-        return new ResponseEntity<>(ingredient, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(ingredient, HttpStatus.OK);
     }
 
 
+    @ApiOperation(
+            value = "Удалить ингредиент (требуются права админа)",
+            notes = "Удалить ингредиент (требуются права админа)",
+            response = Ingredient.class
+    )
+    @ApiResponses( {
+
+            @io.swagger.annotations.ApiResponse( code = 200, message = "Успех" ),
+            @io.swagger.annotations.ApiResponse( code = 404, message = "Ингредиент не найден" ),
+            @io.swagger.annotations.ApiResponse( code = 409, message = "Ингредиент используется в блюде, удаление невозможно" )
+
+    } )
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping(value = "/delete")
     public ResponseEntity<?> delete(@RequestParam(value = "id") Long id) {

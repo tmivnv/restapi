@@ -29,7 +29,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping(value = "/api/files")
-@Api( value = "/api/events", description = "Контроллер файлов/изображений" )
+@Api( value = "/api/files", description = "Контроллер файлов/изображений" )
 public class FileController {
 
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);

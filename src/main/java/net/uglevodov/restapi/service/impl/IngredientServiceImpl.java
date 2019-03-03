@@ -1,10 +1,17 @@
+/*
+ * Copyright (c) 2019. Timofei Ivanov, Uglevodov net, LLC
+ */
+
 package net.uglevodov.restapi.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import net.uglevodov.restapi.entities.Ingredient;
+import net.uglevodov.restapi.entities.Recipe;
 import net.uglevodov.restapi.exceptions.NotFoundException;
 import net.uglevodov.restapi.exceptions.NotUpdatableException;
+import net.uglevodov.restapi.repositories.DishesRepository;
 import net.uglevodov.restapi.repositories.IngredientRepository;
+import net.uglevodov.restapi.repositories.RecipeRepository;
 import net.uglevodov.restapi.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,7 +27,9 @@ import java.util.List;
 public class IngredientServiceImpl implements IngredientService {
 
     @Autowired
-    IngredientRepository repository;
+    private IngredientRepository repository;
+    @Autowired
+    private RecipeRepository recipeRepository;
 
     @Override
     public Ingredient save(Ingredient ingredient) {
@@ -47,6 +56,8 @@ public class IngredientServiceImpl implements IngredientService {
     public void delete(long id) throws NotFoundException {
         log.trace("[{}] - Deleting ingredient id = {}", this.getClass().getSimpleName(), id);
         Ingredient ingredient = repository.findById(id).orElseThrow(()-> new NotFoundException("ingredient id " + id + " not found"));
+
+        if (!recipeRepository.findAllByIngredientContaining(ingredient).isEmpty()) throw new NotUpdatableException("This ingredient is used somewhere and can not be deleted");
 
         repository.delete(ingredient);
     }

@@ -1,5 +1,14 @@
+/*
+ * Copyright (c) 2019. Timofei Ivanov, Uglevodov net, LLC
+ */
+
 package net.uglevodov.restapi.controllers;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponses;
+import net.uglevodov.restapi.dto.UploadFileResponse;
+import net.uglevodov.restapi.entities.Image;
 import net.uglevodov.restapi.security.UserPrincipal;
 import net.uglevodov.restapi.service.ImageService;
 import net.uglevodov.restapi.service.UserService;
@@ -14,12 +23,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/api/images")
+@Api( value = "/api/images", description = "Контроллер изображений" )
 public class ImageController {
 
     @Autowired
     private ImageService imageService;
 
 
+    @ApiOperation(
+            value = "Лайк/снятие лайка картинке",
+            notes = "Лайк/снятие лайка картинке",
+            response = Image.class
+    )
+    @ApiResponses( {
+
+            @io.swagger.annotations.ApiResponse( code = 200, message = "Успех" )
+
+    } )
     @GetMapping(value = "/like-unlike")
     public ResponseEntity<?> likeUnlike(
             @RequestParam(value = "id") Long id,
