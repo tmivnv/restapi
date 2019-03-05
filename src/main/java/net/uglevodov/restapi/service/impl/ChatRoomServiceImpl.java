@@ -1,23 +1,24 @@
+/*
+ * Copyright (c) 2019. Timofei Ivanov, Uglevodov net, LLC
+ */
+
 package net.uglevodov.restapi.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import net.uglevodov.restapi.entities.*;
 import net.uglevodov.restapi.exceptions.NotFoundException;
 import net.uglevodov.restapi.exceptions.NotUpdatableException;
+import net.uglevodov.restapi.exceptions.WrongOwnerException;
 import net.uglevodov.restapi.repositories.ChatRoomRepository;
-import net.uglevodov.restapi.repositories.FeedRepository;
 import net.uglevodov.restapi.service.ChatRoomService;
 import net.uglevodov.restapi.service.FeedService;
 import net.uglevodov.restapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,8 +31,6 @@ public class ChatRoomServiceImpl implements ChatRoomService {
     @Autowired
     private FeedService feedService;
 
-    @Autowired
-    private RedisTemplate<String, Post> redisTemplate;
 
     @Autowired
     private UserService userService;
@@ -67,8 +66,15 @@ public class ChatRoomServiceImpl implements ChatRoomService {
     }
 
     @Override
-    public ChatRoomEntry updatePost(Post post) {
+    public ChatRoomEntry updatePost(Long userId, Post post) {
+
+        User user = userService.get(userId);
+        if (!post.getUser().equals(user)&&!user.getRoles().contains(UserRole.ROLE_ADMIN))
+            throw new WrongOwnerException("This post can not be updated by this user");
+
         ChatRoomEntry found = chatRoomRepository.findByPost(post).orElseThrow(() -> (new NotFoundException("post not found")));
+
+
         found.setPost(post);
         return chatRoomRepository.saveAndFlush(found);
     }
@@ -78,9 +84,9 @@ public class ChatRoomServiceImpl implements ChatRoomService {
         ChatRoomEntry chatRoomEntry = new ChatRoomEntry();
         chatRoomEntry.setPost(post);
 
-        feedService.addToFeedByUserIds(post.isImportant() ?
+        feedService.addToFeedByUserIds(post.getUser().getRoles().contains(UserRole.ROLE_ADMIN)&&post.isImportant() ?
                         userService.allUserIds() :
-                        post.getUser().getFollowers().stream().map(f -> f.getFollowerId()).collect(Collectors.toList()),
+                        post.getUser().getFollowers().stream().map(Follower::getFollowerId).collect(Collectors.toList()),
                         post);
 
         return chatRoomRepository.saveAndFlush(chatRoomEntry);
@@ -89,7 +95,12 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 
     @Override
     @Transactional
-    public void removePost(Post post) {
+    public void removePost(Long userId, Post post) {
+
+        User user = userService.get(userId);
+        if (!post.getUser().equals(user)&&!user.getRoles().contains(UserRole.ROLE_ADMIN))
+            throw new WrongOwnerException("This post can not be updated by this user");
+
         ChatRoomEntry found = chatRoomRepository.findByPost(post).orElseThrow(() -> (new NotFoundException("post not found")));
         found.getPost().setDishSet(null);
         found.getPost().setCommentSet(null);

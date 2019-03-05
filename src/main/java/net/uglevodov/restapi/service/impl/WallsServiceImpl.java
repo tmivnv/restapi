@@ -1,8 +1,7 @@
 package net.uglevodov.restapi.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import net.uglevodov.restapi.entities.Post;
-import net.uglevodov.restapi.entities.Wall;
+import net.uglevodov.restapi.entities.*;
 import net.uglevodov.restapi.exceptions.NotFoundException;
 import net.uglevodov.restapi.exceptions.NotUpdatableException;
 import net.uglevodov.restapi.exceptions.WrongOwnerException;
@@ -84,24 +83,34 @@ public class WallsServiceImpl implements WallsService {
     @Override
     public Wall addPost(Wall wall, Post post) {
         wall.getPosts().add(post);
-        feedService.addToFeedByUserIds(post.isImportant() ?
+        feedService.addToFeedByUserIds(post.getUser().getRoles().contains(UserRole.ROLE_ADMIN)&&post.isImportant() ?
                         userService.allUserIds() :
-                        post.getUser().getFollowers().stream().map(f -> f.getFollowerId()).collect(Collectors.toList()),
+                        post.getUser().getFollowers().stream().map(Follower::getFollowerId).collect(Collectors.toList()),
                 post);
         return wallsRepository.saveAndFlush(wall);
     }
 
     @Override
     @Transactional
-    public Wall removePost(Wall wall, Post post) {
+    public Wall removePost(Long userId, Wall wall, Post post) {
+
+        User user = userService.get(userId);
+        if (!post.getUser().equals(user)&&!user.getRoles().contains(UserRole.ROLE_ADMIN))
+            throw new WrongOwnerException("This post can not be updated by this user");
+
         if (wall.getPosts().contains(post)) wall.getPosts().remove(post);
 
         return wallsRepository.saveAndFlush(wall);
     }
 
     @Override
-    public Wall updatePost(Wall wall, Post post) {
-        Post found = wall.getPosts().stream().filter(p -> p.getId()==post.getId()).findFirst().orElseThrow(() -> (new NotFoundException("post not found on this wall")));
+    public Wall updatePost(Long userId, Wall wall, Post post) {
+
+        User user = userService.get(userId);
+        if (!post.getUser().equals(user)&&!user.getRoles().contains(UserRole.ROLE_ADMIN))
+            throw new WrongOwnerException("This post can not be updated by this user");
+
+        Post found = wall.getPosts().stream().filter(p -> p.getId().equals(post.getId())).findFirst().orElseThrow(() -> (new NotFoundException("post not found on this wall")));
         wall.getPosts().remove(found);
         wall.getPosts().add(post);
         return wallsRepository.saveAndFlush(wall);

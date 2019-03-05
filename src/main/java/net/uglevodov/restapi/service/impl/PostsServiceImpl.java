@@ -41,7 +41,8 @@ public class PostsServiceImpl implements PostsService {
 
     @Override
     public Post save(Post owned, long userId) throws WrongOwnerException {
-        owned.setUser(userRepository.findById(userId).orElseThrow(() -> new NotFoundException("user id " + userId + " not found")));
+        User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("user id " + userId + " not found"));
+        if (!owned.getUser().equals(user)&&!user.getRoles().contains(UserRole.ROLE_ADMIN)) throw new NotUpdatableException("This post can not be updated by this user");
         return postsRepository.saveAndFlush(owned);
     }
 
@@ -54,9 +55,9 @@ public class PostsServiceImpl implements PostsService {
 
     @Override
     public void update(Post owned, long userId) throws NotUpdatableException, WrongOwnerException {
-        userRepository.findById(userId).orElseThrow(() -> new NotFoundException("user id " + userId + " not found"));
+        User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("user id " + userId + " not found"));
 
-        if (!owned.getUser().getId().equals(userId))
+        if (!owned.getUser().getId().equals(userId)&&!user.getRoles().contains(UserRole.ROLE_ADMIN))
             throw new WrongOwnerException("This post can not be updated by this user");
 
         postsRepository.saveAndFlush(owned);
@@ -65,11 +66,11 @@ public class PostsServiceImpl implements PostsService {
 
     @Override
     public void delete(long id, long userId) throws NotFoundException {
-        userRepository.findById(userId).orElseThrow(() -> new NotFoundException("user id " + userId + " not found"));
+        User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("user id " + userId + " not found"));
 
         Post post = postsRepository.findById(id).orElseThrow(() -> new NotFoundException("post id " + id + " not found"));
 
-        if (!post.getUser().getId().equals(userId))
+        if (!post.getUser().equals(user)&&!user.getRoles().contains(UserRole.ROLE_ADMIN))
             throw new WrongOwnerException("This post can not be updated by this user");
 
         post.setImageSet(null);
