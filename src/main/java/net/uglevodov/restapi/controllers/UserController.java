@@ -42,8 +42,6 @@ public class UserController {
 
     @Autowired
     private FollowerService followerService;
-    @Autowired
-    private RedisTemplate<String, Post> redisTemplate;
 
 
     @Autowired
@@ -82,7 +80,7 @@ public class UserController {
         var user = utils.updateFromUpdateRequest(userUpdateRequest, userService.get(principal.getId()));
         userService.update(user);
 
-        return new ResponseEntity<>(user, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PutMapping(value = "/change-pass")

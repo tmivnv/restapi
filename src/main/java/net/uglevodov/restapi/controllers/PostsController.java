@@ -156,7 +156,18 @@ public class PostsController {
         return new ResponseEntity<>(postsService.deleteComment(principal.getId(), comment, postId), HttpStatus.OK);
     }
 
+    @ApiOperation(
+            value = "Удалить пост",
+            notes = "Удаляет свой пост (или чужой, если есть права админа)",
+            response = ApiResponse.class
+    )
+    @ApiResponses({
 
+            @io.swagger.annotations.ApiResponse(code = 200, message = "Успех"),
+            @io.swagger.annotations.ApiResponse(code = 404, message = "Не найден"),
+            @io.swagger.annotations.ApiResponse(code = 409, message = "Не может быть удален этим юзером")
+
+    })
     @DeleteMapping(value = "/delete")
     public ResponseEntity<?> delete(@RequestParam(value = "id") Long id,
                                     @RequestParam(value = "wallId") Long wallId,
@@ -193,8 +204,12 @@ public class PostsController {
         post.setText(postDto.getText());
         post.setImportant(postDto.isImportant());
         post.setUser(userService.get(principal.getId()));
+        post.setUserId(principal.getId());
         post.setImageSet(postDto.getImages().stream().map(i -> imageService.get(i)).collect(Collectors.toSet()));
         post.setDishSet(postDto.getDishes().stream().map(d -> dishesService.get(d)).collect(Collectors.toSet()));
+
+        post.setLikes(new HashSet<>());
+        post.setCommentSet(new HashSet<>());
 
         post = postsService.save(post, principal.getId());
 

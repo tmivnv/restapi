@@ -16,18 +16,18 @@ import java.util.Optional;
 public class FeedRepositoryImpl implements FeedRepository {
 
     @Autowired
-    private RedisTemplate<String, Post> redisTemplate;
+    private RedisTemplate<String, Long> redisTemplate;
 
     @Override
-    public Optional<List<Post>> findAllByUserId(Long userId) {
-        List<Post> feed = redisTemplate.opsForList().range("feed_user"+userId, 0, redisTemplate.opsForList().size("feed_user"+userId));
+    public Optional<List<Long>> findAllByUserId(Long userId) {
+        List<Long> feed = redisTemplate.opsForList().range("feed_user"+userId, 0, redisTemplate.opsForList().size("feed_user"+userId));
         return Optional.of(feed);
     }
 
     @Override
-    public Optional<List<Post>> addToFeedByUserId(Long userId, Post post) {
-        redisTemplate.opsForList().leftPush("feed_user"+userId, post);
-        List<Post> feed = redisTemplate.opsForList().range("feed_user"+userId, 0, redisTemplate.opsForList().size("feed_user"+userId));
+    public Optional<List<Long>> addToFeedByUserId(Long userId, Post post) {
+        redisTemplate.opsForList().leftPush("feed_user"+userId, post.getId());
+        List<Long> feed = redisTemplate.opsForList().range("feed_user"+userId, 0, redisTemplate.opsForList().size("feed_user"+userId));
         return Optional.of(feed);
     }
 
@@ -37,7 +37,7 @@ public class FeedRepositoryImpl implements FeedRepository {
                 new RedisCallback<Object>() {
                     public Object doInRedis(RedisConnection connection) throws DataAccessException {
                         for(Long userId : userIds) {
-                            redisTemplate.opsForList().leftPush("feed_user"+userId, post);
+                            redisTemplate.opsForList().leftPush("feed_user"+userId, post.getId());
                         }
                         return null;
                     }

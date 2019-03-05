@@ -188,4 +188,9 @@ public class PostsServiceImpl implements PostsService {
         return postsRepository.saveAndFlush(post);
 
     }
+
+    @Override
+    public boolean postExist(Long postId) {
+        return postsRepository.findById(postId).isPresent();
+    }
 }
