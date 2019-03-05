@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
     public User get(long id) throws NotFoundException {
         log.trace("[{}] - Getting user id = ", this.getClass().getSimpleName(), id);
 
-        return checkNotFound(repository.getOne(id), "User id = " + id + " not found");
+        return repository.findById(id).orElseThrow(()-> new NotFoundException("user not found"));
     }
 
     @Transactional
@@ -106,7 +106,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void setActive(long id, boolean active) throws NotFoundException {
         log.trace("[{}] - Setting user's (id = {}) active status to {}", this.getClass().getSimpleName(), id, active);
-        var user = checkNotFound(get(id), "Not found user id = " + id);
+        var user = repository.findById(id).orElseThrow(()-> new NotFoundException("user not found"));
         user.setActive(active);
         repository.save(user);
     }

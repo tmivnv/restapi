@@ -4,9 +4,7 @@
 
 package net.uglevodov.restapi.controllers;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import net.uglevodov.restapi.dto.ApiResponse;
 import net.uglevodov.restapi.dto.DishDto;
 import net.uglevodov.restapi.dto.DishFilterDto;
@@ -17,6 +15,7 @@ import net.uglevodov.restapi.security.UserPrincipal;
 import net.uglevodov.restapi.service.DishesService;
 import net.uglevodov.restapi.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -185,12 +184,22 @@ public class DishesController {
     @ApiOperation(
             value = "Получить все блюда",
             notes = "Получить все блюда (постранично)",
-            response = Dish.class
+            response = Page.class
     )
     @ApiResponses( {
             @io.swagger.annotations.ApiResponse( code = 200, message = "Успех" ),
             @io.swagger.annotations.ApiResponse( code = 404, message = "Блюдо не найдено" )
     } )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", dataType = "integer", paramType = "query",
+                    value = "Results page you want to retrieve (0..N)"),
+            @ApiImplicitParam(name = "size", dataType = "integer", paramType = "query",
+                    value = "Number of records per page."),
+            @ApiImplicitParam(name = "sort", allowMultiple = true, dataType = "string", paramType = "query",
+                    value = "Sorting criteria in the format: property(,asc|desc). " +
+                            "Default sort order is ascending. " +
+                            "Multiple sort criteria are supported.")
+    })
     @GetMapping
     public ResponseEntity<?> getAll(Pageable pageRequest) {
         return new ResponseEntity<>(dishesService.getAll(pageRequest), HttpStatus.OK);

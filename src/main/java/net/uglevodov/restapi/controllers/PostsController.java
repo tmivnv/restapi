@@ -4,9 +4,7 @@
 
 package net.uglevodov.restapi.controllers;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import net.uglevodov.restapi.dto.ApiResponse;
 import net.uglevodov.restapi.dto.CommentDto;
 import net.uglevodov.restapi.dto.PostDto;
@@ -14,6 +12,7 @@ import net.uglevodov.restapi.entities.*;
 import net.uglevodov.restapi.security.UserPrincipal;
 import net.uglevodov.restapi.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -72,13 +71,23 @@ public class PostsController {
     @ApiOperation(
             value = "Получить все посты постранично",
             notes = "Получить все посты постранично",
-            response = Post.class
+            response = Page.class
     )
     @ApiResponses({
 
             @io.swagger.annotations.ApiResponse(code = 200, message = "Успех"),
             @io.swagger.annotations.ApiResponse(code = 404, message = "Пост не найден")
 
+    })
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", dataType = "integer", paramType = "query",
+                    value = "Results page you want to retrieve (0..N)"),
+            @ApiImplicitParam(name = "size", dataType = "integer", paramType = "query",
+                    value = "Number of records per page."),
+            @ApiImplicitParam(name = "sort", allowMultiple = true, dataType = "string", paramType = "query",
+                    value = "Sorting criteria in the format: property(,asc|desc). " +
+                            "Default sort order is ascending. " +
+                            "Multiple sort criteria are supported.")
     })
     @GetMapping
     public ResponseEntity<?> getAll(Pageable pageRequest) {
@@ -169,9 +178,9 @@ public class PostsController {
 
     })
     @DeleteMapping(value = "/delete")
-    public ResponseEntity<?> delete(@RequestParam(value = "id") Long id,
-                                    @RequestParam(value = "wallId") Long wallId,
-                                    @RequestParam(value = "chatroom") boolean chatRoom,
+    public ResponseEntity<?> delete(@RequestParam(value = "id") @ApiParam(value = "post id", example = "4100003", required = true) Long id ,
+                                    @RequestParam(value = "wallId") @ApiParam(value = "wall id", example = "4100003", required = false) Long wallId,
+                                    @RequestParam(value = "chatroom") @ApiParam(value = "chatroom post?", example = "true", required = true) boolean chatRoom,
                                     @AuthenticationPrincipal UserPrincipal principal) {
 
         if (chatRoom) chatRoomService.removePost(principal.getId(), postsService.get(id));

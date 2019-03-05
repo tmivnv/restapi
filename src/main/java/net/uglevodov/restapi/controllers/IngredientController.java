@@ -4,15 +4,14 @@
 
 package net.uglevodov.restapi.controllers;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import io.swagger.models.auth.In;
 import net.uglevodov.restapi.dto.ApiResponse;
 import net.uglevodov.restapi.dto.IngredientDto;
 import net.uglevodov.restapi.entities.Ingredient;
 import net.uglevodov.restapi.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -53,13 +52,23 @@ public class IngredientController {
     @ApiOperation(
             value = "Получить все ингредиенты",
             notes = "Получить все ингредиенты",
-            response = Ingredient.class
+            response = Page.class
     )
     @ApiResponses( {
 
             @io.swagger.annotations.ApiResponse( code = 200, message = "Успех" )
 
     } )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", dataType = "integer", paramType = "query",
+                    value = "Results page you want to retrieve (0..N)"),
+            @ApiImplicitParam(name = "size", dataType = "integer", paramType = "query",
+                    value = "Number of records per page."),
+            @ApiImplicitParam(name = "sort", allowMultiple = true, dataType = "string", paramType = "query",
+                    value = "Sorting criteria in the format: property(,asc|desc). " +
+                            "Default sort order is ascending. " +
+                            "Multiple sort criteria are supported.")
+    })
     @GetMapping
     public ResponseEntity<?> getAll(Pageable pageRequest) {
         return new ResponseEntity<>(ingredientService.getAll(pageRequest), HttpStatus.OK);
@@ -79,7 +88,7 @@ public class IngredientController {
 
     } )
     @GetMapping(value = "findbyname")
-    public ResponseEntity<?> getAll(@RequestParam(value = "name") String name) {
+    public ResponseEntity<?> findByName(@RequestParam(value = "name") String name) {
         return new ResponseEntity<>(ingredientService.getAllByNameContaining(name), HttpStatus.OK);
     }
 
@@ -102,6 +111,9 @@ public class IngredientController {
 
         return new ResponseEntity<>(ingredientService.save(new Ingredient(ingredientDto)), HttpStatus.OK);
     }
+
+
+
 
     @ApiOperation(
             value = "Изменить ингредиент (требуются права админа)",

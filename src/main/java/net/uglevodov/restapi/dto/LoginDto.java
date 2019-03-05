@@ -12,11 +12,11 @@ public class LoginDto {
     @NonNull
     @Setter
     @Getter
-    @ApiModelProperty( value = "Login", required = true )
+    @ApiModelProperty( value = "Login", required = true, example = "test@gmail.com")
     private String authName;
     @NonNull
     @Setter
     @Getter
-    @ApiModelProperty( value = "Password", required = true )
+    @ApiModelProperty( value = "Password", required = true, example = "qwerty")
     private String password;
 }

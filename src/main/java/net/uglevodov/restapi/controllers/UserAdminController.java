@@ -1,8 +1,17 @@
+/*
+ * Copyright (c) 2019. Timofei Ivanov, Uglevodov net, LLC
+ */
+
 package net.uglevodov.restapi.controllers;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponses;
 import net.uglevodov.restapi.dto.ApiResponse;
 import net.uglevodov.restapi.dto.ProfileDto;
 import net.uglevodov.restapi.dto.UserUpdateRequestDto;
+import net.uglevodov.restapi.entities.Post;
+import net.uglevodov.restapi.entities.User;
 import net.uglevodov.restapi.security.UserPrincipal;
 import net.uglevodov.restapi.service.UserService;
 import net.uglevodov.restapi.service.WallsService;
@@ -20,6 +29,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping(value = "/api/admin/users")
 @PreAuthorize("hasRole('ROLE_ADMIN')")
+@Api(value = "/api/admin/users", description = "Админский User Controller (требуются права Админа)")
 public class UserAdminController {
     private UserService userService;
 
@@ -34,7 +44,17 @@ public class UserAdminController {
         this.userService = userService;
     }
 
+    @ApiOperation(
+            value = "Изменить юзера",
+            notes = "Изменить юзера",
+            response = User.class
+    )
+    @ApiResponses({
 
+            @io.swagger.annotations.ApiResponse(code = 200, message = "Успех"),
+            @io.swagger.annotations.ApiResponse(code = 404, message = "Не найден")
+
+    })
     @PutMapping(value = "/{id}/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> updateAnother(
             @PathVariable("id") long id,
@@ -44,9 +64,24 @@ public class UserAdminController {
 
         userService.update(user);
 
-        return new ResponseEntity<>(new ProfileDto(user), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+
+
+
+
+    @ApiOperation(
+            value = "Изменить пароль другому юзеру",
+            notes = "Изменить пароль другому юзеру",
+            response = ApiResponse.class
+    )
+    @ApiResponses({
+
+            @io.swagger.annotations.ApiResponse(code = 200, message = "Успех"),
+            @io.swagger.annotations.ApiResponse(code = 404, message = "Не найден")
+
+    })
     @PutMapping(value = "/{id}/change-pass")
     public ResponseEntity<?> changeAnotherPassword(
             @RequestParam("pass") String password,
@@ -61,10 +96,26 @@ public class UserAdminController {
         return new ResponseEntity<>(new ApiResponse(
                 true,
                 String.format("User's id = %d password successfully changed by %s", id, principal.getUsername())),
-                HttpStatus.ACCEPTED
+                HttpStatus.OK
         );
     }
 
+
+
+
+
+
+    @ApiOperation(
+            value = "Удалить юзера",
+            notes = "Удалить юзера",
+            response = ApiResponse.class
+    )
+    @ApiResponses({
+
+            @io.swagger.annotations.ApiResponse(code = 200, message = "Успех"),
+            @io.swagger.annotations.ApiResponse(code = 404, message = "Не найден")
+
+    })
     @DeleteMapping(value = "/{id}/delete")
     public ResponseEntity<?> deleteAnother(
             @PathVariable("id") long id) {
@@ -75,6 +126,21 @@ public class UserAdminController {
         return new ResponseEntity<>(new ApiResponse(true, "User id = " + id + " deleted"), HttpStatus.OK);
     }
 
+
+
+
+
+    @ApiOperation(
+            value = "Изменить статус активности юзера",
+            notes = "Изменить статус активности юзера (неактивный - заблокирован)",
+            response = ApiResponse.class
+    )
+    @ApiResponses({
+
+            @io.swagger.annotations.ApiResponse(code = 200, message = "Успех"),
+            @io.swagger.annotations.ApiResponse(code = 404, message = "Не найден")
+
+    })
     @PutMapping(value = "/active-status")
     public ResponseEntity<?> setActiveStatus(
             @RequestParam(value = "id") long id,
