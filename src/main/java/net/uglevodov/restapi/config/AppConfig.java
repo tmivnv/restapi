@@ -3,6 +3,8 @@
  */
 
 package net.uglevodov.restapi.config;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 
 import org.springframework.context.annotation.Bean;
@@ -30,12 +32,28 @@ import java.util.Properties;
 public class AppConfig extends WebMvcConfigurerAdapter {
     @Bean
     public DataSource dataSource(){
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/uglevodovnet");
-        dataSource.setUsername("user");
-        dataSource.setPassword("Trabara1");
-        return dataSource;
+
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl( "jdbc:postgresql://localhost:5432/uglevodovnet" );
+        config.setUsername( "user" );
+        config.setPassword( "Trabara1" );
+        config.addDataSourceProperty( "cachePrepStmts" , "true" );
+        config.addDataSourceProperty( "prepStmtCacheSize" , "250" );
+        config.addDataSourceProperty( "prepStmtCacheSqlLimit" , "2048" );
+        config.setDriverClassName("org.postgresql.Driver");
+        config.setMaximumPoolSize(40);
+
+
+        HikariDataSource dataSource = new HikariDataSource(config);
+      //  dataSource.setDriverClassName("org.postgresql.Driver");
+
+
+     //   dataSource.setUrl("jdbc:postgresql://localhost:5432/uglevodovnet");
+      //  dataSource.setUsername("user");
+      //  dataSource.setPassword("Trabara1");
+return dataSource;
+
+
     }
 
     @Bean

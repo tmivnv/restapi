@@ -20,9 +20,13 @@ public class RedisConfig {
     @Bean
     public RedisConnectionFactory redisConnectionFactory() {
         JedisPoolConfig poolConfig = new JedisPoolConfig();
-        poolConfig.setMaxTotal(5);
+        poolConfig.setMaxTotal(60);
+        poolConfig.setMaxIdle(60);
+        poolConfig.setMinIdle(5);
         poolConfig.setTestOnBorrow(true);
         poolConfig.setTestOnReturn(true);
+
+
 
         JedisConnectionFactory connectionFactory = new JedisConnectionFactory(poolConfig);
         connectionFactory.setUsePool(true);
