@@ -242,7 +242,12 @@ public class UserController {
         return new ResponseEntity<>(feedService.findAllByUserId(principal.getId(), pageRequest), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/getme")
+    public ResponseEntity<?> getMe(@AuthenticationPrincipal UserPrincipal principal) {
+        var user = userService.get(principal.getId());
 
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
 
 
     @ApiOperation(

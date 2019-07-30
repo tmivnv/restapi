@@ -47,8 +47,19 @@ public class IngredientServiceImpl implements IngredientService {
     @Override
     public void update(Ingredient ingredient) throws NotUpdatableException, NotFoundException {
         log.trace("[{}] - Updating ingredient {}", this.getClass().getSimpleName(), ingredient);
-        repository.findById(ingredient.getId()).orElseThrow(()-> new NotFoundException("ingredient id " + ingredient.getId() + " not found"));
-        Assert.notNull(ingredient, "Ingredient can not be null");
+        Ingredient oldIngredient = repository.findById(ingredient.getId()).orElseThrow(()-> new NotFoundException("ingredient id " + ingredient.getId() + " not found"));
+
+        if (ingredient.getCarbs()==null) ingredient.setCarbs(oldIngredient.getCarbs());
+        if (ingredient.getDescription()==null) ingredient.setDescription(oldIngredient.getDescription());
+
+        if (ingredient.getImage()==null) ingredient.setImage(oldIngredient.getImage());
+        if (ingredient.getImagePath()==null) ingredient.setImagePath(oldIngredient.getImagePath());
+        if (ingredient.getIngredientName()==null) ingredient.setIngredientName(oldIngredient.getIngredientName());
+        if (ingredient.getUglevodovnetGroup()==null) ingredient.setUglevodovnetGroup(oldIngredient.getUglevodovnetGroup());
+        if (ingredient.getUnit()==null) ingredient.setUnit(oldIngredient.getUnit());
+        if (ingredient.getUnitWeight()==null) ingredient.setUnitWeight(oldIngredient.getUnitWeight());
+
+
         repository.save(ingredient);
     }
 
@@ -71,6 +82,6 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     public List<Ingredient> getAllByNameContaining(String name) {
-        return repository.findAllByIngredientNameIsContainingIgnoreCase(name);
+        return name.isEmpty() ? null : repository.findAllByIngredientNameIsContainingIgnoreCase(name);
     }
 }

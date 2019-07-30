@@ -37,6 +37,9 @@ public class Dish extends BaseEntity {
     @Column(name="image_id")
     private Long image;
 
+    @Column(name="image_path")
+    private String imagePath;
+
     @Column(name = "uglevodovnet_group")
     private int uglevodovnetGroup;
 

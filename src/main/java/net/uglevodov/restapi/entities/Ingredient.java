@@ -27,8 +27,11 @@ public class Ingredient extends BaseEntity {
     @Column(name="image_id")
     private Long image;
 
+    @Column(name="image_path")
+    private String imagePath;
+
     @Column(name = "uglevodovnet_group")
-    private int uglevodovnetGroup;
+    private Integer uglevodovnetGroup;
 
     @Column(name = "carbs")
     private Double carbs;
@@ -43,6 +46,7 @@ public class Ingredient extends BaseEntity {
         this(ingredientDto.getIngredientName(),
                 ingredientDto.getDescription(),
                 ingredientDto.getImage(),
+                ingredientDto.getImagePath(),
                 ingredientDto.getUglevodovnetGroup(),
                 ingredientDto.getCarbs(),
                 ingredientDto.getUnit(),

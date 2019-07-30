@@ -61,13 +61,9 @@ public class FileController {
 
         image = imageService.save(image);
 
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/api/files/downloadFileId/")
-                .path(image.getId().toString())
-                .toUriString();
 
 
-        return new UploadFileResponse(fileName, fileDownloadUri,
+        return new UploadFileResponse(fileName, image.getId(), image.getImageUrl(),
                 file.getContentType(), file.getSize());
     }
 

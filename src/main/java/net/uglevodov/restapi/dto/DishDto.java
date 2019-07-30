@@ -12,6 +12,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.Map;
+import java.util.Set;
 
 @ApiModel( value = "Dish DTO", description = "Запрос создания/изменения блюда" )
 @Data
@@ -26,8 +27,10 @@ public class DishDto {
     private String description;
     @ApiModelProperty( value = "Айди изображения", required = true )
     private Long image;
+    @ApiModelProperty( value = "Путь изображения", required = true )
+    private String imagePath;
     @ApiModelProperty( value = "Группа по системе Углеводов.нет", required = true )
-    private int uglevodovnetGroup;
+    private Integer uglevodovnetGroup;
     @ApiModelProperty( value = "Количество углеводов на 100 гр", required = true )
     private Double carbs;
     @ApiModelProperty( value = "Размер порции", required = true )
@@ -35,7 +38,7 @@ public class DishDto {
     @ApiModelProperty( value = "Активно?", required = true )
     private Boolean active;
     @ApiModelProperty( value = "Ингредиенты: айди ингредиента - количество в рецепте", required = true )
-    private Map<Long, Long> ingredients;
+    private Set<DishIngredientsDto> ingredients;
     @ApiModelProperty( value = "завтрак/перекус/суп/салат/второе/закуска/десерт", required = true )
     private String type;
 

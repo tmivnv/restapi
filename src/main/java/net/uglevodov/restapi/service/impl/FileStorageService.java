@@ -24,6 +24,9 @@ public class FileStorageService {
     @Value("${file.upload-dir}")
     private String uploadDir;
 
+    @Value("${file.static-img-dir}")
+    private String pathDir;
+
     public Path fileStorageLocation() {
         Path result =  Paths.get(uploadDir)
                 .toAbsolutePath().normalize();
@@ -51,7 +54,7 @@ public class FileStorageService {
             Path targetLocation = fileStorageLocation().resolve(fileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 
-            return fileName;
+            return pathDir+fileName;
         } catch (IOException ex) {
             throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
         }

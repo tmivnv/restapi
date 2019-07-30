@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "/api/ingredients")
 @Api( value = "/api/ingredients", description = "Контроллер ингредиентов" )
+
 public class IngredientController {
 
     @Autowired
@@ -127,6 +128,7 @@ public class IngredientController {
 
     } )
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @CrossOrigin(origins= {"*"}, maxAge = 4800, allowCredentials = "false" )
     @PutMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> update(
             @RequestBody IngredientDto ingredientDto,
@@ -153,6 +155,7 @@ public class IngredientController {
     } )
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping(value = "/delete")
+    @CrossOrigin(origins= {"*"}, maxAge = 4800, allowCredentials = "false" )
     public ResponseEntity<?> delete(@RequestParam(value = "id") Long id) {
         ingredientService.delete(id);
 

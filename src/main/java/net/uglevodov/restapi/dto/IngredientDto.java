@@ -20,6 +20,8 @@ public class IngredientDto {
     private String description;
     @ApiModelProperty( value = "Айди картинки")
     private Long image;
+    @ApiModelProperty( value = "Путь картинки")
+    private String imagePath;
     @ApiModelProperty( value = "Группа по системе Углеводов нет")
     private int uglevodovnetGroup;
     @ApiModelProperty( value = "Углеводов на 100 гр")

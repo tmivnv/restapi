@@ -48,4 +48,11 @@ public class ImageController {
     {
         return new ResponseEntity<>(imageService.likeUnlike(principal.getId(), id), HttpStatus.OK);
     }
+
+    @GetMapping(value = "/get")
+    public ResponseEntity<?> get(@RequestParam(value = "id") Long id) {
+        var image = imageService.get(id);
+
+        return new ResponseEntity<>(image, HttpStatus.OK);
+    }
 }

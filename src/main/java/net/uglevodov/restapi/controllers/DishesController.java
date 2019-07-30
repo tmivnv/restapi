@@ -8,6 +8,7 @@ import io.swagger.annotations.*;
 import net.uglevodov.restapi.dto.ApiResponse;
 import net.uglevodov.restapi.dto.DishDto;
 import net.uglevodov.restapi.dto.DishFilterDto;
+import net.uglevodov.restapi.dto.DishIngredientsDto;
 import net.uglevodov.restapi.entities.Dish;
 import net.uglevodov.restapi.entities.Ingredient;
 import net.uglevodov.restapi.entities.Recipe;
@@ -99,14 +100,16 @@ public class DishesController {
             @RequestBody DishDto dishDto
     ) {
         Set<Recipe> ingredients = new HashSet<>();
-        for (Map.Entry<Long, Long> entry : dishDto.getIngredients().entrySet())
+        if (dishDto.getIngredients()!=null)
+        for (DishIngredientsDto entry : dishDto.getIngredients())
         {
-            ingredients.add(new Recipe(ingredientService.get(entry.getKey()), entry.getValue()));
+            ingredients.add(new Recipe(ingredientService.get(entry.getId()), entry.getWeight()));
         }
 
         Dish dish = new Dish(dishDto.getDishName(),
                 dishDto.getDescription(),
                 dishDto.getImage(),
+                dishDto.getImagePath(),
                 dishDto.getUglevodovnetGroup(),
                 dishDto.getCarbs(),
                 dishDto.getPortion(),
@@ -151,28 +154,30 @@ public class DishesController {
             @io.swagger.annotations.ApiResponse( code = 200, message = "Успех" ),
             @io.swagger.annotations.ApiResponse( code = 404, message = "Блюдо не найдено" )
     } )
+    @CrossOrigin(origins= {"*"}, maxAge = 4800, allowCredentials = "false" )
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> update(@RequestParam(value = "id") Long id,
             @RequestBody DishDto dishDto
     ) {
         Dish dish = dishesService.get(id);
-        dish.setActive(dishDto.getActive());
-        dish.setCarbs(dishDto.getCarbs());
-        dish.setDescription(dishDto.getDescription());
-        dish.setDishName(dishDto.getDishName());
-        dish.setImage(dishDto.getImage());
-        dish.getIngredients().clear();
+        if (dishDto.getActive()!=null) dish.setActive(dishDto.getActive());
+        if (dishDto.getCarbs()!=null) dish.setCarbs(dishDto.getCarbs());
+        if (dishDto.getDescription()!=null) dish.setDescription(dishDto.getDescription());
+        if (dishDto.getDishName()!=null) dish.setDishName(dishDto.getDishName());
+        if (dishDto.getImage()!=null) dish.setImage(dishDto.getImage());
+        if (dishDto.getImagePath()!=null) dish.setImagePath(dishDto.getImagePath());
+        if (dishDto.getIngredients()!=null) {
+            dish.getIngredients().clear();
 
-        for (Map.Entry<Long, Long> entry : dishDto.getIngredients().entrySet())
-        {
-            dish.getIngredients().add(new Recipe(ingredientService.get(entry.getKey()), entry.getValue()));
+            for (DishIngredientsDto entry : dishDto.getIngredients()) {
+                dish.getIngredients().add(new Recipe(ingredientService.get(entry.getId()), entry.getWeight()));
+            }
         }
 
-
-        dish.setPortion(dishDto.getPortion());
-        dish.setType(dishDto.getType());
-        dish.setUglevodovnetGroup(dishDto.getUglevodovnetGroup());
+        if (dishDto.getPortion()!=null) dish.setPortion(dishDto.getPortion());
+        if (dishDto.getType()!=null) dish.setType(dishDto.getType());
+        if (dishDto.getUglevodovnetGroup()!=null) dish.setUglevodovnetGroup(dishDto.getUglevodovnetGroup());
 
         dishesService.update(dish);
         return new ResponseEntity<>(dishesService.get(id), HttpStatus.OK);
