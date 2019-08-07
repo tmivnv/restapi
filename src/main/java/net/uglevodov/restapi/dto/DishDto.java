@@ -39,6 +39,8 @@ public class DishDto {
     private Boolean active;
     @ApiModelProperty( value = "Ингредиенты: айди ингредиента - количество в рецепте", required = true )
     private Set<DishIngredientsDto> ingredients;
+    @ApiModelProperty( value = "Этапы: айди этапа - номер в рецепте", required = true )
+    private Set<DishStagesDto> stages;
     @ApiModelProperty( value = "завтрак/перекус/суп/салат/второе/закуска/десерт", required = true )
     private String type;
 

@@ -56,6 +56,10 @@ public class Dish extends BaseEntity {
     @JoinColumn(name = "dish_id")
     private Set<Recipe> ingredients;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "dish_id")
+    private Set<CookingStages> stages;
+
     @Column(name = "type")
     private String type;
 

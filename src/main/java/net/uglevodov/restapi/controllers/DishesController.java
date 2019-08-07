@@ -5,16 +5,16 @@
 package net.uglevodov.restapi.controllers;
 
 import io.swagger.annotations.*;
+import net.uglevodov.restapi.dto.*;
 import net.uglevodov.restapi.dto.ApiResponse;
-import net.uglevodov.restapi.dto.DishDto;
-import net.uglevodov.restapi.dto.DishFilterDto;
-import net.uglevodov.restapi.dto.DishIngredientsDto;
+import net.uglevodov.restapi.entities.CookingStages;
 import net.uglevodov.restapi.entities.Dish;
 import net.uglevodov.restapi.entities.Ingredient;
 import net.uglevodov.restapi.entities.Recipe;
 import net.uglevodov.restapi.security.UserPrincipal;
 import net.uglevodov.restapi.service.DishesService;
 import net.uglevodov.restapi.service.IngredientService;
+import net.uglevodov.restapi.service.StagesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,6 +41,10 @@ public class DishesController {
 
     @Autowired
     IngredientService ingredientService;
+
+    @Autowired
+    StagesService stagesService;
+
 
 
 
@@ -106,6 +110,13 @@ public class DishesController {
             ingredients.add(new Recipe(ingredientService.get(entry.getId()), entry.getWeight()));
         }
 
+        Set<CookingStages> stages = new HashSet<>();
+        if (dishDto.getStages()!=null)
+            for (DishStagesDto entry : dishDto.getStages())
+            {
+                stages.add(new CookingStages(stagesService.get(entry.getId()), entry.getNumber()));
+            }
+
         Dish dish = new Dish(dishDto.getDishName(),
                 dishDto.getDescription(),
                 dishDto.getImage(),
@@ -115,6 +126,7 @@ public class DishesController {
                 dishDto.getPortion(),
                 dishDto.getActive(),
                 ingredients,
+                stages,
                 dishDto.getType(),
                 null
                 );
@@ -172,6 +184,13 @@ public class DishesController {
 
             for (DishIngredientsDto entry : dishDto.getIngredients()) {
                 dish.getIngredients().add(new Recipe(ingredientService.get(entry.getId()), entry.getWeight()));
+            }
+        }
+        if (dishDto.getStages()!=null) {
+            dish.getStages().clear();
+
+            for (DishStagesDto entry : dishDto.getStages()) {
+                dish.getStages().add(new CookingStages(stagesService.get(entry.getId()), entry.getNumber()));
             }
         }
 

@@ -26,6 +26,8 @@
         <mapping class="net.uglevodov.restapi.entities.FavoriteDishes"/>
         <mapping class="net.uglevodov.restapi.entities.FavoredByUser"/>
         <mapping class="net.uglevodov.restapi.entities.Event"/>
+        <mapping class="net.uglevodov.restapi.entities.CookingStage"/>
+        <mapping class="net.uglevodov.restapi.entities.CookingStages"/>
 
 
     </session-factory>
