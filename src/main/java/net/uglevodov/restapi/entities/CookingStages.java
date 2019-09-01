@@ -18,7 +18,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "cooking")
-@JsonIgnoreProperties(value = "id")
 
 public class CookingStages extends BaseEntity{
 

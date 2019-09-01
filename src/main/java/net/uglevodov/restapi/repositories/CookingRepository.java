@@ -15,4 +15,6 @@ public interface CookingRepository extends JpaRepository<CookingStages, Long> {
 
     @Query("FROM CookingStages WHERE cookingStage = :containing")
     List<CookingStages> findAllByStagesContaining(CookingStage containing);
+
+
 }

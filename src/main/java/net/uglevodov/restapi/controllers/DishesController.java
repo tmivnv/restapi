@@ -7,11 +7,9 @@ package net.uglevodov.restapi.controllers;
 import io.swagger.annotations.*;
 import net.uglevodov.restapi.dto.*;
 import net.uglevodov.restapi.dto.ApiResponse;
-import net.uglevodov.restapi.entities.CookingStages;
-import net.uglevodov.restapi.entities.Dish;
-import net.uglevodov.restapi.entities.Ingredient;
-import net.uglevodov.restapi.entities.Recipe;
+import net.uglevodov.restapi.entities.*;
 import net.uglevodov.restapi.security.UserPrincipal;
+import net.uglevodov.restapi.service.CookingService;
 import net.uglevodov.restapi.service.DishesService;
 import net.uglevodov.restapi.service.IngredientService;
 import net.uglevodov.restapi.service.StagesService;
@@ -27,7 +25,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -44,6 +41,9 @@ public class DishesController {
 
     @Autowired
     StagesService stagesService;
+
+    @Autowired
+    CookingService cookingService;
 
 
 
@@ -90,6 +90,99 @@ public class DishesController {
     }
 
 
+    @ApiOperation(
+            value = "Добавить этап приготовления",
+            notes = "Добавить этап приготовления",
+            response = Dish.class
+    )
+    @ApiResponses( {
+            @io.swagger.annotations.ApiResponse( code = 200, message = "Успех" ),
+            @io.swagger.annotations.ApiResponse( code = 404, message = "Ни одного блюда не найдено" )
+    } )
+    @CrossOrigin(origins= {"*"}, maxAge = 4800, allowCredentials = "false" )
+    @PostMapping(value = "/addstage", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> addStage(
+            @RequestBody StageDto stageDto,
+            @RequestParam(value = "id") Long id
+    ) {
+
+        CookingStages stage = new CookingStages();
+        CookingStage s = new CookingStage();
+        s.setDescription(stageDto.getDescription());
+        s.setImage(stageDto.getImage());
+        s.setImagePath(stageDto.getImagePath());
+
+        stagesService.save(s);
+
+        stage.setCookingStage(s);
+        stage.setStageNumber(stageDto.getStageNumber());
+
+        cookingService.save(stage);
+
+        Dish dish = dishesService.get(id);
+        dish.getStages().add(stage);
+
+
+        return new ResponseEntity<>(dishesService.save(dish), HttpStatus.OK);
+    }
+
+
+    @ApiOperation(
+            value = "Обновить этап приготовления",
+            notes = "Обновить этап приготовления",
+            response = Dish.class
+    )
+    @ApiResponses( {
+            @io.swagger.annotations.ApiResponse( code = 200, message = "Успех" ),
+            @io.swagger.annotations.ApiResponse( code = 404, message = "Ни одного блюда не найдено" )
+    } )
+    @CrossOrigin(origins= {"*"}, maxAge = 4800, allowCredentials = "false" )
+    @PutMapping(value = "/updateStage", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> updateStage(
+            @RequestBody StageDto stageDto,
+            @RequestParam(value = "id") Long id
+    ) {
+
+        CookingStages stage = cookingService.get(id);
+        CookingStage s = stage.getCookingStage();
+        if (stageDto.getDescription()!=null) s.setDescription(stageDto.getDescription());
+        if (stageDto.getImage()!=null) s.setImage(stageDto.getImage());
+        if (stageDto.getImagePath()!=null) s.setImagePath(stageDto.getImagePath());
+
+        stagesService.save(s);
+
+        stage.setCookingStage(s);
+        if (stageDto.getStageNumber()!=null) stage.setStageNumber(stageDto.getStageNumber());
+
+        return new ResponseEntity<>(cookingService.save(stage), HttpStatus.OK);
+    }
+
+
+    @ApiOperation(
+            value = "Удалить этап приготовления",
+            notes = "Удалить этап приготовления",
+            response = Dish.class
+    )
+    @ApiResponses( {
+            @io.swagger.annotations.ApiResponse( code = 200, message = "Успех" ),
+            @io.swagger.annotations.ApiResponse( code = 404, message = "Ни одного блюда не найдено" )
+    } )
+    @DeleteMapping(value = "/deleteStage")
+    @CrossOrigin(origins= {"*"}, maxAge = 4800, allowCredentials = "false" )
+    public ResponseEntity<?> updateStage(
+            @RequestParam(value = "stageId") Long stageId,
+            @RequestParam(value = "dishId") Long dishId
+    ) {
+
+        CookingStages stage = cookingService.get(stageId);
+
+        Dish dish = dishesService.get(dishId);
+
+        dish.getStages().remove(stage);
+        dishesService.save(dish);
+
+        return new ResponseEntity<>(dishesService.get(dishId), HttpStatus.OK);
+    }
 
     @ApiOperation(
             value = "Создание нового блюда",
