@@ -42,7 +42,7 @@ public class IntegrationTests {
     {
         Set<UserRole> roles = new HashSet<>();
         roles.add(UserRole.ROLE_USER);
-        User user = new User(1L,"test@test.ru","password",null,"nickname","firstName","lastName",true, LocalDateTime.now(), roles );
+        User user = new User(1L,"test@test.ru","password",null,"nickname","firstName","lastName",true, true, LocalDateTime.now(), roles );
 
 
         service.save(user);

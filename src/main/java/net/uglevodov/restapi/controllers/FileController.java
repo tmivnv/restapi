@@ -13,6 +13,9 @@ import net.uglevodov.restapi.security.UserPrincipal;
 import net.uglevodov.restapi.service.ImageService;
 import net.uglevodov.restapi.service.UserService;
 import net.uglevodov.restapi.service.impl.FileStorageService;
+import org.apache.maven.surefire.shade.common.org.apache.commons.io.FilenameUtils;
+import org.apache.tomcat.util.http.fileupload.FileItem;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +26,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
 
 @RestController
 @RequestMapping(value = "/api/files")
@@ -55,6 +63,10 @@ public class FileController {
     } )
     @PostMapping("/uploadFile")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("text") String text, @AuthenticationPrincipal UserPrincipal principal) {
+
+
+
+
         String fileName = fileStorageService.storeFile(file);
 
         Image image = new Image(userService.get(principal.getId()), fileName, text);

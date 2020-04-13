@@ -16,4 +16,12 @@ public class UserUpdateRequestDto {
     @Size(min = 3)
     private String lastName;
 
+    private Boolean isWoman;
+
+    private Boolean isActive;
+
+    private  Boolean isNew;
+
+
+
 }

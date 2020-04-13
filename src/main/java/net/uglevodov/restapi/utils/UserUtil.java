@@ -34,6 +34,9 @@ public class UserUtil {
         user.setAvatar(imageService.get(updateRequest.getAvatar()));
         user.setFirstName(updateRequest.getFirstName());
         user.setLastName(updateRequest.getLastName());
+        user.setWoman(updateRequest.getIsWoman());
+        user.setActive(updateRequest.getIsActive());
+        user.setNewUser(updateRequest.getIsNew());
 
         return user;
     }
@@ -53,6 +56,7 @@ public class UserUtil {
                 user.setFollowingFavor(true);
                 user.setFollowingLike(true);
                 user.setFollowingNewFriend(true);
+                user.setNewUser(true);
 
                 return  user;
 

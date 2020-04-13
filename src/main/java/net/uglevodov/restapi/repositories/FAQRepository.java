@@ -12,6 +12,5 @@ import java.util.Optional;
 
 public interface FAQRepository extends JpaRepository<FAQEntry, Long> {
     Optional<List<FAQEntry>> findAllByCategory(Integer category);
-
     Optional<List<FAQEntry>> findAllByAnswerContainingIgnoreCaseOrQuestionContainingIgnoreCase(String string, String string2);
 }

@@ -23,9 +23,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -68,7 +68,93 @@ public class DishesController {
 
 
 
+    @GetMapping(value = "/get-categories")
     @ApiOperation(
+            value = "Получить категории блюд",
+            notes = "Получить категории блюд",
+            response = DishCategoryDto.class
+    )
+    @ApiResponses( {
+
+            @io.swagger.annotations.ApiResponse( code = 200, message = "Успех" ),
+            @io.swagger.annotations.ApiResponse( code = 404, message = "Блюдо не найдено" )
+
+    } )
+    public ResponseEntity<?> getCategories(@RequestParam(value = "number") Long number) {
+
+        String[] types =  {"Завтраки","Супы","Салаты","Закуски","Десерты","Запеканки и омлеты","Второе","Гарниры","Перекусы"};
+        List<DishCategoryDto> categories = new ArrayList<>();
+        for (int i=1; i<10; i++)
+        {
+            DishCategoryDto dishCategoryDto = new DishCategoryDto();
+            dishCategoryDto.setId((long)i);
+            dishCategoryDto.setCategoryName(types[i-1]);
+            dishCategoryDto.setDishesNumber(dishesService.categoryNumber(i));
+            dishCategoryDto.setDishes(dishesService.categoryDishes(i, number.intValue()));
+
+
+
+            categories.add(dishCategoryDto);
+        }
+
+        return new ResponseEntity<>(categories.stream()
+                .sorted(Comparator.comparing(DishCategoryDto::getId))
+                .collect(Collectors.toList()), HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins= {"*"}, maxAge = 4800, allowCredentials = "false" )
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping(value = "/calculate")
+    @ApiOperation(
+            value = "Рассчитать углеводы и группу",
+            notes = "Рассчитать углеводы и группу",
+            response = Dish.class
+    )
+    @ApiResponses( {
+
+            @io.swagger.annotations.ApiResponse( code = 200, message = "Успех" ),
+            @io.swagger.annotations.ApiResponse( code = 404, message = "Блюдо не найдено" )
+
+    } )
+    public ResponseEntity<?> calculate(@RequestParam(value = "id") Long id) {
+        var dish = dishesService.get(id);
+        Double carbs = 0D;
+        Long totalWeight = 0L;
+
+        for (IngredientGroup group : dish.getIngredientGroups()) {
+
+            Set<Recipe> ingredients = group.getGroup();
+
+
+            for (Recipe ing : ingredients)
+            {
+                carbs += ing.getIngredient().getCarbs()*ing.getWeight()*ing.getIngredient().getUnitWeight();
+                totalWeight += ing.getWeight()*ing.getIngredient().getUnitWeight();
+            }
+        }
+
+
+        carbs = carbs/totalWeight;
+
+        int group;
+
+        if (carbs<2) group = 1; else
+            if (carbs<3.5) group = 2; else
+                group = 3;
+
+        BigDecimal bd = new BigDecimal(Double.toString(carbs));
+        bd = bd.setScale(1, RoundingMode.HALF_UP);
+
+        dish.setCarbs(bd.doubleValue());
+
+        dish.setUglevodovnetGroup(group);
+
+        return new ResponseEntity<>(dishesService.save(dish), HttpStatus.OK);
+    }
+
+
+
+  /*  @ApiOperation(
             value = "Фильтр/поиск блюд",
             notes = "Получить блюдо, содержащее includeIngredients, не содержащие excludeIngredients и имеющее в названии name (case insensitive)",
             response = Dish.class
@@ -88,7 +174,7 @@ public class DishesController {
 
         return new ResponseEntity<>(dishesFound, HttpStatus.OK);
     }
-
+*/
 
     @ApiOperation(
             value = "Добавить этап приготовления",
@@ -99,7 +185,8 @@ public class DishesController {
             @io.swagger.annotations.ApiResponse( code = 200, message = "Успех" ),
             @io.swagger.annotations.ApiResponse( code = 404, message = "Ни одного блюда не найдено" )
     } )
-    @CrossOrigin(origins= {"*"}, maxAge = 4800, allowCredentials = "false" )
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @CrossOrigin(origins= {"*"}, maxAge = 4800, allowCredentials = "true" )
     @PostMapping(value = "/addstage", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> addStage(
             @RequestBody StageDto stageDto,
@@ -136,6 +223,7 @@ public class DishesController {
             @io.swagger.annotations.ApiResponse( code = 200, message = "Успех" ),
             @io.swagger.annotations.ApiResponse( code = 404, message = "Ни одного блюда не найдено" )
     } )
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @CrossOrigin(origins= {"*"}, maxAge = 4800, allowCredentials = "false" )
     @PutMapping(value = "/updateStage", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> updateStage(
@@ -167,9 +255,10 @@ public class DishesController {
             @io.swagger.annotations.ApiResponse( code = 200, message = "Успех" ),
             @io.swagger.annotations.ApiResponse( code = 404, message = "Ни одного блюда не найдено" )
     } )
-    @DeleteMapping(value = "/deleteStage")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @CrossOrigin(origins= {"*"}, maxAge = 4800, allowCredentials = "false" )
-    public ResponseEntity<?> updateStage(
+    @DeleteMapping(value = "/deleteStage")
+    public ResponseEntity<?> deleteStage(
             @RequestParam(value = "stageId") Long stageId,
             @RequestParam(value = "dishId") Long dishId
     ) {
@@ -192,16 +281,26 @@ public class DishesController {
     @ApiResponses( {
             @io.swagger.annotations.ApiResponse( code = 200, message = "Успех" )
     } )
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @CrossOrigin(origins= {"*"}, maxAge = 4800, allowCredentials = "false" )
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> save(
             @RequestBody DishDto dishDto
     ) {
-        Set<Recipe> ingredients = new HashSet<>();
-        if (dishDto.getIngredients()!=null)
-        for (DishIngredientsDto entry : dishDto.getIngredients())
-        {
-            ingredients.add(new Recipe(ingredientService.get(entry.getId()), entry.getWeight()));
-        }
+        Set<IngredientGroup> ingredientGroups = new HashSet<>();
+        if (dishDto.getIngredientGroups()!=null)
+
+            for (IngredientGroupDto group : dishDto.getIngredientGroups())
+            {
+                Set<Recipe> ingredients = new HashSet<>();
+                for (DishIngredientsDto entry : group.getIngredients())
+                {
+                    ingredients.add(new Recipe(ingredientService.get(entry.getId()), entry.getWeight()));
+                }
+
+                ingredientGroups.add(new IngredientGroup(ingredients,group.getName()));
+            }
+
 
         Set<CookingStages> stages = new HashSet<>();
         if (dishDto.getStages()!=null)
@@ -218,9 +317,10 @@ public class DishesController {
                 dishDto.getCarbs(),
                 dishDto.getPortion(),
                 dishDto.getActive(),
-                ingredients,
+                ingredientGroups,
                 stages,
                 dishDto.getType(),
+                dishDto.getTypeNumber(),
                 null
                 );
 
@@ -239,6 +339,7 @@ public class DishesController {
             @io.swagger.annotations.ApiResponse( code = 200, message = "Успех" ),
             @io.swagger.annotations.ApiResponse( code = 404, message = "Блюдо не найдено" )
     } )
+    @CrossOrigin(origins= {"*"}, maxAge = 4800, allowCredentials = "false" )
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping(value = "/delete")
     public ResponseEntity<?> delete(@RequestParam(value = "id") Long id) {
@@ -272,12 +373,23 @@ public class DishesController {
         if (dishDto.getDishName()!=null) dish.setDishName(dishDto.getDishName());
         if (dishDto.getImage()!=null) dish.setImage(dishDto.getImage());
         if (dishDto.getImagePath()!=null) dish.setImagePath(dishDto.getImagePath());
-        if (dishDto.getIngredients()!=null) {
-            dish.getIngredients().clear();
+        if (dishDto.getIngredientGroups()!=null) {
+            dish.getIngredientGroups().clear();
 
-            for (DishIngredientsDto entry : dishDto.getIngredients()) {
-                dish.getIngredients().add(new Recipe(ingredientService.get(entry.getId()), entry.getWeight()));
+            for (IngredientGroupDto group : dishDto.getIngredientGroups() )
+            {
+                IngredientGroup ingredientGroup = new IngredientGroup();
+                ingredientGroup.setGroup(new HashSet<Recipe>());
+                ingredientGroup.setName(group.getName());
+
+                if (group.getIngredients()!=null)
+                for (DishIngredientsDto entry : group.getIngredients()) {
+                    ingredientGroup.getGroup().add(new Recipe(ingredientService.get(entry.getId()), entry.getWeight()));
+
+                }
+                dish.getIngredientGroups().add(ingredientGroup);
             }
+
         }
         if (dishDto.getStages()!=null) {
             dish.getStages().clear();
@@ -288,7 +400,7 @@ public class DishesController {
         }
 
         if (dishDto.getPortion()!=null) dish.setPortion(dishDto.getPortion());
-        if (dishDto.getType()!=null) dish.setType(dishDto.getType());
+        if (dishDto.getTypeNumber()!=null) dish.setTypeNumber(dishDto.getTypeNumber());
         if (dishDto.getUglevodovnetGroup()!=null) dish.setUglevodovnetGroup(dishDto.getUglevodovnetGroup());
 
         dishesService.update(dish);
@@ -322,6 +434,30 @@ public class DishesController {
         return new ResponseEntity<>(dishesService.getAll(pageRequest), HttpStatus.OK);
     }
 
+
+    @ApiOperation(
+            value = "Получить все блюда категории",
+            notes = "Получить все блюда категории (постранично)",
+            response = Page.class
+    )
+    @ApiResponses( {
+            @io.swagger.annotations.ApiResponse( code = 200, message = "Успех" ),
+            @io.swagger.annotations.ApiResponse( code = 404, message = "Блюдо не найдено" )
+    } )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", dataType = "integer", paramType = "query",
+                    value = "Results page you want to retrieve (0..N)"),
+            @ApiImplicitParam(name = "size", dataType = "integer", paramType = "query",
+                    value = "Number of records per page."),
+            @ApiImplicitParam(name = "sort", allowMultiple = true, dataType = "string", paramType = "query",
+                    value = "Sorting criteria in the format: property(,asc|desc). " +
+                            "Default sort order is ascending. " +
+                            "Multiple sort criteria are supported.")
+    })
+    @GetMapping(value = "/get-category")
+    public ResponseEntity<?> getAllCategory(Long categoryId, Pageable pageRequest) {
+        return new ResponseEntity<>(dishesService.getAllCategory(categoryId, pageRequest), HttpStatus.OK);
+    }
 
 
 

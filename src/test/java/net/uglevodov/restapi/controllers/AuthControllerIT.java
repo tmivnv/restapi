@@ -54,7 +54,7 @@ public class AuthControllerIT {
 
         Set<UserRole> roles = new HashSet<>();
         roles.add(UserRole.ROLE_USER);
-        User user = new User(1L, "test@gmail.com", "password", null, "nickname", "firstName", "lastName", true, LocalDateTime.now(), roles);
+        User user = new User(1L, "test@gmail.com", "password", null, "nickname", "firstName", "lastName", true, true, LocalDateTime.now(), roles);
 
 
         userService.save(user);

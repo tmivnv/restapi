@@ -54,7 +54,7 @@ public class Dish extends BaseEntity {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "dish_id")
-    private Set<Recipe> ingredients;
+    private Set<IngredientGroup> ingredientGroups;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "dish_id")
@@ -62,6 +62,15 @@ public class Dish extends BaseEntity {
 
     @Column(name = "type")
     private String type;
+
+    public void setTypeNumber(Integer typeNumber) {
+        String[] types =  {"Завтраки","Супы","Салаты","Закуски","Десерты","Запеканки и омлеты","Второе","Гарниры","Перекусы"};
+        this.typeNumber = typeNumber;
+        this.type = types[typeNumber-1];
+    }
+
+    @Column(name = "typeNumber")
+    private Integer typeNumber;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "dish_id")

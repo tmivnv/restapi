@@ -15,6 +15,7 @@ import net.uglevodov.restapi.service.DishesService;
 import net.uglevodov.restapi.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -78,6 +79,23 @@ public class DishesServiceImpl implements DishesService {
     }
 
     @Override
+    public Page<Dish> getAllCategory(Long categoryId, Pageable pageRequest) {
+        log.trace("[{}] - Getting dish list", this.getClass().getSimpleName());
+
+        return dishesRepository.findAllByTypeNumber(categoryId.intValue(), pageRequest);
+    }
+
+    @Override
+    public Set<Dish> categoryDishes(int categoryId, int size) {
+        return new HashSet<>(dishesRepository.categoryDishes(categoryId, PageRequest.of(0, size)));
+    }
+
+    @Override
+    public Long categoryNumber(int categoryId) {
+        return dishesRepository.categoryNumber(categoryId);
+    }
+
+    /*   @Override
     public Set<Dish> findAllByIngredientsContainingAndNotContaining(List<Ingredient> containing, List<Ingredient> notContaining, String name) {
         List<Recipe> containingRecipes = new ArrayList<>();
 
@@ -94,7 +112,7 @@ public class DishesServiceImpl implements DishesService {
         }
 
 
-        Set<Dish> dishesFound = new HashSet<>();
+      Set<Dish> dishesFound = new HashSet<>();
 
         if (!containingRecipes.isEmpty()) {
             for (Recipe recipe : containingRecipes) {
@@ -111,7 +129,7 @@ public class DishesServiceImpl implements DishesService {
         if (dishesFound.size() == 0) throw new NotFoundException("no dishes found");
 
         return dishesFound;
-    }
+    } */
 
     @Override
     public Dish favorUnfavor(Long userId, Long dishId) {

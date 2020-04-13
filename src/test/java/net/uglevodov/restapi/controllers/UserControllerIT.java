@@ -55,7 +55,7 @@ public class UserControllerIT {
 
         Set<UserRole> roles = new HashSet<>();
         roles.add(UserRole.ROLE_USER);
-        user = new User(1L, "test@gmail.com", "password", null, "Alex", "firstName", "lastName", true, LocalDateTime.now(), roles);
+        user = new User(1L, "test@gmail.com", "password", null, "Alex", "firstName", "lastName", true, true, LocalDateTime.now(), roles);
 
 
         user = userService.save(user);

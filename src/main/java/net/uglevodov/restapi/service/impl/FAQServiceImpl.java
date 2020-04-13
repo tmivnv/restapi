@@ -56,8 +56,9 @@ public class FAQServiceImpl implements FAQService {
 
     @Override
     public Page<FAQEntry> getAll(Pageable pageRequest) {
-        return null;
+        return faqRepository.findAll(pageRequest);
     }
+
 
     @Override
     public List<FAQEntry> findAllByCategory(Integer category) {

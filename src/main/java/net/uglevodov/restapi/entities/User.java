@@ -80,6 +80,8 @@ public class User extends BaseEntity{
     @Column(name = "show_new_friend")
     private boolean followingNewFriend;
 
+    @Column(name = "new_user")
+    private boolean newUser;
 
 
     @Enumerated(EnumType.STRING)
@@ -96,6 +98,7 @@ public class User extends BaseEntity{
                 String firstName,
                 String lastName,
                 boolean active,
+                boolean newUser,
                 LocalDateTime created,
                 Set<UserRole> roles) {
         super(id);
@@ -106,6 +109,7 @@ public class User extends BaseEntity{
         this.firstName = firstName;
         this.lastName = lastName;
         this.active = active;
+        this.newUser = newUser;
         this.created = created;
         this.roles = roles;
     }
