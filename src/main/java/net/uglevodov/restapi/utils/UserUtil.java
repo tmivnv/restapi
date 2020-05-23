@@ -31,12 +31,12 @@ public class UserUtil {
     }
 
     public User updateFromUpdateRequest(UserUpdateRequestDto updateRequest, User user) {
-        user.setAvatar(imageService.get(updateRequest.getAvatar()));
-        user.setFirstName(updateRequest.getFirstName());
-        user.setLastName(updateRequest.getLastName());
-        user.setWoman(updateRequest.getIsWoman());
-        user.setActive(updateRequest.getIsActive());
-        user.setNewUser(updateRequest.getIsNew());
+        if (updateRequest.getAvatar()!=null) user.setAvatar(imageService.get(updateRequest.getAvatar()));
+        if (updateRequest.getFirstName()!=null) user.setFirstName(updateRequest.getFirstName());
+        if (updateRequest.getLastName()!=null) user.setLastName(updateRequest.getLastName());
+        if (updateRequest.getIsWoman()!=null) user.setWoman(updateRequest.getIsWoman());
+        if (updateRequest.getIsActive()!=null) user.setActive(updateRequest.getIsActive());
+        if (updateRequest.getIsNew()!=null) user.setNewUser(updateRequest.getIsNew());
 
         return user;
     }
